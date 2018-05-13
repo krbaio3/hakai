@@ -1,0 +1,26 @@
+<form [formGroup]="userForm">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" name="name" formControlName="name">
+    <!-- VALIDATION -->
+    <div *ngIf="userForm.get('name').hasError('required') && userForm.get('name').touched">
+      Name is required
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="text" class="form-control" name="email" formControlName="email">
+  </div>
+  <div class="form-group">
+    <label for="phone">Phone</label>
+    <input type="text" class="form-control" name="phone" formControlName="phone">
+  </div>
+  <div>
+    <button class="btn btn-default"
+     [disabled]="userForm.invalid"
+     (click)="saveUser()">
+      Submit
+    </button>
+  </div>
+</form>
+

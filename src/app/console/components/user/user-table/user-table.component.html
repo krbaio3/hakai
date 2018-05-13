@@ -1,0 +1,22 @@
+<table class="table table-stripped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{user.name}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.phone}}</td>
+      <td class="user-row">
+        <button class="btn bt-default" [routerLink]="['/user/edit', user.id]">Edit</button>
+        <button class="btn bt-default" (click)="deleteHandler(user.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+

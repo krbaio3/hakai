@@ -1,0 +1,34 @@
+<h1>Heroes
+  <small>Marvel&DC</small>
+</h1>
+<hr>
+
+<div class="text-center">
+  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <button type="button" class="btn btn-primary" routerLinkActive="active" [routerLink]="['../heroe/addHeroe']">Agregar</button>
+    <button type="button" class="btn btn-primary" routerLinkActive="active" [routerLink]="['.']">Leer</button>
+  </div>
+</div>
+
+<hr>
+<div class="card-columns">
+  <div class="card fadeIn animated fast" *ngFor="let heroe of heroes | async">
+    <img class="card-img-top" [src]="heroe.img" [alt]="heroe.nombre">
+    <div class="card-body">
+      <h5 class="card-title">{{ heroe.nombre }}</h5>
+      <p class="card-text">{{ heroe.bio }}</p>
+      <p class="card-text">
+        <small class="text-muted">{{ heroe.aparicion }}</small>
+      </p>
+      <p>{{heroe.id}}</p>
+      <button type="button" class="btn btn-outline-primary btn-block" [routerLink]="['../heroe', heroe.id, 'show']">
+        Ver mas...
+      </button>
+      <button type="button" name="editar" id="editar" class="btn btn-outline-warning btn-block" [routerLink]="['../heroe', heroe.id, 'edit']">Editar</button>
+      <button type="button" name="editar" id="editar" class="btn btn-outline-danger btn-block" [routerLink]="['../heroe', heroe.id, 'remove']">Borrar</button>
+      <!-- Tambien se puede usar como función click, quitando el routerLink y añadiendo esto:
+        (click)="verHeroe(indice)"
+        Ver ĺógica controlador -->
+    </div>
+  </div>
+</div>
