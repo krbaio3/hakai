@@ -13,6 +13,10 @@ install:
 - yarn install
 script:
 - yarn ci:travis
+branches:
+  only:
+  - master
+  - develop
 notifications:
   email:
     recipients:
@@ -20,11 +24,19 @@ notifications:
     on_success: never # default: change
     on_failure: always # default: always
 deploy:
-  provider: heroku
-  api_key:
-    secure: $HEROKU_API_KEY
-  app: hakai-ng
-  local_dir: dist
-  skip_cleanup: true
-  on: develop
-  
+  - provider: heroku
+    api_key:
+      secure: $HEROKU_API_KEY
+    app: hakai-ng
+    local_dir: dist
+    skip_cleanup: true
+    on:
+      branch: "develop"
+  - provider: heroku
+    api_key:
+      secure: $HEROKU_API_KEY
+    app: hakai
+    local_dir: dist
+    skip_cleanup: true
+    on:
+      branch: "master" 
