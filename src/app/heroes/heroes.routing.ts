@@ -14,6 +14,7 @@ import { EditHeroeComponent } from './components/heroe/editHeroe/edit-heroe.comp
 import { ShowHeroeComponent } from './components/heroe/showHeroe/show-heroe.component';
 
 import { HEROE_ROUTES } from './components/heroe/heroe.routing';
+import { ResolveService } from './service/resolve.service';
 
 const APP_ROUTES: Routes = [
   {
@@ -43,7 +44,6 @@ const APP_ROUTES: Routes = [
       {
         path: 'heroe',
         component: HeroeComponent,
-        data: { title: 'Heroes List' },
         children: HEROE_ROUTES,
       },
       {
@@ -62,5 +62,8 @@ const APP_ROUTES: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(APP_ROUTES)],
   exports: [RouterModule],
+  providers: [
+    ResolveService
+  ]
 })
 export class HeroesRoutingModule {}

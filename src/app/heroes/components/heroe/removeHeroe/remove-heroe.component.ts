@@ -16,7 +16,7 @@ export class RemoveHeroeComponent implements OnInit {
   ) {
     activatedRoute.params.subscribe((params) => {
       console.log(params['id']);
-      const id = String(Number(params['id']) - 1);
+      const id = params['id'] - 1;
       console.log('real ID to pass: ', id);
       this.heroe = this._heroeService.getHeroe(id);
       console.log(this.heroe);

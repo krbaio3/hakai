@@ -16,13 +16,15 @@ export class ShowHeroeComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private _heroeService: HeroesService
   ) {
-    activatedRoute.params.subscribe((params) => {
-      console.log(params.id);
-      // this.heroes = this._heroeService.getHeroes();
-      this.heroe = this._heroeService.getHeroe(params['id']);
-      
-    });
+    // activatedRoute.params.subscribe((params) => {
+    //   console.log(params.id);
+    //   // this.heroes = this._heroeService.getHeroes();
+    //   this.heroe = this._heroeService.getHeroe(params['id']);
+    // });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.heroe = this.activatedRoute.snapshot.data;
+    console.log(this.heroe);
+  }
 }

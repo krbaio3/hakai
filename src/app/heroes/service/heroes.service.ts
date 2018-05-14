@@ -2,26 +2,24 @@ import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
-  AngularFirestoreDocument,
+  AngularFirestoreDocument
 } from 'angularfire2/firestore';
 
 import { Heroe } from '../../models/heroe.model';
 
 import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
+import 'rxjs/add/observable/of';
 
 @Injectable()
 export class HeroesService {
   // private heroes: Heroe[];
-  // heroes: Observable<Heroe[]>;
   heroes: Observable<Heroe[]>;
   heroeCollection: AngularFirestoreCollection<Heroe>;
   heroeDoc: AngularFirestoreDocument<Heroe>;
-  heroe: Heroe;
 
   constructor(public angularFirestore: AngularFirestore) {
-    console.log("entra en HeroeService");
-    this.heroeCollection = angularFirestore.collection("heroes");
+    console.log('entra en HeroeService');
+    this.heroeCollection = angularFirestore.collection('heroes');
     this.heroes = this.heroeCollection.snapshotChanges().map(changes => {
       return changes.map(a => {
         const data = a.payload.doc.data() as Heroe;
@@ -51,17 +49,11 @@ export class HeroesService {
     this.heroeDoc.update(heroe);
   }
 
-  getHeroe(ind: string) {
-    return this.getHeroes().pipe(
-      map((hero: any) =>
-        hero.find((heroe: Heroe) => { if (String(heroe.id) === ind) {
-            this.heroe = heroe;
-            console.log(this.heroe);
-            return this.heroe;
-          }
-        })
-      )
-    );
+  getHeroe(ind: number): Observable<Heroe> {
+    this.heroes.subscribe(res => console.log('respuesta', res));
+    // console.log(this.heroes);
+    // return this.heroes[ind];
+    return Observable.of(this.heroes[ind]);
   }
 
   // searchHeroes(name: string): Heroe[] {
