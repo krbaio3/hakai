@@ -1,0 +1,30 @@
+language: node_js
+node_js:
+- stable
+dist: trusty
+sudo: true
+cache:
+  yarn: true
+  directories:
+  - node_modules
+before_install:
+- yarn global add @angular/cli
+install:
+- yarn install
+script:
+- yarn ci:travis
+notifications:
+  email:
+    recipients:
+      - krbaio3@gmail.com
+    on_success: never # default: change
+    on_failure: always # default: always
+deploy:
+  provider: heroku
+  api_key:
+    secure: $HEROKU_API_KEY
+  app: hakai-ng
+  local_dir: dist
+  skip_cleanup: true
+  on: develop
+  

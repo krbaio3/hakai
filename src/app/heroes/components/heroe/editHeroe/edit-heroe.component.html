@@ -1,0 +1,48 @@
+<h1>Heroe: <small class="text-uppercase">dinamico</small></h1>
+<hr>
+<br>
+<form class="fadeIn fast" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="nombreInput">Nombre</label>
+    <input class="form-control" id="nombreInput" type="text" aria-describedby="nombreHelp" placeholder="Introduce nombre" #nombre>
+    <small class="form-text text-muted" id="nombreHelp">Introduce el nombre del super-héroe o anti-héroe.</small>
+  </div>
+  <div class="form-group">
+    <label for="inputBiografia">Biografía</label>
+    <textarea class="form-control" id="inputBiografia" aria-describedby="biografiaHelp" placeholder="Enter biografia" #bio></textarea>
+    <small class="form-text text-muted" id="biografiaHelp">Introduce una pequeña biografía.</small>
+  </div>
+
+  <div class="form-group">
+    <label for="inputImg">Imagen</label>
+    <div class="input-group">
+      <div class="custom-file">
+        <input class="custom-file-input" id="inputImg" type="file" #img>
+        <label class="custom-file-label text-center" for="inputGroupFile04">Añadir Imagen</label>
+      </div>
+    </div>
+    <small class="form-text text-muted">Introduce una ruta para cargar la imagen</small>
+  </div>
+
+  <div class="form-group">
+    <label class="col-form-label" for="inputAparicion">Fecha</label>
+    <div class="">
+      <input class="form-control text-center" id="inputAparicion" type="date" placeholder="Aparición" #aparicion>
+    </div>
+    <small class="form-text text-muted">Introduce la fecha de primera aparición</small>
+  </div>
+
+  <div class="form-group">
+    <label for="inputCasa">Casa</label>
+    <select class="form-control" name="casa">
+      <option value="">Pertenece a...</option>
+      <option value="Marvel">Marvel</option>
+      <option value="DC">DC</option>
+    </select>
+  </div>
+
+  <br>
+  
+  <button class="btn btn-outline-primary btn-block" type="submit">Submit</button>
+  <button class="btn btn-outline-danger btn-block" type="button" [routerLink]="['../../../heroes']">Volver</button>
+</form>

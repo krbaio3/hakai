@@ -1,0 +1,153 @@
+<h4>Formularios <small>data</small></h4>
+<hr>
+<form [formGroup]="formulario" (ngSubmit)="guardarCambios()" novalidate>
+
+  <div formGroupName="nombreCompleto">
+    <div class="form-group row">
+      <label class="col-3 col-md-2 col-form-label" [innerHtml]="CONSTANTS.name"></label>
+      <div class="col-8 row">
+          <input 
+                [ngClass]="{'is-invalid': formulario.get('nombreCompleto.nombre').errors?.minlength || (formulario.get('nombreCompleto.nombre').errors?.required && formulario.get('nombreCompleto.nombre').touched)}"
+                class="form-control"
+                type="text"
+                [placeholder]="CONSTANTS.name"
+                formControlName="nombre"> 
+        <div class="text-center mt-2" role="alert" 
+          *ngIf="formulario.get('nombreCompleto.nombre').errors?.required && formulario.get('nombreCompleto.nombre').touched"
+          [ngClass]="{'invalid-feedback': formulario.get('nombreCompleto.nombre').errors?.required && formulario.get('nombreCompleto.nombre').touched}">Este campo es required</div>
+        <div class="text-center mt-2" role="alert" 
+          *ngIf="formulario.get('nombreCompleto.nombre').errors?.minlength"
+          [ngClass]="{'invalid-feedback': formulario.get('nombreCompleto.nombre').errors?.minlength }">Tiene que tener al menos {{formulario.get('nombreCompleto.nombre').errors?.minlength.requiredLength}} caracteres y tiene {{formulario.get('nombreCompleto.nombre').errors?.minlength.actualLength}}</div>
+      </div>
+    </div>  
+
+    <div class="form-group row">
+      <label class="col-3 col-md-2 col-form-label" [innerHtml]="CONSTANTS.lastName"></label>
+      <div class="col-8 row">
+        <input [ngClass]="{'is-invalid': formulario.get('nombreCompleto.apellido').errors?.minlength || (formulario.get('nombreCompleto.apellido').errors?.required && formulario.get('nombreCompleto.apellido').touched)}"
+                class="form-control"
+                type="text"
+                [placeholder]="CONSTANTS.lastName"
+                formControlName="apellido">
+        <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.get('nombreCompleto.apellido').errors?.required && formulario.get('nombreCompleto.apellido').touched}" *ngIf="formulario.get('nombreCompleto.apellido').errors?.required && formulario.get('nombreCompleto.apellido').touched">Este campo es required</div>  
+        <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.get('nombreCompleto.apellido').errors?.minlength}" *ngIf="formulario.get('nombreCompleto.apellido').errors?.minlength">Tiene que tener al menos {{formulario.get('nombreCompleto.apellido').errors?.minlength.requiredLength}} caracteres y tiene {{formulario.get('nombreCompleto.apellido').errors?.minlength.actualLength}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-3 col-md-2 col-form-label" [innerHtml]="CONSTANTS.emailShort"></label>
+    <div class="col-8 row">
+
+      <input [ngClass]="{'is-invalid': ( formulario.controls['email'].errors?.minlength || formulario.controls['email'].errors?.required || formulario.controls['email'].errors?.pattern ) && formulario.controls['email'].touched}"
+             class="form-control"
+             type="email"
+             [placeholder]="CONSTANTS.email"
+             formControlName="email">
+      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['email'].errors?.required && formulario.controls['email'].touched}" *ngIf="formulario.controls['email'].errors?.required && formulario.controls['email'].touched">Este campo es required</div>  
+      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['email'].errors?.minlength}" *ngIf="formulario.controls['email'].errors?.minlength">Tiene que tener al menos {{formulario.controls['email'].errors?.minlength.requiredLength}} caracteres y tiene {{formulario.controls['email'].errors?.minlength.actualLength}}</div>
+      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['email'].errors?.pattern}" *ngIf="formulario.controls['email'].errors?.pattern">No cumple el patrón de email electrónico</div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-3 col-md-2 col-form-label" [innerHtml]="CONSTANTS.userName"></label>
+    <div class="col-8 row">
+
+      <input class="form-control"
+             type="text"
+             [placeholder]="CONSTANTS.userName"
+             formControlName="username">
+
+      <!-- MEJORA POR HACER: LOADING MIENTRAS COMPRUEBA EL NOMBRE 
+        <i [ngClass]="{ '': !loading, 'fa-refresh fa-spin': loading }" class="fa"></i>
+      <span *ngIf="loading">Comprobando...</span> -->
+
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-3 col-md-2 col-form-label" [innerHtml]="CONSTANTS.password"></label>
+    <div class="col-8 row">
+
+      <input class="form-control" 
+      type="password" 
+      [ngClass]="{'is-invalid': ( formulario.controls['pass1'].errors?.minlength || formulario.controls['pass1'].errors?.required ) && formulario.controls['pass1'].touched}" 
+      [placeholder]="CONSTANTS.passwordPlace"
+      formControlName="pass1">
+
+      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['pass1'].errors?.required && formulario.controls['pass1'].touched}" *ngIf="formulario.controls['pass1'].errors?.required && formulario.controls['pass1'].touched">Este campo es required</div>  
+      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['pass1'].errors?.minlength}" *ngIf="formulario.controls['pass1'].errors?.minlength">Tiene que tener al menos {{formulario.controls['pass1'].errors?.minlength.requiredLength}} caracteres y tiene {{formulario.controls['pass1'].errors?.minlength.actualLength}}</div>
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <label class="col-3 col-md-2 col-form-label" [innerHtml]="CONSTANTS.repeatPassword"></label>
+    <div class="col-8 row">
+
+      <input class="form-control" 
+      type="password" 
+      [ngClass]="{'is-invalid': ( formulario.controls['pass2'].errors?.minlength || formulario.controls['pass2'].errors?.required || formulario.controls['pass2'].errors?.noiguales ) && formulario.controls['pass2'].touched}" 
+      [placeholder]="CONSTANTS.repeatPassPlace"
+      formControlName="pass2">
+      
+      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['pass2'].errors?.required && formulario.controls['pass2'].touched}" *ngIf="formulario.controls['pass2'].errors?.required && formulario.controls['pass2'].touched">Este campo es required</div>  
+      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['pass2'].errors?.minlength}" *ngIf="formulario.controls['pass2'].errors?.minlength">Tiene que tener al menos {{formulario.controls['pass2'].errors?.minlength.requiredLength}} caracteres y tiene {{formulario.controls['pass2'].errors?.minlength.actualLength}}</div>
+      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['pass2'].errors.noiguales}" *ngIf="formulario.controls['pass2'].errors.noiguales">Los Password no son iguales</div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-3 col-md-2 col-form-label" [innerHtml]="CONSTANTS.hobby"></label>
+    <div class="col-8 row" formArrayName="hobbys">
+
+      <input *ngFor="let hobby of getControls(formulario, 'hobbys');let index = index"
+             class="form-control col-6 col-md-8"
+             type="text" 
+             [placeholder]="CONSTANTS.hobby" 
+             [formControlName]="index"
+             [ngClass]="{'is-invalid': ( formulario.controls['hobbys'].errors?.minlength || formulario.controls['hobbys'].errors?.required || formulario.controls['hobbys'].errors?.pattern ) && formulario.controls['hobbys'].touched}"
+             >
+      <!-- <input *ngFor="let hobby of formulario.controls['hobbys'].controls; let index = index"
+             class="form-control col-6 col-md-8"
+             type="text" 
+             [placeholder]="CONSTANTS.hobby" 
+             [formControlName]="index"
+             [ngClass]="{'is-invalid': ( formulario.controls['hobbys'].errors?.minlength || formulario.controls['hobbys'].errors?.required || formulario.controls['hobbys'].errors?.pattern ) && formulario.controls['hobbys'].touched}"
+             > -->
+      <div class="col-6 col-md-4">
+        <button type="button"
+                class="form-control btn btn-success"
+                (click)="addHobby()">Nuevo</button>
+      </div>
+      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['hobbys'].errors?.required && formulario.controls['hobbys'].touched}" *ngIf="formulario.controls['hobbys'].errors?.required && formulario.controls['hobbys'].touched">Este campo es required</div>  
+      <!-- <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['email'].errors?.minlength}" *ngIf="formulario.controls['email'].errors?.minlength">Tiene que tener al menos {{formulario.controls['email'].errors?.minlength.requiredLength}} caracteres y tiene {{formulario.controls['email'].errors?.minlength.actualLength}}</div>
+      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['email'].errors?.pattern}" *ngIf="formulario.controls['email'].errors?.pattern">No cumple el patrón de email electrónico</div> -->
+
+
+    </div>
+  </div>
+
+  
+  <div class="form-group row">
+      <br><br>
+    <div class="col-5 col-md-4">
+      <button class="btn btn-outline-primary float-left" type="submit" [disabled]="formulario.invalid" [innerHtml]="CONSTANTS.save">
+      </button>
+    </div>
+    <div class="col-2 col-md-2">
+      <button class="btn btn-outline-danger float-left" type="reset" (click)="resetForm()" [innerHtml]="CONSTANTS.reset">
+      </button>
+    </div>
+    <div class="col-5 col-md-4">
+      <button class="btn btn-outline-warning float-right" type="button" [routerLink]="['']" [innerHtml]="CONSTANTS.back">
+      </button>
+    </div>
+  </div>
+</form>
+<pre>
+    {{ formulario.valid }}
+    <br>
+    {{ formulario.status }}
+</pre>
+

@@ -1,0 +1,6 @@
+<h2>
+  Users
+  <button class="btn btn-success float-right" [routerLink]="['/user/edit', 'new']">Add</button>
+</h2>
+<app-user-table [users]="users" (deleteUser)="deleteUser($event)">
+</app-user-table>

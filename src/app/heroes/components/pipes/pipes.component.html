@@ -1,0 +1,240 @@
+<div class="container">
+  <br>
+  <h1>Pipes</h1>
+  <hr>
+
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Variable</th>
+        <th scope="col">Pipe</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Producto</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ nombre }}</td>
+        <td> uppercase</td>
+        <td> uppercase</td>
+        <td> {{ nombre | uppercase}}</td>
+      </tr>
+      <tr>
+        <td>{{ nombre }}</td>
+        <td> lowercase</td>
+        <td> lowercase</td>
+        <td> {{ nombre | lowercase}}</td>
+      </tr>
+
+      <!-- Slice -->
+
+      <tr>
+        <td>{{ nombre }}</td>
+        <td> slice:3</td>
+        <td> Recorta los 3 primeros caracteres</td>
+        <td> {{ nombre | slice:3}}</td>
+      </tr>
+      <tr>
+        <td>{{ nombre }}</td>
+        <td> slice:0:3 </td>
+        <td> Recorta desde 0 hasta el caracter 3</td>
+        <td> {{ nombre | slice:0:3}}</td>
+      </tr>
+      <tr>
+        <td>{{ array }}</td>
+        <td> slice:1:5 </td>
+        <td> Con Array/Objeto. Recorta desde 1 hasta el caracter 5</td>
+        <td> {{ array | slice:1:5}}</td>
+      </tr>
+
+      <!-- Decimal Pipe -->
+
+      <tr>
+        <td>{{ PI }}</td>
+        <td> number </td>
+        <td> pipe number</td>
+        <td> {{ PI | number }}</td>
+      </tr>
+
+      <tr>
+        <td>{{ PI }}</td>
+        <td> number:'3.0-0' </td>
+        <td> pipe number</td>
+        <td> {{ PI | number:'3.0-0' }}</td>
+      </tr>
+
+      <tr>
+        <td>{{ PI }}</td>
+        <td> number:'1.0-5' </td>
+        <td> pipe number</td>
+        <td> {{ PI | number:'1.0-5' }}</td>
+      </tr>
+
+      <tr>
+        <td>{{ PI }}</td>
+        <td> number:'.2-2' </td>
+        <td> pipe number</td>
+        <td> {{ PI | number:'.2-2' }}</td>
+      </tr>
+
+      <!-- percent -->
+
+      <tr>
+        <td>{{ decimal }}</td>
+        <td> percent </td>
+        <td> Pipe de porcentaje</td>
+        <td> {{ decimal | percent }}</td>
+      </tr>
+
+      <tr>
+        <td>{{ decimal }}</td>
+        <td> percent:'2.2-2' </td>
+        <td> Pipe de porcentaje</td>
+        <td> {{ decimal | percent:'2.2-2' }}</td>
+      </tr>
+
+      <!-- currenccy - moneda -->
+
+      <tr>
+        <td>{{ sueldo }}</td>
+        <td> currency </td>
+        <td> Formatea a la moneda por defecto ($)</td>
+        <td> {{ sueldo | currency}}</td>
+      </tr>
+
+      <tr>
+        <td>{{ sueldo }}</td>
+        <td> currency:false </td>
+        <td> Formatea a la moneda por defecto (USD)</td>
+        <td> {{ sueldo | currency:'USD':false }}</td>
+      </tr>
+
+      <tr>
+        <td>{{ sueldo }}</td>
+        <td> currency:'EUR' </td>
+        <td> Formatea a la moneda con el Euro (€)</td>
+        <td> {{ sueldo | currency:'EUR'}}</td>
+      </tr>
+
+      <tr>
+        <td>{{ sueldo }}</td>
+        <td> currency:'EUR':false </td>
+        <td> Formatea a la moneda con el Euro (EUR)</td>
+        <td> {{ sueldo | currency:'EUR':false}}</td>
+      </tr>
+
+      <tr>
+        <td>{{ sueldo }}</td>
+        <td> currency:'EUR':false:'4.0-0' </td>
+        <td> Formatea a la moneda con el Euro (EUR) y formatea cantidad</td>
+        <td> {{ sueldo | currency:'EUR':false:'4.0-0'}}</td>
+      </tr>
+
+      <tr>
+        <td>{{ sueldo }}</td>
+        <td> currency:'EUR':false:'.2-2' </td>
+        <td> Formatea a la moneda con el Euro (EUR), parte entera la que venga, con 2 decimales</td>
+        <td> {{ sueldo | currency:'EUR':false:'.2-2'}}</td>
+      </tr>
+
+      <!-- Async -->
+      <!-- da error en consola valorPromesa | json -->
+      <!-- <tr>
+        <td>{{ valorPromesa }}</td>
+        <td> async </td>
+        <td> Pipe promesa con JSON</td>
+        <td> {{ valorPromesa |json}}</td>
+      </tr> -->
+
+      <tr>
+        <td>{{ valorPromesa }}</td>
+        <td> async </td>
+        <td> Pipe Async. Retorna el valor de una promesa </td>
+        <td> {{ valorPromesa |async}}</td>
+      </tr>
+
+      <!-- Fecha -->
+
+      <tr>
+        <td>{{ fecha }}</td>
+        <td> date </td>
+        <td> Pipe date </td>
+        <td> {{ fecha | date }}</td>
+      </tr>
+
+      <tr>
+        <td>{{ fecha }}</td>
+        <td> date:'medium' </td>
+        <td> Pipe date </td>
+        <td> {{ fecha | date:'medium' }}</td>
+      </tr>
+
+      <tr>
+        <td>{{ fecha }}</td>
+        <td> date:'MMMM - dd' </td>
+        <td> Pipe date </td>
+        <td> {{ fecha | date:'MMMM - dd' }}</td>
+      </tr>
+
+      <!-- Pipe Personalizado -->
+
+      <tr>
+        <td>{{ nombre2 }}</td>
+        <td> Pipe Custom </td>
+        <td> Pipe custom: Capitalizado </td>
+        <td> {{ nombre2 | capitalizado }}</td>
+      </tr>
+
+      <tr>
+        <td>{{ nombre2 }}</td>
+        <td> Pipe Custom </td>
+        <td> Pipe custom: Capitalizado </td>
+        <td> {{ nombre2 | capitalizado:false }}</td>
+      </tr>
+
+      <tr>
+        <td>{{ nombre }}</td>
+        <td> Pipe Custom </td>
+        <td> contrasena: {{ activar }}
+          <br>
+          <button (click)="activar = !activar" class="btn btn-outline-primary">Activar/Desactivar</button>
+        </td>
+        <td> {{ nombre | password:activar }}</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <h4>Slice</h4>
+  <ul>
+    <li *ngFor="let item of array | slice:5:20">
+      {{item}}
+    </li>
+  </ul>
+
+  <h4>JSON</h4>
+  <p>
+    <small>Pipe JSON</small>
+  </p>
+  <p>{{heroe| json}}</p>
+  <p>
+    <small>Pipe JSON with
+      <b>pre</b> tag</small>
+  </p>
+  <pre>{{heroe| json}}</pre>
+
+  <h4>youtube
+    <small>Video</small>
+  </h4>
+  <hr>
+
+  <iframe width="560" height="315" allowfullscreen [src]="video | domseguro: 'https://www.youtube.com/embed/'" frameborder="0"></iframe>
+
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
