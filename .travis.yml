@@ -19,6 +19,9 @@ notifications:
       - krbaio3@gmail.com
     on_success: never # default: change
     on_failure: always # default: always
+branches:
+  only:
+    - master
 deploy:
   provider: heroku
   api_key:
@@ -26,5 +29,4 @@ deploy:
   app: hakai-ng
   local_dir: dist
   skip_cleanup: true
-  on: develop
-  
+  on: master  
