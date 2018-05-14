@@ -27,3 +27,4 @@ deploy:
   local_dir: dist
   skip_cleanup: true
   on: develop
+  
