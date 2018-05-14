@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { globalEventBus } from './event-bus';
+import { globalEventBus, LESSONS_LIST_AVAILABLE, ADD_NEW_LESSON } from './event-bus';
 import { testLessons } from '../shared/model/test-lesson';
 
 @Component({
@@ -13,7 +13,11 @@ export class EventBusExperimentsComponent implements OnInit {
 
   ngOnInit() {
     console.log('Top level component broadCasted all lessons ...');
-    globalEventBus.notifyObservers(testLessons);
+    globalEventBus.notifyObservers(LESSONS_LIST_AVAILABLE, testLessons.slice(0));
+  }
+
+  addLesson(lessonText: string) {
+    globalEventBus.notifyObservers(ADD_NEW_LESSON, lessonText);
   }
 
 }

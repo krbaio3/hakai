@@ -1,2 +1,19 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+table {
+  max-width: 700px;
+  margin: 0 auto 30px auto;
+  padding: 0 10px;
+}
 
+.duration {
+  min-width: 200px;
+  text-align: center;
+  i {
+     vertical-align: sub;
+   }
+}
+
+.viewed {
+  min-width: 60px;
+  text-align: center;
+}

@@ -1,11 +1,22 @@
-<table class="table lessons-list card card-storng">
-  <tbody>
-    <tr *ngFor="let lesson of lessons">
-      <td class="lesson-title">{{lesson.description}}</td>
-      <td class="duration">
-        <i class="md-icon duration-icon">access_time</i>
-        <span>{{lesson.duration}}</span>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="mat-elevation-z8">
+  <table mat-table class="table lessons-list card card-strong">
+    <tbody>
+      <tr mat-row mat-header-row *ngFor="let lesson of lessons">
+        
+        <td class="viewed">
+          <input type="checkbox" (click)="toggleLessonViewed(lesson)">
+        </td>
+        
+        <td class="lesson-title" [ngClass]="{'lesson-viewed':lesson.completed}">
+          {{ lesson.description }}
+        </td>
+        
+        <td class="duration">
+          <i class="material-icons">access_time</i>
+          <span>{{lesson.duration}}</span>
+        </td>
+        
+      </tr>
+    </tbody>
+  </table>
+</div>
