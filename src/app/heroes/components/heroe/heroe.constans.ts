@@ -1,4 +1,4 @@
 export const CONSTANTES = {
-    heroesURL: 'https://bzz-poc.firebaseio.com/heroes.json',
-    
+    heroesURL: 'https://hakai-ng-app.firebaseio.com/heroes.json',
+    heroeURL: 'https://hakai-ng-app.firebaseio.com/heroes/',
 };

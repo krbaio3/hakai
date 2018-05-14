@@ -13,16 +13,16 @@ export const HEROE_ROUTES: Routes = [
     component: AddHeroeComponent,
   },
   {
-    path: ':id/show',
+    path: 'show/:id',
     component: ShowHeroeComponent,
     resolve: { message: ResolveService}
   },
   {
-    path: ':id/edit',
+    path: 'edit/:id',
     component: EditHeroeComponent,
   },
   {
-    path: ':id/remove',
+    path: 'remove/:id',
     component: RemoveHeroeComponent,
   },
 ];

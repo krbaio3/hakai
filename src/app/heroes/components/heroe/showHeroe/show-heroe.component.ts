@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { HeroesService } from '../../../service/heroes.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+
+import {ShowHeroeService} from './show-heroe.service';
+import { Heroe } from '../models/I-AddHeroe';
 
 @Component({
   selector: 'app-show-heroe',
@@ -9,22 +11,23 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./show-heroe.component.scss']
 })
 export class ShowHeroeComponent implements OnInit {
-  heroe: any = {};
+
+  heroe: Heroe;
+  id: string;
+
   private paramSubscription: Subscription;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private _heroeService: HeroesService
+    private route: ActivatedRoute,
+    private router: Router,
+    private _showHeroeService: ShowHeroeService
   ) {
-    // activatedRoute.params.subscribe((params) => {
-    //   console.log(params.id);
-    //   // this.heroes = this._heroeService.getHeroes();
-    //   this.heroe = this._heroeService.getHeroe(params['id']);
-    // });
+    this.route.params.subscribe((params) => {
+      console.log(params.id);
+      this.id = params['id'];
+    });
   }
 
   ngOnInit() {
-    this.heroe = this.activatedRoute.snapshot.data;
-    console.log(this.heroe);
   }
 }

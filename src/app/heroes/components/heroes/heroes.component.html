@@ -24,8 +24,8 @@
       <button type="button" class="btn btn-outline-primary btn-block" [routerLink]="['../heroe', heroe.id, 'show']">
         Ver mas...
       </button>
-      <button type="button" name="editar" id="editar" class="btn btn-outline-warning btn-block" [routerLink]="['../heroe', heroe.id, 'edit']">Editar</button>
-      <button type="button" name="editar" id="editar" class="btn btn-outline-danger btn-block" [routerLink]="['../heroe', heroe.id, 'remove']">Borrar</button>
+      <button type="button" name="editar" id="editar" class="btn btn-outline-warning btn-block" [routerLink]="['../heroe/edit', heroe.id]">Editar</button>
+      <button type="button" name="editar" id="editar" class="btn btn-outline-danger btn-block" [routerLink]="['../heroe/remove', heroe.id]">Borrar</button>
       <!-- Tambien se puede usar como función click, quitando el routerLink y añadiendo esto:
         (click)="verHeroe(indice)"
         Ver ĺógica controlador -->

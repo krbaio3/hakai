@@ -2,13 +2,17 @@ import { Headers } from '@angular/http';
 
 export class Utils {
 
-    headers(): Headers {
+    public url(): string {
+        return 'https://hakai-ng-app.firebaseio.com/heroes.json';
+    }
+
+    public headers(): Headers {
         return new Headers({
             'Content-Type': 'application/json'
           });
     }
 
-    body(param) {
+    public body(param) {
         return JSON.stringify(param);
     }
 }
