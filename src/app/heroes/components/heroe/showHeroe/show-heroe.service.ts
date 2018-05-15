@@ -1,25 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Editorial } from '../models/I-Editorial';
 import { CONSTANTES } from '../heroe.constans';
-import { Http } from '@angular/http';
+import { Http, RequestOptions, Headers } from '@angular/http';
 
 import { Heroe } from '../models/I-AddHeroe';
 // import { Utils } from '../utils';
 
 @Injectable()
 export class ShowHeroeService {
+  heroeURL = CONSTANTES.heroeURL;
 
-  heroeURL = CONSTANTES.heroesURL;
 
   constructor(private http: Http) {}
 
-  showHeroe ( key$: string, heroe: Heroe) {
-    const url = `${ this.heroeURL }/${ key$ }.json`;
+  getHeroe(key$: string) {
+    const url = `${this.heroeURL}/${key$}.json`;
 
-    return this.http.get(this.heroeURL)
-    .map(response => {
+    return this.http.get(url).map(response => {
       console.log(response.json());
-      return response.json;
+      return response.json();
     });
   }
 

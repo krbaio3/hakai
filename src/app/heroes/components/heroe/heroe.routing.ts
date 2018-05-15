@@ -15,7 +15,7 @@ export const HEROE_ROUTES: Routes = [
   {
     path: 'show/:id',
     component: ShowHeroeComponent,
-    resolve: { message: ResolveService}
+    // resolve: { message: ResolveService}
   },
   {
     path: 'edit/:id',

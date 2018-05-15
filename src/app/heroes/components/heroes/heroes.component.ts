@@ -1,28 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HeroesService } from '../../service/heroes.service';
+import { ShowHeroesService } from './show-heroes.service';
 import { Heroe } from '../../../models/heroe.model';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
   styleUrls: ['./heroes.component.scss'],
+  providers: [ShowHeroesService]
 })
 export class HeroesComponent implements OnInit {
-  // heroes: Heroe[] = [];
-  heroes: Observable<Heroe[]>;
+
+  // heroes;
+  heroes: any[] = [];
+
   constructor(
-    private _heroesSrv: HeroesService,
+    private _showHeroeSrv: ShowHeroesService,
     private router: Router,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {
     console.log('constructor Heroes');
+    this._showHeroeSrv.getHeroes().subscribe(
+      data => {
+        console.log(data);
+        this.heroes = data;
+      },
+      error => console.error(error)
+    );
   }
 
   ngOnInit() {
     console.log('ngOninit');
-    this.heroes = this._heroesSrv.getHeroes();
   }
 
   verHeroe(indice: number) {
@@ -39,5 +47,4 @@ export class HeroesComponent implements OnInit {
     console.log('eliminar');
     console.log(`indice ${indice}`);
   }
-
 }

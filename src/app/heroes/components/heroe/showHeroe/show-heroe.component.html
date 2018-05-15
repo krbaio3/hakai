@@ -1,25 +1,28 @@
 <h1 class="fadeIn animated">
-  <!-- {{ heroe | async }} -->
-  the message is {{heroe.message}}
-  <!-- <small>{{ (heroe?.aparicion | async) | date:'yyyy' }}</small> -->
+  <small>{{ heroe?.aparicion | date:'yyyy' }}</small>
 </h1>
 <hr>
-<!-- <div class="row fadeIn animated fast">
-  <div class="col-md-4"> -->
-    <!-- <img [src]="heroe?.img" [alt]="heroe?.nombre" class="img-fluid"> -->
-    <!-- <br>
+<div class="row fadeIn animated fast">
+  <div class="col-md-4">
+    <ng-container *ngIf="heroe?.img == undefined || heroe?.img === ''; else heroImg">
+      <img class="card-img-top" src="../../../../assets/img/sinFoto.png" alt="Sin imagen">
+    </ng-container>
+    <ng-template #heroImg>
+      <img [src]="heroe?.img" [alt]="heroe?.nombre" class="img-fluid">
+    </ng-template>
+    <br>
     <br>
     <a [routerLink]="['../../../heroes']" class="btn btn-outline-danger btn-block">Volver</a>
   </div>
   <div class="col-md-8">
-    <h3>{{ heroe?.nombre | async }}</h3>
+    <h3>{{ heroe?.nombre }}</h3>
     <hr>
     <p>
-      {{ heroe?.bio | async }}
+      {{ heroe?.bio }}
     </p>
-    <div> -->
-      <!-- <img *ngIf="heroe.casa === 'DC'" src="assets/brand/DC.png" [alt]="heroe.casa" class="img-fluid casa">
-      <img *ngIf="heroe.casa === 'Marvel'" src="assets/brand/marvel.jpg" [alt]="heroe.casa" class="img-fluid casa"> -->
-    <!-- </div>
+    <div>
+      <img *ngIf="heroe?.editorial === 'DC'" src="assets/brand/DC.png" [alt]="heroe?.editorial" class="img-fluid editorial">
+      <img *ngIf="heroe?.editorial === 'Marvel'" src="assets/brand/marvel.jpg" [alt]="heroe?.editorial" class="img-fluid editorial">
+    </div>
   </div>
-</div> -->
+</div>

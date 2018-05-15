@@ -2,11 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { HeroesRoutingModule } from './heroes.routing';
+// Modules
 import { PipesModule } from '../pipes/pipes.module';
 
-// Servicios
-import { HeroesService } from './service/heroes.service';
+// Routing
+import { HeroesRoutingModule } from './heroes.routing';
+
+// Pipes
+import { KeysPipe } from './components/heroe/keys.pipe';
+
+// Servicios. Este es para AngularFirebase, de momento, se queda para otra iteracion
+// import { HeroesService } from './service/heroes.service';
+
 // Componentes
 import { AvengerComponent } from './avenger.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
@@ -30,7 +37,6 @@ import { ShowHeroeComponent } from './components/heroe/showHeroe/show-heroe.comp
     ReactiveFormsModule
   ],
   exports: [
-    // AvengerComponent,
   ],
   declarations: [
     AvengerComponent,
@@ -45,7 +51,8 @@ import { ShowHeroeComponent } from './components/heroe/showHeroe/show-heroe.comp
     RemoveHeroeComponent,
     EditHeroeComponent,
     ShowHeroeComponent,
+    KeysPipe,
   ],
-  providers: [HeroesService],
+  // providers: [HeroesService],
 })
 export class HeroesModule {}
