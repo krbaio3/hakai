@@ -23,7 +23,7 @@ export class AddHeroeService {
     return this.http.post(this.heroeURL, body, { headers })
     .map(response => {
       console.log(response.json());
-      return response.json;
+      return response.json();
     });
   }
 

@@ -1,4 +1,6 @@
-<h1>Heroe: <small class="text-uppercase">{{heroe.nombre}}</small></h1>
+<h1>Heroe: 
+  <small class="text-uppercase">{{heroe.nombre}}</small>
+</h1>
 <hr>
 <br>
 <form (ngSubmit)="onSubmit()" #formAlta="ngForm" class="fadeIn fast" novalidate>
@@ -50,6 +52,7 @@
     <input type="checkbox" class="form-check-input" id="exampleCheck1">
     <label class="form-check-label" for="exampleCheck1">Check me out</label>
   </div> -->
-  <button type="submit" [disabled]="formAlta.invalid" class="btn btn-outline-primary btn-block">Submit</button>
-  <button type="button" class="btn btn-outline-danger btn-block" [routerLink]="['../../heroes']">Volver</button>
+  <button type="submit" [disabled]="formAlta.invalid" class="btn btn-success btn-block">Submit</button>
+  <button type="button" class="btn btn-danger btn-block" [routerLink]="['../../heroes']">Volver</button>
+  
 </form>
