@@ -29,8 +29,11 @@ export class EditHeroeComponent implements OnInit {
     private router: Router
   ) {
     this.route.params.subscribe(params => {
-      console.log(`entra en editar con parametros: ${params}`);
+      console.log(`entra en editar con parametros: ${JSON.stringify(params, null, 4)}`);
       this.id = params['id'];
+      this.editHeroeService.getHeroe(this.id)
+        .subscribe(heroe =>
+        this.heroe = heroe );
     });
   }
 
@@ -43,6 +46,7 @@ export class EditHeroeComponent implements OnInit {
     this.editHeroeService.actualizarHeroe(this.heroe, this.id).subscribe(
       data => {
         console.log(data);
+        this.router.navigate(['/avenger/heroes']);
       },
       error => console.error(error)
     );

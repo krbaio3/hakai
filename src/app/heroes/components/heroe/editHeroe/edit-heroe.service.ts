@@ -22,7 +22,16 @@ export class EditHeroeService {
 
     return this.http.put(url, body, { headers }).map(response => {
       console.log(response.json());
-      return response.json;
+      return response.json();
+    });
+  }
+
+  getHeroe (key$: string) {
+    const url = `${ this.heroeURL }/${ key$ }.json`;
+
+    return this.http.get(url).map(response => {
+      console.log(response.json());
+      return response.json();
     });
   }
 
