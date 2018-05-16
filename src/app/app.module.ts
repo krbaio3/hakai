@@ -8,7 +8,6 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-
 // Environments
 import { environment } from '../environments/environment';
 
@@ -52,7 +51,7 @@ registerLocaleData(localeEs);
     HttpClientModule,
     MiscelaneosModule,
     AuthappModule,
-    AngularFireModule.initializeApp(environment.fireConfig, 'bzz-poc'),
+    AngularFireModule.initializeApp(environment.fireConfig, 'hakai-ng-app'),
     AngularFirestoreModule,
     FormulariosModule,
     OpenIdModule,
