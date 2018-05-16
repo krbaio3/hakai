@@ -13,8 +13,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 
 // 3rd Party
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+// import { AngularFireModule } from 'angularfire2';
+// import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 // Rutas
 import { AppRoutingModule } from './app-routing.module';
@@ -52,8 +52,8 @@ registerLocaleData(localeEs);
     HttpClientModule,
     MiscelaneosModule,
     AuthappModule,
-    AngularFireModule.initializeApp(environment.fireConfig, 'bzz-poc'),
-    AngularFirestoreModule,
+    // AngularFireModule.initializeApp(environment.fireConfig, 'bzz-poc'),
+    // AngularFirestoreModule,
     FormulariosModule,
     OpenIdModule,
     ConsoleModule,

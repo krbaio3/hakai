@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Angular Material
-import {
-  AngularMaterialModule
-} from '../angular-material/angular-material.module';
+// import {
+//   AngularMaterialModule
+// } from '../angular-material/angular-material.module';
 
 import { UdemyRoutingModule } from './udemy.routing';
 import { UdemyComponent } from './udemy.component';
@@ -17,7 +17,7 @@ import { LessonsCounterComponent } from './components/lessons-counter/lessons-co
   imports: [
     CommonModule,
     UdemyRoutingModule,
-    AngularMaterialModule
+    // AngularMaterialModule
   ],
   declarations: [
     UdemyComponent,
