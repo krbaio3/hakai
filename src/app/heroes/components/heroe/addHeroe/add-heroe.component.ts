@@ -24,6 +24,8 @@ export class AddHeroeComponent implements OnInit {
 
   editoriales: Editorial[];
 
+  fileToUpload: File = null;
+
   constructor(
     private heroAddService: AddHeroeService,
     private router: Router
@@ -41,6 +43,19 @@ export class AddHeroeComponent implements OnInit {
 
   ngOnInit (): void {
     this.editoriales = this.heroAddService.getEditorial();
+  }
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+}
+
+uploadFileToActivity() {
+    this.heroAddService.postFile(this.fileToUpload).subscribe(data => {
+      // do something, if upload success
+      console.log(data);
+      }, error => {
+        console.log(error);
+      });
   }
 
 }

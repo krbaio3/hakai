@@ -19,7 +19,8 @@ https://appdividend.com/2018/01/31/angular-ngrx-store-tutorial-example-scratch/?
 
 http://mherman.org/blog/2018/04/17/authentication-in-angular-with-ngrx/?utm_campaign=NG-Newsletter&utm_medium=email&utm_source=NG-Newsletter_249#.WuLzQHWFO03
 
-
+https://stackoverflow.com/questions/47936183/angular-5-file-upload?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+https://stackoverflow.com/questions/42376972/best-way-to-import-observable-from-rxjs/44943647?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 
 # MIS NOTAS
 
