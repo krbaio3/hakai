@@ -10,19 +10,22 @@
     <ng-template #heroImg>
       <img [src]="heroe?.img" [alt]="heroe?.nombre" class="img-fluid">
     </ng-template>
-    <br>
-    <br>
-    <a [routerLink]="['../../../heroes']" class="btn btn-outline-danger btn-block">Volver</a>
   </div>
+
   <div class="col-md-8">
-    <h3>{{ heroe?.nombre }}</h3>
+    <div class="row">
+      <h3>{{ heroe?.nombre }}</h3>
+      <div class="ml-3">
+        <img *ngIf="heroe?.editorial === 'DC'" src="assets/brand/DC.png" [alt]="heroe?.editorial" class=" align-self-center mr-3 img-fluid editorial">
+        <img *ngIf="heroe?.editorial === 'Marvel'" src="assets/brand/marvel.jpg" [alt]="heroe?.editorial" class=" align-self-center mr-3 img-fluid editorial">
+      </div>
+    </div>
+
     <hr>
     <p>
       {{ heroe?.bio }}
     </p>
-    <div>
-      <img *ngIf="heroe?.editorial === 'DC'" src="assets/brand/DC.png" [alt]="heroe?.editorial" class="img-fluid editorial">
-      <img *ngIf="heroe?.editorial === 'Marvel'" src="assets/brand/marvel.jpg" [alt]="heroe?.editorial" class="img-fluid editorial">
-    </div>
+    <a [routerLink]="['../../../heroes']" class="btn btn-outline-danger btn-block">Volver</a>
+
   </div>
 </div>

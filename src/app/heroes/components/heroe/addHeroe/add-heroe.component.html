@@ -1,5 +1,5 @@
 <h1>Heroe:
-  <small class="text-uppercase h3">{{ heroe.nombre }}</small>
+  <small class="text-uppercase h2">{{ heroe.nombre }}</small>
 </h1>
 <hr>
 <br>
@@ -63,6 +63,9 @@
 
 
   <br>
-  <button class="btn btn-success btn-block" type="submit">Submit</button>
-  <button class="btn btn-danger btn-block" type="button" [routerLink]="['../../../heroes']">Volver</button>
+  <div class="container">
+    <button class="btn btn-success btn-block col-12 col-sm-5 float-left" type="submit">Submit</button>
+    <button class="btn btn-danger btn-block col-12 col-sm-5 float-right ajuste" type="button" [routerLink]="['../../../heroes']">Volver</button>
+</div>
+
 </form>
