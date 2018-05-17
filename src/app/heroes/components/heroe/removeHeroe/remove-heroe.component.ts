@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HeroesService } from '../../../service/heroes.service';
+// import { HeroesService } from '../../../service/heroes.service';
 
 @Component({
   selector: 'app-remove-heroe',
@@ -12,13 +12,13 @@ export class RemoveHeroeComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private _heroeService: HeroesService,
+    // private _heroeService: HeroesService,
   ) {
     activatedRoute.params.subscribe((params) => {
       console.log(params['id']);
       const id = params['id'] - 1;
       console.log('real ID to pass: ', id);
-      this.heroe = this._heroeService.getHeroe(id);
+      // this.heroe = this._heroeService.getHeroe(id);
       console.log(this.heroe);
     });
   }
