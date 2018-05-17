@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { HeroesService } from '../../service/heroes.service';
+import { SearchService } from './search.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Heroe } from '../../../models/heroe.model';
+import { Heroe } from '../../models/heroe.model';
+import { ShowHeroesService } from '../heroes/show-heroes.service';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
+  providers: [SearchService, ShowHeroesService]
 })
 export class SearchComponent implements OnInit {
   // heroes: Heroe[] = [];
@@ -16,7 +18,7 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private _heroeService: HeroesService,
+    private _heroeService: SearchService,
     private router: Router
   ) {}
 
@@ -29,10 +31,10 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  verHeroe(heroe: any) {
-    console.log(heroe.indice);
-    this.router.navigate(['../../heroe', heroe.indice - 1], {
-      relativeTo: this.activatedRoute
-    });
-  }
+  // verHeroe(heroe: any) {
+  //   console.log(heroe.indice);
+  //   this.router.navigate(['../../heroe/show', heroe.indice], {
+  //     relativeTo: this.activatedRoute
+  //   });
+  // }
 }
