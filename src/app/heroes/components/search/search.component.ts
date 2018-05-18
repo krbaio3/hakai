@@ -15,20 +15,23 @@ export class SearchComponent implements OnInit {
   // heroes: void;
   heroes;
   buscado: string;
+  loading = true;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private _heroeService: SearchService,
     private router: Router
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.activatedRoute.params.subscribe(params => {
       console.log(params['name']);
       this.buscado = params['name'];
-      this.heroes = this._heroeService.searchHeroes(params['name']);
+      this.heroes = this._heroeService.searchHeroe(params['name']);
       console.log(this.heroes);
+      this.loading = false;
     });
+  }
+
+  ngOnInit() {
   }
 
   // verHeroe(heroe: any) {

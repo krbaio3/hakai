@@ -16,7 +16,7 @@ export class EditHeroeComponent implements OnInit {
     bio: '',
     editorial: '',
     aparicion: '',
-    img: '',
+    img: null,
     imgURL: ''
   };
 
@@ -29,11 +29,13 @@ export class EditHeroeComponent implements OnInit {
     private router: Router
   ) {
     this.route.params.subscribe(params => {
-      console.log(`entra en editar con parametros: ${JSON.stringify(params, null, 4)}`);
+      console.log(
+        `entra en editar con parametros: ${JSON.stringify(params, null, 4)}`
+      );
       this.id = params['id'];
-      this.editHeroeService.getHeroe(this.id)
-        .subscribe(heroe =>
-        this.heroe = heroe );
+      this.editHeroeService
+        .getHeroe(this.id)
+        .subscribe(heroe => (this.heroe = heroe));
     });
   }
 
@@ -50,5 +52,8 @@ export class EditHeroeComponent implements OnInit {
       },
       error => console.error(error)
     );
+  }
+  handleFileInput(event) {
+    console.log(event);
   }
 }

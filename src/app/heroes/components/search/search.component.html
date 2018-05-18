@@ -3,7 +3,7 @@
 </h1>
 <hr>
 
-<div class="row animated fadeIn fast" *ngIf="heroes.length == 0">
+<div class="row animated fadeIn fast" *ngIf="heroes.length == 0 && !loading">
   <div class="col-md-12">
     <div class="alert alert-info" role="alert">
       No se ha encontrado ningun resultado con: {{ buscado | uppercase }}
@@ -28,7 +28,11 @@
       <button type="button" class="btn btn-outline-primary btn-block" [routerLink]="['../../heroe/show', heroe.indice]">
         Ver mas...
       </button>
-
     </div>
   </div>
+</div>
+
+<div class="alert alert-info animated fadeIn fast" role="alert" *ngIf="loading">
+<strong>
+  <i class="fa fa-spinner fa-spin" style="font-size:32px"></i> Cargando...</strong>Por favor, espere.
 </div>

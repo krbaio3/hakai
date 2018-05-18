@@ -14,9 +14,9 @@
       </ng-template>
       <div class="input-group">
         <div class="custom-file">
-          <input class="custom-file-input" [value]="heroe.img" name="imagen" id="inputImg" type="file" accept="image/*" (change)="changeListener($event)">
+        <input class="custom-file-input" id="inputImg" name="imagen" type="file" [value]="heroe.img" accept="image/*" (change)="handleFileInput($event.target.files)">
           <label class="custom-file-label text-center" for="imagen">
-            <ng-container *ngIf="heroe.img === ''; else heroeTemplate">
+            <ng-container *ngIf="heroe?.img == undefined || heroe?.img === ''; else heroeTemplate">
               Añadir Imagen
             </ng-container>
             <ng-template #heroeTemplate>
@@ -66,7 +66,7 @@
 
 
   <br>
-  <div class="container">
+  <div class="container form-group col-12 col-sm-12 col-md-9 desktop">
     <button class="btn btn-success btn-block col-12 col-sm-5 float-left" type="submit">Submit</button>
     <button class="btn btn-danger btn-block col-12 col-sm-5 float-right ajuste" type="button" [routerLink]="['../../../heroes']">Volver</button>
   </div>

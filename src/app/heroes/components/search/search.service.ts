@@ -22,7 +22,7 @@ export class SearchService {
 
   updateHeroe(heroe: Heroe) {}
 
-  searchHeroes(name: string): Heroe[] {
+  searchHeroe(name: string): Heroe[] {
     const heroesArr: Heroe[] = [];
     name = name.toLocaleLowerCase();
     this._showHeroesServices.getHeroes().subscribe(

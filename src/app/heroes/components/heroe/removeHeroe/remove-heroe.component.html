@@ -4,23 +4,27 @@
 <hr>
 <div class="row fadeIn animated fast">
   <div class="col-md-4">
-    <img [src]="heroe.img" [alt]="heroe.nombre" class="img-fluid">
+    <ng-container *ngIf="heroe?.img == undefined || heroe?.img === ''; else heroImg">
+      <img class="card-img-top" src="assets/img/sinFoto.png" alt="Sin imagen">
+    </ng-container>
+    <ng-template #heroImg>
+      <img [src]="heroe?.img" [alt]="heroe?.nombre" class="img-fluid">
+    </ng-template>
     <br>
     <br>
   </div>
   <div class="col-md-8">
-    <h3>{{heroe.nombre}}</h3>
-    <hr>
     <p>
       {{heroe.bio}}
     </p>
     <div>
-      <img *ngIf="heroe.casa === 'DC'" src="assets/brand/DC.png" [alt]="heroe.casa" class="img-fluid casa">
-      <img *ngIf="heroe.casa === 'Marvel'" src="assets/brand/marvel.jpg" [alt]="heroe.casa" class="img-fluid casa">
+      <img *ngIf="heroe.editorial === 'DC'" src="assets/brand/DC.png" [alt]="heroe.editorial" class="img-fluid editorial">
+      <img *ngIf="heroe.editorial === 'Marvel'" src="assets/brand/marvel.jpg" [alt]="heroe.editorial" class="img-fluid editorial">
     </div>
   </div>
 </div>
 <br>
 <br>
-<a class="btn btn-outline-primary btn-block" [routerLink]="['../../../heroes']">Volver</a>
-<a class="btn btn-outline-danger btn-block" [routerLink]="['../../../heroes']">Borrar</a>
+<button class="btn btn-primary btn-block col-12 col-sm-5 float-right ajuste" type="button" [routerLink]="['../../../heroes']">Volver</button>
+<button class="btn btn-danger btn-block col-12 col-sm-5 float-left" type="button" (click)="deleteHeroe(heroe.indice)">Borrar</button>
+

@@ -35,7 +35,7 @@ export class AddHeroeComponent implements OnInit {
     console.log(`Valor: ${JSON.stringify(this.heroe, null, 4)}`);
     this.heroAddService.nuevoHeroe(this.heroe).subscribe(
       data => {
-        this.router.navigate(['../heroe']);
+        this.router.navigate(['/avenger/heroes']);
       },
       error => console.error(error)
     );

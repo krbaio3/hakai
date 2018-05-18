@@ -1,31 +1,28 @@
-<h1 class="fadeIn animated">
-  <small>{{ heroe?.aparicion | date:'yyyy' }}</small>
+<h1 class="fadeIn animated">{{heroe?.nombre | uppercase}}
+  <small>({{heroe?.aparicion | date:'yyyy'}})</small>
 </h1>
 <hr>
 <div class="row fadeIn animated fast">
   <div class="col-md-4">
     <ng-container *ngIf="heroe?.img == undefined || heroe?.img === ''; else heroImg">
-      <img class="card-img-top" src="../../../../assets/img/sinFoto.png" alt="Sin imagen">
+      <img class="card-img-top" src="assets/img/sinFoto.png" alt="Sin imagen">
     </ng-container>
     <ng-template #heroImg>
       <img [src]="heroe?.img" [alt]="heroe?.nombre" class="img-fluid">
     </ng-template>
+    <br>
+    <br>
   </div>
-
   <div class="col-md-8">
-    <div class="row">
-      <h3>{{ heroe?.nombre }}</h3>
-      <div class="ml-3">
-        <img *ngIf="heroe?.editorial === 'DC'" src="assets/brand/DC.png" [alt]="heroe?.editorial" class=" align-self-center mr-3 img-fluid editorial">
-        <img *ngIf="heroe?.editorial === 'Marvel'" src="assets/brand/marvel.jpg" [alt]="heroe?.editorial" class=" align-self-center mr-3 img-fluid editorial">
-      </div>
-    </div>
-
-    <hr>
     <p>
-      {{ heroe?.bio }}
+      {{heroe?.bio}}
     </p>
-    <a [routerLink]="['../../../heroes']" class="btn btn-outline-danger btn-block">Volver</a>
-
+    <div>
+      <img *ngIf="heroe?.editorial === 'DC'" src="assets/brand/DC.png" [alt]="heroe?.editorial" class="img-fluid editorial">
+      <img *ngIf="heroe?.editorial === 'Marvel'" src="assets/brand/marvel.jpg" [alt]="heroe?.editorial" class="img-fluid editorial">
+    </div>
   </div>
 </div>
+<br>
+<br>
+<a [routerLink]="['../../../heroes']" class="btn btn-outline-danger btn-block">Volver</a>

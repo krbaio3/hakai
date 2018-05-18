@@ -1,4 +1,5 @@
 $breakpoint-tablet: 576px;
+$breakpoint-desktop: 767px;
 img {
   margin-top: 15%;
 }
@@ -8,3 +9,10 @@ img {
     margin-top: 0px !important;
   }
 }
+
+@media (min-width: $breakpoint-desktop) {
+  .desktop {
+    margin-left: 25% !important;
+  }
+}
+
