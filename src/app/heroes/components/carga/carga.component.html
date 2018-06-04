@@ -9,7 +9,7 @@
     <div class="col-md-8">
         <h4>Cargar archivos</h4>
         <button (click)="loadImages()" [disabled]="archivos.length === 0" type="button" name="loading" id="loading" class="btn btn-success">Cargar en Firebase</button>
-        <button type="button" name="clean" id="clean" class="btn btn-danger">Limpiar</button>
+        <button (click)="cleanFiles()" type="button" name="clean" id="clean" class="btn btn-danger">Limpiar</button>
 
         <table class="table">
             <thead class="thead-dark">
@@ -21,11 +21,13 @@
             </thead>
             <tbody>
                 <tr *ngFor="let archivo of archivos">
-                    <td> {{ archivo.nombreArchivo}}</td>
-                    <td>{{archivo.archivo.size / 1024 /1024 | number: '.2-2'}} MB</td>
+                    <td [ngClass]="{ 'text-green': archivo.progreso >=100 }">
+                        {{ archivo.nombreArchivo}}
+                    </td>
+                    <td>{{ archivo.archivo.size / 1024 /1024 | number: '.2-2' }} MB</td>
                     <td>
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" [ngStyle]="{'width': archivo.progress + '%' }"></div>
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [ngStyle]="{'width': archivo.progreso + '%' }"></div>
                         </div>
                     </td>
                 </tr>

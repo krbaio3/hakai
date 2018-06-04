@@ -8,7 +8,6 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-
 // Environments
 import { environment } from '../environments/environment';
 
@@ -18,6 +17,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import * as firebase from 'firebase';
 
 // Rutas
 import { AppRoutingModule } from './app-routing.module';
@@ -47,6 +47,10 @@ registerLocaleData(localeEs);
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(environment.fireConfig), // imports firebase/app needed for everything
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
+    AngularFireStorageModule, // imports firebase/storage only needed for storage features
     FormsModule,
     HttpModule,
     NebularModule,
@@ -55,10 +59,6 @@ registerLocaleData(localeEs);
     HttpClientModule,
     MiscelaneosModule,
     AuthappModule,
-    AngularFireModule.initializeApp(environment.fireConfig, 'hakai-ng'), // imports firebase/app needed for everything
-    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
-    AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    AngularFireStorageModule, // imports firebase/storage only needed for storage features
     FormulariosModule,
     OpenIdModule,
     ConsoleModule,
