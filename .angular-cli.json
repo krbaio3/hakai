@@ -17,14 +17,12 @@
       "prefix": "app",
       "styles": [
         "styles.scss",
-        "../node_modules/bootstrap/dist/css/bootstrap.css",
-        "../node_modules/@nebular/theme/styles/prebuilt/default.css"
+        "../node_modules/bootstrap/dist/css/bootstrap.css"
         ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.slim.min.js",
         "../node_modules/popper.js/dist/umd/popper.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
-        "../node_modules/auth0-js/build/auth0.js"
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

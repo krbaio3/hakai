@@ -29,13 +29,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 // Modulos
-import { NebularModule } from './nebular/nebular.module';
 import { SpotyModule } from './spoty/spoty.module';
 import { HeroesModule } from './heroes/heroes.module';
 import { MiscelaneosModule } from './miscelaneos/miscelaneos.module';
-import { AuthappModule } from './authapp/authapp.module';
 import { FormulariosModule } from './formularios/formularios.module';
-import { OpenIdModule } from './open-id/open-id.module';
 import { ConsoleModule } from './console/console.module';
 import { NgrxAuthModule } from './ngrx-auth/ngrx-auth.module';
 import { UdemyModule } from './udemy/udemy.module';
@@ -52,14 +49,11 @@ registerLocaleData(localeEs);
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     FormsModule,
     HttpModule,
-    NebularModule,
     SpotyModule,
     HeroesModule,
     HttpClientModule,
     MiscelaneosModule,
-    AuthappModule,
     FormulariosModule,
-    OpenIdModule,
     ConsoleModule,
     NgrxAuthModule,
     AppRoutingModule,

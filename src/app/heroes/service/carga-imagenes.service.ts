@@ -5,9 +5,16 @@ import * as firebase from 'firebase';
 
 import { FileItem } from '../models/file-item';
 
+interface ImagenUploaded {
+  nombre: string;
+  url: string;
+}
+
 @Injectable()
 export class CargaImagenesService {
+
   private CARPETA_IMAGENES = 'img';
+  private img: ImagenUploaded;
 
   constructor(private db: AngularFirestore) {}
 
@@ -31,18 +38,21 @@ export class CargaImagenesService {
             snapshot.bytesTransferred / snapshot.totalBytes * 100),
         error => console.error('Error al subir el archivo: ', error),
         () => {
+          console.log(uploadTask.snapshot.metadata.fullPath);
           console.log('Imagen cargada correctamente');
           item.url = uploadTask.snapshot.downloadURL;
-          this.saveImg({
+          this.img = {
             nombre: item.nombreArchivo,
             url: item.url
-          });
+          };
+          this.saveImg( this.img);
         }
       );
     }
+    return this.img;
   }
 
-  private saveImg(imagen: { nombre: string; url: string }) {
+  private saveImg(imagen: ImagenUploaded) {
     this.db.collection(`/${this.CARPETA_IMAGENES}`).add(imagen);
   }
 }

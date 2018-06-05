@@ -28,7 +28,7 @@ import { AddHeroeComponent } from './components/heroe/addHeroe/add-heroe.compone
 import { RemoveHeroeComponent } from './components/heroe/removeHeroe/remove-heroe.component';
 import { EditHeroeComponent } from './components/heroe/editHeroe/edit-heroe.component';
 import { ShowHeroeComponent } from './components/heroe/showHeroe/show-heroe.component';
-import { LoadingComponent } from './components/shared/loading/loading.component';
+// import { LoadingComponent } from './components/shared/loading/loading.component';
 import { FotosComponent } from './components/fotos/fotos.component';
 import { CargaComponent } from './components/carga/carga.component';
 import { NgDropfilesDirective } from './directives/ng-dropfiles.directive';
@@ -57,7 +57,7 @@ import { NgDropfilesDirective } from './directives/ng-dropfiles.directive';
     EditHeroeComponent,
     ShowHeroeComponent,
     KeysPipe,
-    LoadingComponent,
+    // LoadingComponent,
     FotosComponent,
     CargaComponent,
     NgDropfilesDirective,

@@ -3,11 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HeroesRoutingModule } from './heroes/heroes.routing';
 import { SpotyRoutingModule } from './spoty/spoty.routing';
-import { NebularRoutingModule } from './nebular/nebular.routing';
 import { MiscelaneosRoutingModule } from './miscelaneos/miscelaneos.routing';
-import { AuthappRoutingModule } from './authapp/authapp.routing';
 import { FormulariosRoutingModule } from './formularios/formularios.routing';
-import { OpenIdRoutingModule } from './open-id/open-id.routing';
 import { NgrxAuthRoutingModule } from './ngrx-auth/ngrx-auth.routing';
 import { ConsoleRoutingModule } from './console/console.routing';
 import { UdemyRoutingModule } from './udemy/udemy.routing';
@@ -36,11 +33,8 @@ const APP_ROUTES: Routes = [
     }),
     HeroesRoutingModule,
     SpotyRoutingModule,
-    NebularRoutingModule,
     MiscelaneosRoutingModule,
-    AuthappRoutingModule,
     FormulariosRoutingModule,
-    OpenIdRoutingModule,
     NgrxAuthRoutingModule,
     ConsoleRoutingModule,
     UdemyRoutingModule,

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { CONSTANTES } from '../heroe/heroe.constans';
 import { Http } from '@angular/http';
 import { Heroe } from '../heroe/models/I-AddHeroe';
-import { forEach } from '@angular/router/src/utils/collection';
 
 // import { Utils } from '../utils';
 

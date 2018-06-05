@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { AddHeroeService } from './add-heroe.service';
 import { Heroe } from '../models/I-AddHeroe';
 import { Editorial } from '../models/I-Editorial';
+import { CargaImagenesService } from '../../../service/carga-imagenes.service';
+import { FileItem } from '../../../models/file-item';
 
 @Component({
   selector: 'app-add-heroe',
@@ -26,13 +28,20 @@ export class AddHeroeComponent implements OnInit {
 
   fileToUpload: File = null;
 
+  archivos: FileItem[] = [];
+  overDrop: boolean = false;
+
   constructor(
     private heroAddService: AddHeroeService,
-    private router: Router
+    private router: Router,
+    public cargaImagenesSrv: CargaImagenesService
   ) {}
 
   onSubmit() {
     console.log(`Valor: ${JSON.stringify(this.heroe, null, 4)}`);
+
+    this.loadImages();
+
     this.heroAddService.nuevoHeroe(this.heroe).subscribe(
       data => {
         this.router.navigate(['/avenger/heroes']);
@@ -59,5 +68,17 @@ export class AddHeroeComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  loadImages() {
+    this.cargaImagenesSrv.loadImagenesFirebase(this.archivos);
+  }
+
+  pruebaSobreElemento(event) {
+    console.log(event);
+  }
+  cleanFiles() {
+    console.log('limpiar Archivos');
+    this.archivos = [];
   }
 }

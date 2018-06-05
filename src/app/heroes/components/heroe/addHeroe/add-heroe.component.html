@@ -6,59 +6,50 @@
 <form class="fadeIn fast" (ngSubmit)="onSubmit()" #formAlta="ngForm" novalidate>
   <div class="row">
     <div class="form-group col-12 col-sm-12 col-md-3">
-      <ng-container *ngIf="heroe?.img == undefined || heroe?.img === ''; else heroImg">
-        <img class="card-img-top mb-1" src="../../../../assets/img/sinFoto.png" alt="Sin imagen">
-      </ng-container>
-      <ng-template #heroImg="">
-        <img class="img-fluid mb-1" [src]="heroe?.img" [alt]="heroe?.nombre">
-      </ng-template>
-      <div class="input-group">
-        <div class="custom-file">
-          <input class="custom-file-input" id="inputImg" name="imagen" type="file" [value]="heroe.img" accept="image/*" (change)="handleFileInput($event.target.files)">
-          <label class="custom-file-label text-center" for="imagen">
-            <ng-container *ngIf="heroe.img === ''; else heroeTemplate">
-              Añadir Imagen
-            </ng-container>
-            <ng-template #heroeTemplate="">
-              {{heroe.img}}
-            </ng-template>
-          </label>
-        </div>
+      <div appNgDropfiles [archivos]="archivos" (mouseOver)="overDrop = $event" [ngClass]="{'file-over': overDrop}" class="well drop-zone">
+        <img src="assets/img/sinFoto.png" alt="sin foto">
       </div>
       <small class="form-text text-muted">Introduce una ruta para cargar la imagen</small>
+      <tr *ngFor="let archivo of archivos">
+        <td [ngClass]="{ 'text-green': archivo.progreso >=100 }">
+          {{ archivo.nombreArchivo}}
+        </td>
+      </tr>
     </div>
 
-    <div class="form-group col-12 col-sm-12 col-md-9">
-      <div class="row form-group mt-2">
-        <label for="nombreInput">Nombre</label>
-        <input class="form-control" id="nombreInput" name="nombre" type="text" aria-describedby="nombreHelp" [(ngModel)]="heroe.nombre" placeholder="Introduce nombre">
-        <small class="form-text text-muted" id="nombreHelp">Introduce el nombre del super-héroe o anti-héroe.</small>
-      </div>
-      <div class="row form-group">
-        <label for="inputBiografia">Biografía</label>
-        <textarea class="form-control" id="inputBiografia" name="bio" aria-describedby="biografiaHelp" [(ngModel)]="heroe.bio" placeholder="Enter biografia" rows="5"></textarea>
-        <small class="form-text text-muted" id="biografiaHelp">Introduce una pequeña biografía.</small>
+  <div class="form-group col-12 col-sm-12 col-md-9">
+    <div class="row form-group mt-2">
+      <label for="nombreInput">Nombre</label>
+      <input class="form-control" id="nombreInput" name="nombre" type="text" aria-describedby="nombreHelp" [(ngModel)]="heroe.nombre"
+        placeholder="Introduce nombre">
+      <small class="form-text text-muted" id="nombreHelp">Introduce el nombre del super-héroe o anti-héroe.</small>
+    </div>
+    <div class="row form-group">
+      <label for="inputBiografia">Biografía</label>
+      <textarea class="form-control" id="inputBiografia" name="bio" aria-describedby="biografiaHelp" [(ngModel)]="heroe.bio" placeholder="Enter biografia"
+        rows="5"></textarea>
+      <small class="form-text text-muted" id="biografiaHelp">Introduce una pequeña biografía.</small>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-6">
+        <label class="col-form-label" for="aparicion">Fecha</label>
+        <div class="">
+          <input class="form-control text-center" id="inputAparicion" name="aparicion" type="date" [(ngModel)]="heroe.aparicion" placeholder="Aparición">
+        </div>
+        <small class="form-text text-muted">Introduce la fecha de primera aparición</small>
       </div>
 
-      <div class="row">
-        <div class="form-group col-6">
-          <label class="col-form-label" for="aparicion">Fecha</label>
-          <div class="">
-            <input class="form-control text-center" id="inputAparicion" name="aparicion" type="date" [(ngModel)]="heroe.aparicion" placeholder="Aparición">
-          </div>
-          <small class="form-text text-muted">Introduce la fecha de primera aparición</small>
-        </div>
-
-        <div class="form-group col-6">
-          <label class="col-form-label" for="editorial">Editorial</label>
-          <select class="form-control" name="editorial" [(ngModel)]="heroe.editorial">
-            <option value="">Pertenece a...</option>
-            <option *ngFor="let editorial of editoriales" [ngValue]="editorial?.value">{{ editorial?.value }}</option>
-          </select>
-          <small class="form-text text-muted">Introduce la Editorial a la que pertenece</small>
-        </div>
+      <div class="form-group col-6">
+        <label class="col-form-label" for="editorial">Editorial</label>
+        <select class="form-control" name="editorial" [(ngModel)]="heroe.editorial">
+          <option value="">Pertenece a...</option>
+          <option *ngFor="let editorial of editoriales" [ngValue]="editorial?.value">{{ editorial?.value }}</option>
+        </select>
+        <small class="form-text text-muted">Introduce la Editorial a la que pertenece</small>
       </div>
     </div>
+  </div>
   </div>
 
 
@@ -66,6 +57,6 @@
   <div class="container form-group col-12 col-sm-12 col-md-9 desktop">
     <button class="btn btn-success btn-block col-12 col-sm-5 float-left" type="submit">Submit</button>
     <button class="btn btn-danger btn-block col-12 col-sm-5 float-right ajuste" type="button" [routerLink]="['../../../heroes']">Volver</button>
-</div>
+  </div>
 
 </form>

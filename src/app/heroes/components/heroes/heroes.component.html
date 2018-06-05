@@ -12,20 +12,21 @@
 
 <hr>
 <div class="card-columns">
-  <div class="card fadeIn animated fast" *ngFor="let key of heroes | keys">
-    <ng-container *ngIf="heroes[key].img == undefined || heroes[key].img === ''; else heroImg">
+  <div class="card fadeIn animated fast" *ngFor="let heroe of heroes | async">
+    Heroe: {{ heroe | json }}
+    <!-- <ng-container *ngIf="heroe.img == undefined || heroe.img === ''; else heroImg">
       <img class="card-img-top" src="../../../../assets/img/sinFoto.png" alt="Sin imagen">
     </ng-container>
-    <ng-template #heroImg>
-      <img class="card-img-top" [src]="heroes[key].img" [alt]="heroes[key].nombre">
-    </ng-template>
+    <ng-template #heroImg> -->
+      <img class="card-img-top" [src]="heroe.url" [alt]="heroe.nombre">
+    <!-- </ng-template> -->
     <div class="card-body">
-      <h5 class="card-title font-weight-bold">{{ heroes[key].nombre }}</h5>
-      <p class="card-text">{{ heroes[key].bio }}</p>
+      <h5 class="card-title font-weight-bold">{{ heroe.nombre }}</h5>
+      <p class="card-text">{{ heroe.bio }}</p>
       <p class="card-text">
-        <small class="text-muted">{{ heroes[key].aparicion }}</small>
+        <small class="text-muted">{{ heroe.aparicion }}</small>
       </p>
-      <p>{{heroes[key].id}}</p>
+      <p>{{heroe.id}}</p>
       <button type="button" class="btn btn-outline-primary btn-block" [routerLink]="['../heroe/show', key]">
         Ver mas...
       </button>
