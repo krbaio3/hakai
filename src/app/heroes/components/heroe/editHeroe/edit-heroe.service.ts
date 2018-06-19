@@ -5,7 +5,7 @@ import { Http, Headers } from '@angular/http';
 import { Heroe } from '../models/I-AddHeroe';
 // import { Utils } from '../utils';
 
-@Injectable()
+@Injectable({   providedIn: 'root' })
 export class EditHeroeService {
   heroeURL = CONSTANTES.heroeURL;
 
@@ -20,19 +20,19 @@ export class EditHeroeService {
     const headers = this.headers;
     const url = `${this.heroeURL}/${key$}.json`;
 
-    return this.http.put(url, body, { headers }).map(response => {
-      console.log(response.json());
-      return response.json();
-    });
+    // return this.http.put(url, body, { headers }).map(response => {
+    //   console.log(response.json());
+    //   return response.json();
+    // });
   }
 
   getHeroe (key$: string) {
     const url = `${ this.heroeURL }/${ key$ }.json`;
 
-    return this.http.get(url).map(response => {
-      console.log(response.json());
-      return response.json();
-    });
+    // return this.http.get(url).map(response => {
+    //   console.log(response.json());
+    //   return response.json();
+    // });
   }
 
   getEditorial(): Editorial[] {

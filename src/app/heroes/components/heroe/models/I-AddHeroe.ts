@@ -7,5 +7,4 @@ export interface Heroe {
   imgURL?: string;
   key$?: string;
   id?: string;
-  name?: string;
 }

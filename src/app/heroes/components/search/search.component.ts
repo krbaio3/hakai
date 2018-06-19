@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from './search.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Heroe } from '../../models/heroe.model';
 import { ShowHeroesService } from '../heroes/show-heroes.service';
 
 @Component({

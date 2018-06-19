@@ -20,29 +20,29 @@ export class RemoveHeroeComponent implements OnInit {
     private _removeHeroeService: RemoveHeroeService
   ) {
 
-    this.route.params.subscribe((params) => {
-      console.log(params.id);
-      this.id = params['id'];
-      this._removeHeroeService.getHeroe(this.id)
-        .subscribe(heroe => {
-          console.log(heroe);
-          heroe.indice = this.id;
-          this.heroe = heroe;
-        });
-    });
+    // this.route.params.subscribe((params) => {
+    //   console.log(params.id);
+    //   this.id = params['id'];
+    //   this._removeHeroeService.getHeroe(this.id)
+    //     .subscribe(heroe => {
+    //       console.log(heroe);
+    //       heroe.indice = this.id;
+    //       this.heroe = heroe;
+    //     });
+    // });
   }
 
   ngOnInit() {}
 
   deleteHeroe(key$: string) {
-    this._removeHeroeService
-      .deleteHeroe(key$)
-      .subscribe(response => {
-        if (response === null) {
-          this.router.navigate(['/avenger/heroes']);
-        }
-      }, error => {
-        console.error(error);
-      });
+    // this._removeHeroeService
+    //   .deleteHeroe(key$)
+    //   .subscribe(response => {
+    //     if (response === null) {
+    //       this.router.navigate(['/avenger/heroes']);
+    //     }
+    //   }, error => {
+    //     console.error(error);
+    //   });
   }
 }

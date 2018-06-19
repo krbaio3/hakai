@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CONSTANTES } from '../heroe.constans';
 import { Http } from '@angular/http';
 
-@Injectable()
+@Injectable({   providedIn: 'root' })
 export class RemoveHeroeService {
   heroeURL = CONSTANTES.heroeURL;
 
@@ -11,18 +11,18 @@ export class RemoveHeroeService {
   getHeroe (key$: string) {
     const url = `${ this.heroeURL }/${ key$ }.json`;
 
-    return this.http.get(url).map(response => {
-      console.log(response.json());
-      return response.json();
-    });
+    // return this.http.get(url).map(response => {
+    //   console.log(response.json());
+    //   return response.json();
+    // });
   }
 
   deleteHeroe(key$: string) {
     const url = `${this.heroeURL}/${key$}.json`;
 
-    return this.http.delete(url).map(response => {
-      console.log(response.json());
-      return response.json();
-    });
+    // return this.http.delete(url).map(response => {
+    //   console.log(response.json());
+    //   return response.json();
+    // });
   }
 }

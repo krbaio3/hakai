@@ -6,7 +6,8 @@ import {
   AngularFirestore,
   AngularFirestoreCollection
 } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-heroes',
@@ -15,34 +16,37 @@ import { Observable } from 'rxjs/Observable';
   providers: [ShowHeroesService]
 })
 export class HeroesComponent implements OnInit {
-  private itemsCollection: AngularFirestoreCollection<Heroe>;
+  private heroesCollection: AngularFirestoreCollection<Heroe>;
   heroes: Observable<Heroe[]>;
 
   // heroes;
   // heroes: any[] = [];
 
   constructor(
-    private _showHeroeSrv: ShowHeroesService,
     private router: Router,
     private route: ActivatedRoute,
-    private readonly afs: AngularFirestore
+    private readonly afs: AngularFirestore,
+    private showHeroeSrv: ShowHeroesService,
   ) {
     console.log('constructor Heroes');
-    // this._showHeroeSrv.getHeroes().subscribe(
-    //   data => {
-    //     console.log(data);
-    //     this.heroes = data;
-    //   },
-    //   error => console.error(error)
-    // );
-    this.itemsCollection = afs.collection<Heroe>('img');
+    this.heroesCollection = afs.collection<Heroe>('img');
     // .valueChanges() is simple. It just returns the
     // JSON data without metadata. If you need the
     // doc.id() in the value you must persist it your self
     // or use .snapshotChanges() instead. See the addItem()
     // method below for how to persist the id with
     // valueChanges()
-    this.heroes = this.itemsCollection.valueChanges();
+    // this.heroes = this.heroesCollection.valueChanges();
+    this.heroes = this.heroesCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as Heroe;
+          data.imageURL = this.showHeroeSrv.downloadProfileUrl(data.img);
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
   }
 
   ngOnInit() {

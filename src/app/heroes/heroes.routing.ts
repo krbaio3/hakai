@@ -14,9 +14,6 @@ import { EditHeroeComponent } from './components/heroe/editHeroe/edit-heroe.comp
 import { ShowHeroeComponent } from './components/heroe/showHeroe/show-heroe.component';
 
 import { HEROE_ROUTES } from './components/heroe/heroe.routing';
-import { ResolveService } from './service/resolve.service';
-import { FotosComponent } from './components/fotos/fotos.component';
-import { CargaComponent } from './components/carga/carga.component';
 
 const APP_ROUTES: Routes = [
   {
@@ -53,14 +50,6 @@ const APP_ROUTES: Routes = [
         component: SearchComponent
       },
       {
-        path: 'fotos',
-        component: FotosComponent
-      },
-      {
-        path: 'carga',
-        component: CargaComponent
-      },
-      {
         path: '**',
         pathMatch: 'full',
         redirectTo: 'home'
@@ -72,6 +61,6 @@ const APP_ROUTES: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(APP_ROUTES)],
   exports: [RouterModule],
-  providers: [ResolveService]
+  providers: []
 })
 export class HeroesRoutingModule {}

@@ -10,7 +10,7 @@
 // import { Observable } from 'rxjs/Observable';
 // import 'rxjs/add/observable/of';
 
-// @Injectable()
+// @Injectable({   providedIn: 'root' })
 // export class HeroesService {
 //   // private heroes: Heroe[];
 //   heroes: Observable<Heroe[]>;

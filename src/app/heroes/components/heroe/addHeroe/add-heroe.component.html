@@ -7,24 +7,26 @@
   <div class="row">
     <div class="form-group col-12 col-sm-12 col-md-3">
       <div appNgDropfiles [archivos]="archivos" (mouseOver)="overDrop = $event" [ngClass]="{'file-over': overDrop}" class="well drop-zone">
-        <img src="assets/img/sinFoto.png" alt="sin foto">
+        <img src="assets/img/sinFoto.png" alt="sin foto"><img src="assets/img/sinFoto.png" alt="sin foto">
       </div>
-      <small class="form-text text-muted">Introduce una ruta para cargar la imagen</small>
       <tr *ngFor="let archivo of archivos">
         <td [ngClass]="{ 'text-green': archivo.progreso >=100 }">
           {{ archivo.nombreArchivo}}
         </td>
       </tr>
+      <tr>
+        <input type="file" name="button" id="button" (change)="selectFile($event)" placeholder="Image">
+      </tr>
     </div>
 
   <div class="form-group col-12 col-sm-12 col-md-9">
-    <div class="row form-group mt-2">
+    <div class="container row form-group mt-2">
       <label for="nombreInput">Nombre</label>
       <input class="form-control" id="nombreInput" name="nombre" type="text" aria-describedby="nombreHelp" [(ngModel)]="heroe.nombre"
         placeholder="Introduce nombre">
       <small class="form-text text-muted" id="nombreHelp">Introduce el nombre del super-héroe o anti-héroe.</small>
     </div>
-    <div class="row form-group">
+    <div class="container row form-group">
       <label for="inputBiografia">Biografía</label>
       <textarea class="form-control" id="inputBiografia" name="bio" aria-describedby="biografiaHelp" [(ngModel)]="heroe.bio" placeholder="Enter biografia"
         rows="5"></textarea>

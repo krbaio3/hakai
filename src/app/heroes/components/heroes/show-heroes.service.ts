@@ -1,44 +1,24 @@
 import { Injectable } from '@angular/core';
-import { CONSTANTES } from '../heroe/heroe.constans';
-import { Http } from '@angular/http';
-import { Heroe } from '../heroe/models/I-AddHeroe';
 
-// import { Utils } from '../utils';
+import { Observable } from 'rxjs';
 
-@Injectable()
+import { AngularFireStorage } from 'angularfire2/storage';
+
+@Injectable({
+  providedIn: 'root'
+})
 export class ShowHeroesService {
+  private CARPETA_IMAGENES = 'img';
 
-  heroesURL = CONSTANTES.heroesURL;
-  heroes = [];
+  profileURL: Observable<string | null>;
 
-  constructor(private http: Http) {}
+  constructor(private storage: AngularFireStorage) {}
 
-  // getHeroes2() {
-  //   const url = `${ this.heroesURL }`;
-
-  //   return this.http.get(this.heroesURL).map(response => {
-  //     console.log(response.json());
-  //     const res = response.json();
-  //     for (let key$ in res) {
-  //       if (res.hasOwnProperty(key$)) {
-  //         this.heroes.push(res[key$]);
-  //       }
-  //     }
-  //     console.log(this.heroes);
-
-  //     // for (let heroe of res) {
-  //     //   console.log(heroe);
-  //     //   this.heroes.push(heroe);
-  //     // }
-  //     return this.heroes;
-  //   });
-  // }
-
-  getHeroes () {
-    return this.http.get(this.heroesURL)
-      .map(response => {
-        console.log(response.json());
-        return response.json();
-      });
+  downloadProfileUrl(profileImg: string): Observable<string> {
+    const ref = this.storage.ref(`${this.CARPETA_IMAGENES}/${profileImg}`);
+    this.profileURL = ref.getDownloadURL();
+    return this.profileURL;
   }
+
+  ///////////////////////////////////
 }

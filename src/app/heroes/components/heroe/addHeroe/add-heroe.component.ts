@@ -5,8 +5,13 @@ import { Router } from '@angular/router';
 import { AddHeroeService } from './add-heroe.service';
 import { Heroe } from '../models/I-AddHeroe';
 import { Editorial } from '../models/I-Editorial';
-import { CargaImagenesService } from '../../../service/carga-imagenes.service';
 import { FileItem } from '../../../models/file-item';
+
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-add-heroe',
@@ -15,47 +20,48 @@ import { FileItem } from '../../../models/file-item';
   providers: [AddHeroeService]
 })
 export class AddHeroeComponent implements OnInit {
-  heroe: Heroe = {
-    nombre: '',
-    bio: '',
-    editorial: '',
-    aparicion: '',
-    img: '',
-    imgURL: ''
-  };
+
+  heroe: Heroe;
 
   editoriales: Editorial[];
+  progress: { porcentaje: number } = { porcentaje: 0 };
 
   fileToUpload: File = null;
-
-  archivos: FileItem[] = [];
+  archivo: FileItem;
   overDrop: boolean = false;
+  selectedFiles: FileList;
 
   constructor(
     private heroAddService: AddHeroeService,
     private router: Router,
-    public cargaImagenesSrv: CargaImagenesService
-  ) {}
-
-  onSubmit() {
-    console.log(`Valor: ${JSON.stringify(this.heroe, null, 4)}`);
-
-    this.loadImages();
-
-    this.heroAddService.nuevoHeroe(this.heroe).subscribe(
-      data => {
-        this.router.navigate(['/avenger/heroes']);
-      },
-      error => console.error(error)
-    );
+  ) {
+    this.resetHero();
   }
 
   ngOnInit(): void {
     this.editoriales = this.heroAddService.getEditorial();
   }
 
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+  onSubmit() {
+    console.log(`Valor: ${JSON.stringify(this.heroe, null, 4)}`);
+
+    this.heroe = Object.assign(this.heroe, {
+      img: this.selectedFiles.item(0).name
+    });
+
+    this.loadImages();
+      // .then(() => this.router.navigate(['/avenger/heroes']))
+      // .catch(error => console.error(`Error: ${error}`));
+  }
+
+  selectFile(event) {
+    const file = event.target.files.item(0);
+
+    if (file.type.match('image.*')) {
+      this.selectedFiles = event.target.files;
+    } else {
+      alert('invalid format!');
+    }
   }
 
   uploadFileToActivity() {
@@ -70,15 +76,41 @@ export class AddHeroeComponent implements OnInit {
     );
   }
 
-  loadImages() {
-    this.cargaImagenesSrv.loadImagenesFirebase(this.archivos);
+  /////////////////////////////
+
+  private loadImages() {
+    const file = this.selectedFiles.item(0);
+    this.selectedFiles = undefined;
+
+    this.archivo = new FileItem(file);
+    this.heroAddService.uploadImagenesFirebase(this.heroe, this.archivo, this.progress).then((response) => {
+      console.log('Entra', response);
+         this.router.navigate(['/avenger/heroes']);
+    }).catch((error) => {
+      console.error(`Error: ${error}`)
+    });
+  }
+
+  private resetHero(): void {
+    // Object.keys(this.heroe).forEach(k => (this.heroe[k] = ''));
+    // console.log(this.heroe);
+
+    this.heroe = {
+      nombre: '',
+      bio: '',
+      editorial: '',
+      aparicion: '',
+      img: '',
+      imgURL: ''
+    };
   }
 
   pruebaSobreElemento(event) {
     console.log(event);
   }
+
   cleanFiles() {
     console.log('limpiar Archivos');
-    this.archivos = [];
+    this.archivo = null;
   }
 }

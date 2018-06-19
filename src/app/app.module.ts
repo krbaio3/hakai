@@ -17,6 +17,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 // Rutas
 import { AppRoutingModule } from './app-routing.module';
@@ -29,12 +30,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 // Modulos
-import { SpotyModule } from './spoty/spoty.module';
 import { HeroesModule } from './heroes/heroes.module';
-import { MiscelaneosModule } from './miscelaneos/miscelaneos.module';
 import { FormulariosModule } from './formularios/formularios.module';
-import { ConsoleModule } from './console/console.module';
-import { NgrxAuthModule } from './ngrx-auth/ngrx-auth.module';
 import { UdemyModule } from './udemy/udemy.module';
 
 registerLocaleData(localeEs);
@@ -47,15 +44,12 @@ registerLocaleData(localeEs);
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
+    AngularFireDatabaseModule,
     FormsModule,
     HttpModule,
-    SpotyModule,
     HeroesModule,
     HttpClientModule,
-    MiscelaneosModule,
     FormulariosModule,
-    ConsoleModule,
-    NgrxAuthModule,
     AppRoutingModule,
     UdemyModule,
     StoreDevtoolsModule.instrument({

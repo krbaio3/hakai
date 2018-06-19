@@ -13,7 +13,7 @@ import { KeysPipe } from './components/heroe/keys.pipe';
 
 // Servicios. Este es para AngularFirebase, de momento, se queda para otra iteracion
 // import { HeroesService } from './service/heroes.service';
-import { CargaImagenesService } from './service/carga-imagenes.service';
+// import { CargaImagenesService } from './service/carga-imagenes.service';
 
 // Componentes
 import { AvengerComponent } from './avenger.component';
@@ -29,8 +29,8 @@ import { RemoveHeroeComponent } from './components/heroe/removeHeroe/remove-hero
 import { EditHeroeComponent } from './components/heroe/editHeroe/edit-heroe.component';
 import { ShowHeroeComponent } from './components/heroe/showHeroe/show-heroe.component';
 // import { LoadingComponent } from './components/shared/loading/loading.component';
-import { FotosComponent } from './components/fotos/fotos.component';
-import { CargaComponent } from './components/carga/carga.component';
+// import { FotosComponent } from './components/fotos/fotos.component';
+// import { CargaComponent } from './components/carga/carga.component';
 import { NgDropfilesDirective } from './directives/ng-dropfiles.directive';
 
 @NgModule({
@@ -58,10 +58,12 @@ import { NgDropfilesDirective } from './directives/ng-dropfiles.directive';
     ShowHeroeComponent,
     KeysPipe,
     // LoadingComponent,
-    FotosComponent,
-    CargaComponent,
+    // FotosComponent,
+    // CargaComponent,
     NgDropfilesDirective,
   ],
-  providers: [CargaImagenesService],
+  providers: [
+    // CargaImagenesService
+  ],
 })
 export class HeroesModule {}

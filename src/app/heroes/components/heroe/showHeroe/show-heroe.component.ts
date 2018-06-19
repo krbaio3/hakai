@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import {ShowHeroeService} from './show-heroe.service';
 import { Heroe } from '../models/I-AddHeroe';
@@ -28,10 +28,10 @@ export class ShowHeroeComponent implements OnInit {
       console.log(params.id);
       this.id = params['id'];
       this._showHeroeService.getHeroe(this.id)
-      .subscribe(heroe => {
-        console.log(heroe);
-        this.heroe = heroe;
-      });
+      // .subscribe(heroe => {
+      //   console.log(heroe);
+      //   this.heroe = heroe;
+      // });
     });
   }
 

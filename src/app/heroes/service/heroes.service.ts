@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Heroe } from '../models/heroe.model';
 
 
-@Injectable()
+@Injectable({   providedIn: 'root' })
 export class HeroesService {
 
   private heroes: Heroe[];
