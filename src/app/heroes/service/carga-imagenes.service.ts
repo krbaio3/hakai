@@ -49,7 +49,7 @@ export class CargaImagenesService {
         }
       );
     }
-    return this.img;
+    // return this.img;
   }
 
   private saveImg(imagen: ImagenUploaded) {
