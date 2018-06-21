@@ -29,11 +29,17 @@ export class EditHeroeComponent implements OnInit {
     private router: Router
   ) {
     this.route.params.subscribe(params => {
-      console.log(`entra en editar con parametros: ${JSON.stringify(params, null, 4)}`);
+      console.log(
+        `entra en editar con parametros: ${JSON.stringify(params, null, 4)}`
+      );
       this.id = params['id'];
-    //   this.editHeroeService
-    //     .getHeroe(this.id)
-    //     .subscribe(heroe => (this.heroe = heroe));
+      this.editHeroeService
+        // .getDataHeroe(this.id);
+        .getHeroeAngularFire(this.id)
+        .subscribe(heroe => {
+          console.log(heroe);
+          this.heroe = heroe;
+        });
     });
   }
 

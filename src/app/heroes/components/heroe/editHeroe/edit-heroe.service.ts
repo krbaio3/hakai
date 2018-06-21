@@ -3,8 +3,7 @@ import { Editorial } from '../models/I-Editorial';
 import { CONSTANTES } from '../heroe.constans';
 import { Http, Headers } from '@angular/http';
 import { Heroe } from '../models/I-AddHeroe';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestoreDocument, AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
 // import { Utils } from '../utils';
@@ -20,7 +19,7 @@ export class EditHeroeService {
   private itemDoc: AngularFirestoreDocument<Heroe>;
   item: Observable<Heroe>;
 
-  constructor(private http: Http, private db: AngularDatabase) {}
+  constructor(private http: Http, private afs: AngularFirestore) {}
 
   actualizarHeroe(heroe: Heroe, key$: string) {
     const body = JSON.stringify(heroe);
@@ -43,7 +42,10 @@ export class EditHeroeService {
   }
 
   getDataHeroe(id: string) {
-    const docRef = firebase.firestore().db.collection('img').doc(id);
+    const docRef = firebase
+      .firestore()
+      .collection('img')
+      .doc(id);
 
     docRef
       .get()
@@ -60,8 +62,11 @@ export class EditHeroeService {
       });
   }
 
-  getHeroeAngularFire(){
-
+  getHeroeAngularFire(id: string): Observable<Heroe> {
+    this.itemDoc = this.afs.doc<Heroe>(`img/${id}`);
+    this.item = this.itemDoc.valueChanges();
+    console.log(this.item);
+    return this.item;
   }
 
   getEditorial(): Editorial[] {

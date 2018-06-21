@@ -10,11 +10,13 @@
         <img class="card-img-top mb-1" src="../../../../assets/img/sinFoto.png" alt="Sin imagen">
       </ng-container>
       <ng-template #heroImg>
-        <img [src]="heroe?.img" [alt]="heroe?.nombre" class="img-fluid mb-1">
+        <img [src]="heroe?.imgURL" [alt]="heroe?.nombre" class="img-fluid mb-1">
       </ng-template>
       <div class="input-group">
         <div class="custom-file">
-        <input class="custom-file-input" id="inputImg" name="imagen" type="file" [value]="heroe.img" accept="image/*" (change)="handleFileInput($event.target.files)">
+          <span>{{heroe.img}}</span>
+          <button type="button" name="" id="" class="btn btn-info btn-xs btn-block">Cambiar Imagen</button>
+          <!-- <input class="custom-file-input" id="inputImg" name="imagen" type="file" [value]="heroe.img" accept="image/*" (change)="handleFileInput($event.target.files)">
           <label class="custom-file-label text-center" for="imagen">
             <ng-container *ngIf="heroe?.img == undefined || heroe?.img === ''; else heroeTemplate">
               Añadir Imagen
@@ -22,7 +24,7 @@
             <ng-template #heroeTemplate>
               {{heroe.img}}
             </ng-template>
-          </label>
+          </label>-->
         </div>
       </div>
       <small class="form-text text-muted">Introduce una ruta para cargar la imagen</small>
