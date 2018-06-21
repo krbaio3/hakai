@@ -79,7 +79,7 @@ export class NgDropfilesDirective {
 
   private _archivoYaupdate(nameFile: string): boolean {
     for (const archivo of this.archivos) {
-      if (archivo.nombreArchivo === nameFile) {
+      if (archivo.nombreImagen === nameFile) {
         console.log(`el archivo ${nameFile} ya ha sido agregado`);
         return true;
       }

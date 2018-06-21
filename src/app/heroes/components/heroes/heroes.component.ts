@@ -41,7 +41,9 @@ export class HeroesComponent implements OnInit {
       map(actions =>
         actions.map(a => {
           const data = a.payload.doc.data() as Heroe;
-          data.imageURL = this.showHeroeSrv.downloadProfileUrl(data.img);
+          // Si tiene el atributo img con el nombre, se busca y se descarga la imagen.
+          //if (data.img) { data.imageURL = this.showHeroeSrv.downloadProfileUrl(data.img); }
+          // data.imageURL = this.showHeroeSrv.downloadProfileUrl(data.img);
           const id = a.payload.doc.id;
           return { id, ...data };
         })
