@@ -1,34 +1,44 @@
-<h1>Heroe:
-  <small class="text-uppercase h2">{{ heroe.nombre }}</small>
-</h1>
+<section class="container row">
+  <h1 class="text-truncate">Heroe:
+    <small class="text-uppercase h2 text-truncate">{{ heroe.nombre }}</small>
+  </h1>
+</section>
 <hr>
 <br>
-<form class="fadeIn fast" (ngSubmit)="onEdit()">
-  <div class="row">
-    <div class="form-group col-12 col-sm-12 col-md-3">
+<form class="fadeIn fast container" (ngSubmit)="onEdit(heroe)">
+  <article class="row">
+    <section class="form-group col-12 col-sm-12 col-md-3">
       <ng-container *ngIf="heroe?.img == undefined || heroe?.img === ''; else heroImg">
-        <img class="card-img-top mb-1" src="../../../../assets/img/sinFoto.png" alt="Sin imagen">
+        <img class="card-img-top mb-1 col-12" src="../../../../assets/img/sinFoto.png" alt="Sin imagen">
       </ng-container>
       <ng-template #heroImg>
-        <img [src]="heroe?.imgURL" [alt]="heroe?.nombre" class="img-fluid mb-1">
+        <img [src]="heroe?.imgURL" [alt]="heroe?.nombre" class="img-fluid mb-1 col-12">
       </ng-template>
-      <div class="input-group">
-        <div class="custom-file">
-          <span>{{heroe.img}}</span>
-          <button type="button" name="" id="" class="btn btn-info btn-xs btn-block">Cambiar Imagen</button>
-          <!-- <input class="custom-file-input" id="inputImg" name="imagen" type="file" [value]="heroe.img" accept="image/*" (change)="handleFileInput($event.target.files)">
-          <label class="custom-file-label text-center" for="imagen">
+      <section class="col-12">
+        <aside *ngIf="!habilitarInputFile">
+          <aside class="row">
+            <span class="text-center mb-3 col-12">{{heroe.img}}</span>
+          </aside>
+          <aside class="row">
+            <button type="button" name="loadImage" id="loadImage" class="btn btn-info btn-xs btn-block col-12" (click)="habilitarInputFile = !habilitarInputFile">Cambiar Imagen</button>
+          </aside>
+        </aside>
+        <!-- Habilitar boton input -->
+        <aside *ngIf="habilitarInputFile" class="input-group">
+          <input class="custom-file-input" id="inputImg" name="imagen" type="file" accept="image/*" (change)="handleFileInput($event)">
+          <label class="custom-file-label text-center text-truncate" for="imagen">
             <ng-container *ngIf="heroe?.img == undefined || heroe?.img === ''; else heroeTemplate">
               Añadir Imagen
             </ng-container>
             <ng-template #heroeTemplate>
               {{heroe.img}}
             </ng-template>
-          </label>-->
-        </div>
-      </div>
-      <small class="form-text text-muted">Introduce una ruta para cargar la imagen</small>
-    </div>
+          </label>
+          <small class="form-text text-muted text-center">Introduce una ruta para cargar la imagen</small>
+        </aside>
+        <!-- Fin boton input -->
+      </section>
+    </section>
 
     <div class="form-group col-12 col-sm-12 col-md-9">
       <div class="row form-group mt-2">
@@ -64,12 +74,10 @@
         </div>
       </div>
     </div>
-  </div>
-
-
-  <br>
-  <div class="container form-group col-12 col-sm-12 col-md-9 desktop">
-    <button class="btn btn-success btn-block col-12 col-sm-5 float-left" type="submit">Submit</button>
-    <button class="btn btn-danger btn-block col-12 col-sm-5 float-right ajuste" type="button" [routerLink]="['../../../heroes']">Volver</button>
-  </div>
+    <br>
+    <aside class="container form-group col-12 col-sm-12 col-md-9 desktop">
+      <button class="btn btn-success btn-block col-12 col-sm-5 float-left" type="submit">Submit</button>
+      <button class="btn btn-danger btn-block col-12 col-sm-5 float-right ajuste" type="button" [routerLink]="['../../../heroes']">Volver</button>
+    </aside>
+  </article>
 </form>

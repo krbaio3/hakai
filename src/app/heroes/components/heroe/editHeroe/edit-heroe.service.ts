@@ -1,44 +1,47 @@
 import { Injectable } from '@angular/core';
 import { Editorial } from '../models/I-Editorial';
-import { CONSTANTES } from '../heroe.constans';
-import { Http, Headers } from '@angular/http';
 import { Heroe } from '../models/I-AddHeroe';
-import { AngularFirestoreDocument, AngularFirestore } from 'angularfire2/firestore';
+import {
+  AngularFirestoreDocument,
+  AngularFirestore,
+  AngularFirestoreCollection,
+  DocumentReference
+} from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
-// import { Utils } from '../utils';
+import { FileItem } from '../../../models/file-item';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Injectable({ providedIn: 'root' })
 export class EditHeroeService {
-  heroeURL = CONSTANTES.heroeURL;
+  private basePath = 'img';
+  private heroeDoc: AngularFirestoreDocument<Heroe>;
+  private heroe: Observable<Heroe>;
+  private currentFileUpload: FileItem;
+  progress: { porcentaje: number } = { porcentaje: 0 };
+  private heroeCollection: AngularFirestoreCollection<Heroe>;
 
-  headers: Headers = new Headers({
-    'Content-Type': 'application/json'
-  });
+  constructor(
+    private afs: AngularFirestore,
+    private adb: AngularFireDatabase
+  ) {}
 
-  private itemDoc: AngularFirestoreDocument<Heroe>;
-  item: Observable<Heroe>;
+  updateHeroe(heroe: Heroe, id: string) {
+    this.heroeDoc = this.afs.doc<Heroe>(`${this.basePath}/${id}`);
 
-  constructor(private http: Http, private afs: AngularFirestore) {}
+    return this.heroeDoc.update(heroe);
 
-  actualizarHeroe(heroe: Heroe, key$: string) {
-    const body = JSON.stringify(heroe);
-    const headers = this.headers;
-    const url = `${this.heroeURL}/${key$}.json`;
-
-    // return this.http.put(url, body, { headers }).map(response => {
-    //   console.log(response.json());
-    //   return response.json();
-    // });
-  }
-
-  getHeroe(key$: string) {
-    const url = `${this.heroeURL}/${key$}.json`;
-
-    // return this.http.get(url).map(response => {
-    //   console.log(response.json());
-    //   return response.json();
-    // });
+    // .then(() => {
+    //   console.log('ha ido bien');
+    //   if (!equals && this.imageOlder !== '') {
+    //     this.uploadService.deleteFileStorage(this.imageOlder);
+    //     this.upload();
+    //   } else if (this.imageOlder === '') {
+    //     this.upload();
+    //   }
+    //   this.clearState();
+    // })
+    // .catch(error => console.log('ha ido MAL'));
   }
 
   getDataHeroe(id: string) {
@@ -47,30 +50,88 @@ export class EditHeroeService {
       .collection('img')
       .doc(id);
 
-    docRef
-      .get()
-      .then(function(doc) {
-        if (doc.exists) {
-          console.log('Document data:', doc.data());
-        } else {
-          // doc.data() will be undefined in this case
-          console.log('No such document!');
-        }
-      })
-      .catch(function(error) {
-        console.log('Error getting document:', error);
-      });
+    return docRef
+      .get();
+      // .then((doc) => {
+      //   doc.exists ? console.log('Document data:', doc.data()) :
+      //     // doc.data() will be undefined in this case
+      //     console.warn('No such document!');
+      // })
+      // .catch((error) => {
+      //   console.error('Error getting document:', error);
+      // });
   }
 
   getHeroeAngularFire(id: string): Observable<Heroe> {
-    this.itemDoc = this.afs.doc<Heroe>(`img/${id}`);
-    this.item = this.itemDoc.valueChanges();
-    console.log(this.item);
-    return this.item;
+    this.heroeDoc = this.afs.doc<Heroe>(`img/${id}`);
+    this.heroe = this.heroeDoc.valueChanges();
+    console.log(this.heroe);
+    return this.heroe;
   }
 
   getEditorial(): Editorial[] {
     // crear una tabla MongoDB
     return [{ value: 'DC', code: 'dc' }, { value: 'Marvel', code: 'marvel' }];
+  }
+
+  deleteFileStorage(name: string) {
+    const storageRef = firebase.storage().ref();
+
+    return storageRef.child(`${this.basePath}/${name}`).delete();
+  }
+
+  upload(file: File, heroe: Heroe) {
+    this.currentFileUpload = new FileItem(file);
+    return this.uploadImagenesFirebase(heroe, this.currentFileUpload, this.progress);
+  }
+
+  ///////////////////////////////////
+
+  private saveImg(imagen: FileItem) {
+    console.log(`esta es la imagen: ${imagen}`);
+    this.adb.list(`${this.basePath}/`).push(imagen);
+  }
+
+  private uploadImagenesFirebase(
+    heroe: Heroe,
+    fileUpload: FileItem,
+    progress: { porcentaje: number }
+  ): Promise<DocumentReference> {
+    return new Promise((resolve, reject) => {
+      console.log(fileUpload);
+
+      const storageRef = firebase.storage().ref();
+      const uploadTask: firebase.storage.UploadTask = storageRef
+        .child(`${this.basePath}/ ${fileUpload.imagen.name}`)
+        .put(fileUpload.imagen);
+
+      uploadTask.on(
+        firebase.storage.TaskEvent.STATE_CHANGED,
+        (snapshot: firebase.storage.UploadTaskSnapshot) => {
+          // in progress
+          const snap = snapshot as firebase.storage.UploadTaskSnapshot;
+          progress.porcentaje = Math.round(
+            (snap.bytesTransferred / snap.totalBytes) * 100
+          );
+        },
+        error => {
+          // error fileUpload
+          console.error('Error al subir el archivo: ', error);
+          reject(error);
+        },
+        () => {
+          // success
+          uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+            console.log('File available at', downloadURL);
+            heroe.imgURL = downloadURL;
+            heroe.img = fileUpload.imagen.name;
+            fileUpload.url = downloadURL;
+            fileUpload.nombreImagen = fileUpload.imagen.name;
+            this.saveImg(fileUpload);
+            resolve(this.heroeCollection.add(heroe));
+          });
+        }
+      );
+    });
   }
 }
