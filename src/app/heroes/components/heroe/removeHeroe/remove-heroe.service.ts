@@ -1,28 +1,54 @@
 import { Injectable } from '@angular/core';
-import { CONSTANTES } from '../heroe.constans';
-import { Http } from '@angular/http';
+import { Heroe } from '../../../models/heroe.model';
+import {
+  AngularFirestoreDocument,
+  AngularFirestore
+} from 'angularfire2/firestore';
+import { Observable } from 'rxjs';
+import * as firebase from 'firebase';
 
-@Injectable({   providedIn: 'root' })
+@Injectable({ providedIn: 'root' })
 export class RemoveHeroeService {
-  heroeURL = CONSTANTES.heroeURL;
+  private basePath = 'img';
+  private heroeDoc: AngularFirestoreDocument<Heroe>;
+  private heroe: Observable<Heroe>;
 
-  constructor(private http: Http) {}
+  constructor(
+    private afs: AngularFirestore  ) {}
 
-  getHeroe (key$: string) {
-    const url = `${ this.heroeURL }/${ key$ }.json`;
-
-    // return this.http.get(url).map(response => {
-    //   console.log(response.json());
-    //   return response.json();
-    // });
+  getHeroeAngularFire(id: string): Observable<Heroe> {
+    this.heroeDoc = this.afs.doc<Heroe>(`img/${id}`);
+    this.heroe = this.heroeDoc.valueChanges();
+    console.log(this.heroe);
+    return this.heroe;
   }
 
-  deleteHeroe(key$: string) {
-    const url = `${this.heroeURL}/${key$}.json`;
+  getEditorial() {
+    // crear una tabla MongoDB
+    return [{ value: 'DC', code: 'dc' }, { value: 'Marvel', code: 'marvel' }];
+  }
 
-    // return this.http.delete(url).map(response => {
-    //   console.log(response.json());
-    //   return response.json();
-    // });
+  deleteFileupload(heroe: Heroe) {
+    this.deleteFileDatabase(heroe.id)
+      .then(() => {
+        console.log('Borrado FileDataBase');
+        this.deleteFileStorage(heroe.img);
+      })
+      .catch(error => console.error(`ERROR: ${error}`));
+  }
+
+  /////////////////////////
+
+  private deleteFileDatabase(key: string) {
+    return this.afs.doc(`${this.basePath}/${key}`).delete();
+  }
+
+  private deleteFileStorage(name: string) {
+    const storageRef = firebase.storage().ref();
+    storageRef
+      .child(`${this.basePath}/${name}`)
+      .delete()
+      .then(() => console.log(`Se ha borrado ${name}`))
+      .catch(error => console.error(`Error: ${JSON.stringify(error, null, 4)}`));
   }
 }

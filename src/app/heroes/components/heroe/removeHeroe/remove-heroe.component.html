@@ -1,30 +1,65 @@
-<h1 class="fadeIn animated">{{heroe.nombre | uppercase}}
-  <small>({{heroe.aparicion | date:'yyyy'}})</small>
-</h1>
+<section class="container row">
+  <h1 class="text-truncate">Heroe:
+    <small class="text-uppercase h2 text-truncate">{{ heroe.nombre }}</small>
+  </h1>
+</section>
 <hr>
-<div class="row fadeIn animated fast">
-  <div class="col-md-4">
-    <ng-container *ngIf="heroe?.img == undefined || heroe?.img === ''; else heroImg">
-      <img class="card-img-top" src="assets/img/sinFoto.png" alt="Sin imagen">
-    </ng-container>
-    <ng-template #heroImg>
-      <img [src]="heroe?.img" [alt]="heroe?.nombre" class="img-fluid">
-    </ng-template>
-    <br>
-    <br>
-  </div>
-  <div class="col-md-8">
-    <p>
-      {{heroe.bio}}
-    </p>
-    <div>
-      <img *ngIf="heroe.editorial === 'DC'" src="assets/brand/DC.png" [alt]="heroe.editorial" class="img-fluid editorial">
-      <img *ngIf="heroe.editorial === 'Marvel'" src="assets/brand/marvel.jpg" [alt]="heroe.editorial" class="img-fluid editorial">
-    </div>
-  </div>
-</div>
 <br>
-<br>
-<button class="btn btn-primary btn-block col-12 col-sm-5 float-right ajuste" type="button" [routerLink]="['../../../heroes']">Volver</button>
-<button class="btn btn-danger btn-block col-12 col-sm-5 float-left" type="button" (click)="deleteHeroe(heroe.indice)">Borrar</button>
+<form class="fadeIn fast container" (ngSubmit)="deleteHeroe(heroe)">
+  <article class="row">
+    <section class="form-group col-12 col-sm-12 col-md-3">
+      <ng-container *ngIf="heroe?.img == undefined || heroe?.img === ''; else heroImg">
+        <img class="card-img-top mb-1 col-12" src="../../../../assets/img/sinFoto.png" alt="Sin imagen">
+      </ng-container>
+      <ng-template #heroImg>
+        <img [src]="heroe?.imgURL" [alt]="heroe?.nombre" class="img-fluid mb-1 col-12">
+      </ng-template>
+      <section class="col-12">
+        <aside class="row">
+          <span class="text-center mb-3 col-12">{{heroe.img}}</span>
+        </aside>
+      </section>
+    </section>
 
+    <div class="form-group col-12 col-sm-12 col-md-9">
+      <div class="row form-group mt-2">
+        <label for="nombreInput">Nombre</label>
+        <input class="form-control" [(ngModel)]="heroe.nombre" id="nombreInput" type="text" aria-describedby="nombreHelp" placeholder="Introduce nombre"
+          name="nombre">
+        <small class="form-text text-muted" id="nombreHelp">Introduce el nombre del super-héroe o anti-héroe.</small>
+      </div>
+      <div class="row form-group">
+        <label for="inputBiografia">Biografía</label>
+        <textarea class="form-control" [(ngModel)]="heroe.bio" id="inputBiografia" aria-describedby="biografiaHelp" placeholder="Enter biografia"
+          name="bio" rows="5"></textarea>
+        <small class="form-text text-muted" id="biografiaHelp">Introduce una pequeña biografía.</small>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-6">
+          <label class="col-form-label" for="aparicion">Fecha</label>
+          <div class="">
+            <input class="form-control text-center" [(ngModel)]="heroe.aparicion" id="inputAparicion" type="date" placeholder="Aparición"
+              name="aparicion">
+          </div>
+          <small class="form-text text-muted">Introduce la fecha de primera aparición</small>
+        </div>
+
+        <div class="form-group col-6">
+          <label class="col-form-label" for="editorial">Editorial</label>
+          <select class="form-control" name="editorial" [(ngModel)]="heroe.editorial">
+            <option value="">Pertenece a...</option>
+            <option *ngFor="let editorial of editoriales" [ngValue]="editorial?.value">{{ editorial?.value }}</option>
+          </select>
+          <small class="form-text text-muted">Introduce la Editorial a la que pertenece</small>
+        </div>
+      </div>
+    </div>
+    <br>
+    <aside class="container form-group col-12 col-sm-12 col-md-9 desktop">
+      <button class="btn btn-success btn-block col-12 col-sm-5 float-left" type="submit">Borrar</button>
+      <button class="btn btn-danger btn-block col-12 col-sm-5 float-right ajuste" type="button" [routerLink]="['../../../heroes']">Volver</button>
+    </aside>
+  </article>
+
+</form>

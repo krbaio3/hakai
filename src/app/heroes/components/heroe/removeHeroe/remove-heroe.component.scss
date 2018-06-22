@@ -1,12 +1,28 @@
 $breakpoint-tablet: 576px;
-
+$breakpoint-desktop: 767px;
 img {
   margin-top: 15%;
 }
 
-.editorial {
-  height: 32px;
-  width: 32px;
+.cortar {
+  width: 100%; // height: 20px;
+  padding: 20px; // border: 1px solid blue;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  transition: all 1s;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.cortar:hover {
+  width: 100%;
+  white-space: initial;
+  overflow: visible;
+  cursor: pointer;
 }
 
 @media (min-width: $breakpoint-tablet) {
@@ -15,3 +31,8 @@ img {
   }
 }
 
+@media (min-width: $breakpoint-desktop) {
+  .desktop {
+    margin-left: 25% !important;
+  }
+}

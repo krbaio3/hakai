@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoveHeroeService } from './remove-heroe.service';
+import { Editorial } from '../models/I-Editorial';
+import { Heroe } from '../models/I-AddHeroe';
 // import { HeroesService } from '../../../service/heroes.service';
 
 @Component({
@@ -10,39 +12,32 @@ import { RemoveHeroeService } from './remove-heroe.service';
   providers: [RemoveHeroeService]
 })
 export class RemoveHeroeComponent implements OnInit {
-
   heroe: any = {};
   id: string;
+  editoriales: Editorial[];
 
-  constructor (
+  constructor(
     private route: ActivatedRoute,
-    private router: Router,
-    private _removeHeroeService: RemoveHeroeService
+    private removeHeroeService: RemoveHeroeService,
+    private router: Router
   ) {
-
-    // this.route.params.subscribe((params) => {
-    //   console.log(params.id);
-    //   this.id = params['id'];
-    //   this._removeHeroeService.getHeroe(this.id)
-    //     .subscribe(heroe => {
-    //       console.log(heroe);
-    //       heroe.indice = this.id;
-    //       this.heroe = heroe;
-    //     });
-    // });
+    this.route.params.subscribe(params => {
+      console.log(
+        `entra en editar con parametros: ${JSON.stringify(params, null, 4)}`
+      );
+      this.id = params['id'];
+      this.removeHeroeService.getHeroeAngularFire(this.id).subscribe(heroe => {
+        console.log(heroe);
+        this.heroe = heroe;
+      });
+    });
   }
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    this.editoriales = this.removeHeroeService.getEditorial();
+  }
 
-  deleteHeroe(key$: string) {
-    // this._removeHeroeService
-    //   .deleteHeroe(key$)
-    //   .subscribe(response => {
-    //     if (response === null) {
-    //       this.router.navigate(['/avenger/heroes']);
-    //     }
-    //   }, error => {
-    //     console.error(error);
-    //   });
+  deleteHeroe(heroe: Heroe): void {
+    this.removeHeroeService.deleteFileupload(heroe);
   }
 }
