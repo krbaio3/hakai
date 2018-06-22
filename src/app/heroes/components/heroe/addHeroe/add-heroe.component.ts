@@ -12,6 +12,7 @@ import {
   AngularFirestoreCollection,
   AngularFirestoreDocument
 } from 'angularfire2/firestore';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-heroe',
@@ -29,7 +30,7 @@ export class AddHeroeComponent implements OnInit {
   fileToUpload: File = null;
   archivo: FileItem;
   overDrop: boolean = false;
-  selectedFiles: FileList;
+  selectedFile: File;
 
   constructor(
     private heroAddService: AddHeroeService,
@@ -46,7 +47,7 @@ export class AddHeroeComponent implements OnInit {
     console.log(`Valor: ${JSON.stringify(this.heroe, null, 4)}`);
 
     this.heroe = Object.assign(this.heroe, {
-      img: this.selectedFiles.item(0).name
+      img: this.selectedFile.name
     });
 
     this.loadImages();
@@ -58,7 +59,7 @@ export class AddHeroeComponent implements OnInit {
     const file = event.target.files.item(0);
 
     if (file.type.match('image.*')) {
-      this.selectedFiles = event.target.files;
+      this.selectedFile = file;
     } else {
       alert('invalid format!');
     }
@@ -79,15 +80,15 @@ export class AddHeroeComponent implements OnInit {
   /////////////////////////////
 
   private loadImages() {
-    const file = this.selectedFiles.item(0);
-    this.selectedFiles = undefined;
+    const file = this.selectedFile;
+    this.selectedFile = undefined;
 
     this.archivo = new FileItem(file);
     this.heroAddService.uploadImagenesFirebase(this.heroe, this.archivo, this.progress).then((response) => {
       console.log('Entra', response);
          this.router.navigate(['/avenger/heroes']);
     }).catch((error) => {
-      console.error(`Error: ${error}`)
+      console.error(`Error: ${error}`);
     });
   }
 
@@ -100,8 +101,7 @@ export class AddHeroeComponent implements OnInit {
       bio: '',
       editorial: '',
       aparicion: '',
-      img: '',
-      imgURL: ''
+      img: ''
     };
   }
 

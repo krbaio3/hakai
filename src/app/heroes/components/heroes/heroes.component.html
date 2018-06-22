@@ -13,28 +13,18 @@
 <hr>
 <div class="card-columns">
   <div class="card fadeIn animated fast" *ngFor="let heroe of heroes | async;">
-    Heroe: {{ heroe | json }}
-    <!-- <ng-container *ngIf="heroe.img == undefined || heroe.img === ''; else heroImg">
-      <img class="card-img-top" src="../../../../assets/img/sinFoto.png" alt="Sin imagen">
-    </ng-container>
-    <ng-template #heroImg> -->
-    <img class="card-img-top" id="heroPhoto" [alt]="heroe.nombre" [src]="heroe.url" onerror="'../../../../assets/img/sinFoto.png'">
-    <!-- </ng-template> -->
+    <img class="card-img-top" id="heroPhoto" [alt]="heroe.nombre" [src]="heroe.imgURL" onerror="'../../../../assets/img/sinFoto.png'">
     <div class="card-body">
       <h5 class="card-title font-weight-bold">{{ heroe.nombre }}</h5>
       <p class="card-text">{{ heroe.bio }}</p>
       <p class="card-text">
         <small class="text-muted">{{ heroe.aparicion }}</small>
       </p>
-      <p>{{heroe.id}}</p>
       <button type="button" class="btn btn-outline-primary btn-block" [routerLink]="['../heroe/show', heroe.id]">
         Ver mas...
       </button>
       <button type="button" name="editar" id="editar" class="btn btn-outline-warning btn-block" [routerLink]="['../heroe/edit', heroe.id]">Editar</button>
       <button type="button" name="editar" id="editar" class="btn btn-outline-danger btn-block" [routerLink]="['../heroe/remove', heroe.id]">Borrar</button>
-      <!-- Tambien se puede usar como función click, quitando el routerLink y añadiendo esto:
-        (click)="verHeroe(indice)"
-        Ver ĺógica controlador -->
     </div>
   </div>
 </div>

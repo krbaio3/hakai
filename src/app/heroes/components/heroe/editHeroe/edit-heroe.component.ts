@@ -17,7 +17,6 @@ export class EditHeroeComponent implements OnInit {
     editorial: '',
     aparicion: '',
     img: null,
-    imgURL: ''
   };
 
   editoriales: Editorial[];

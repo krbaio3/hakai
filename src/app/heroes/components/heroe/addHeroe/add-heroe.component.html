@@ -1,19 +1,21 @@
-<h1>Heroe:
-  <small class="text-uppercase h2">{{ heroe.nombre }}</small>
-</h1>
+<section class="container row">
+  <h1 class="text-truncate">Heroe:
+    <small class="text-uppercase h2 text-truncate">{{ heroe.nombre }}</small>
+  </h1>
+</section>
 <hr>
 <br>
 <form class="fadeIn fast" (ngSubmit)="onSubmit()" #formAlta="ngForm" novalidate>
   <div class="row">
     <div class="form-group col-12 col-sm-12 col-md-3">
-      <div appNgDropfiles [archivos]="archivos" (mouseOver)="overDrop = $event" [ngClass]="{'file-over': overDrop}" class="well drop-zone">
-        <img src="assets/img/sinFoto.png" alt="sin foto"><img src="assets/img/sinFoto.png" alt="sin foto">
-      </div>
-      <tr *ngFor="let archivo of archivos">
+      <!-- <div appNgDropfiles [archivos]="archivos" (mouseOver)="overDrop = $event" [ngClass]="{'file-over': overDrop}" class="well drop-zone"> -->
+        <img src="assets/img/sinFoto.png" alt="sin foto">
+      <!-- </div> -->
+      <!-- <tr>
         <td [ngClass]="{ 'text-green': archivo.progreso >=100 }">
-          {{ archivo.nombreArchivo}}
+          {{ archivo.nombreImagen}}
         </td>
-      </tr>
+      </tr> -->
       <tr>
         <input type="file" name="button" id="button" (change)="selectFile($event)" placeholder="Image">
       </tr>
@@ -54,11 +56,10 @@
   </div>
   </div>
 
-
   <br>
   <div class="container form-group col-12 col-sm-12 col-md-9 desktop">
     <button class="btn btn-success btn-block col-12 col-sm-5 float-left" type="submit">Submit</button>
-    <button class="btn btn-danger btn-block col-12 col-sm-5 float-right ajuste" type="button" [routerLink]="['../../../heroes']">Volver</button>
+    <button class="btn btn-danger btn-block col-12 col-sm-5 float-right ajuste" type="button" [routerLink]="['../../heroes']">Volver</button>
   </div>
 
 </form>
