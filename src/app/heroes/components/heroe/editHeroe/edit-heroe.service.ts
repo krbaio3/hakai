@@ -24,10 +24,12 @@ export class EditHeroeService {
   constructor(
     private afs: AngularFirestore,
     private adb: AngularFireDatabase
-  ) {}
+  ) {
+    this.heroeCollection = afs.collection<Heroe>('img');
+  }
 
-  updateHeroe(heroe: Heroe, id: string) {
-    this.heroeDoc = this.afs.doc<Heroe>(`${this.basePath}/${id}`);
+  updateHeroe(heroe: Heroe) {
+    this.heroeDoc = this.afs.doc<Heroe>(`${this.basePath}/${heroe.id}`);
 
     return this.heroeDoc.update(heroe);
 
@@ -74,10 +76,11 @@ export class EditHeroeService {
     return [{ value: 'DC', code: 'dc' }, { value: 'Marvel', code: 'marvel' }];
   }
 
-  deleteFileStorage(name: string) {
-    const storageRef = firebase.storage().ref();
-
-    return storageRef.child(`${this.basePath}/${name}`).delete();
+  deleteFileStorage(heroe: Heroe) {
+    return firebase
+      .storage()
+      .refFromURL(heroe.imgURL)
+      .delete();
   }
 
   upload(file: File, heroe: Heroe) {

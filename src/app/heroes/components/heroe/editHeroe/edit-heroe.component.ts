@@ -16,7 +16,7 @@ export class EditHeroeComponent implements OnInit {
     bio: '',
     editorial: '',
     aparicion: '',
-    img: null,
+    img: null
   };
 
   editoriales: Editorial[];
@@ -54,6 +54,7 @@ export class EditHeroeComponent implements OnInit {
         .subscribe(heroe => {
           console.log(heroe);
           this.heroe = heroe;
+          this.heroe.id = this.id;
           if (this.imageOlder === '') {
             this.imageOlder = this.heroe.img;
           }
@@ -78,21 +79,25 @@ export class EditHeroeComponent implements OnInit {
       : (equals = true);
 
     this.editHeroeService
-      .updateHeroe(this.heroe, this.id)
+      .updateHeroe(this.heroe)
       .then(response => {
         console.log('ha ido bien');
         if (!equals && this.imageOlder !== '') {
           this.editHeroeService
-            .deleteFileStorage(this.imageOlder)
-            .then(() => console.log(`Se ha borrado ${name}`))
+            .deleteFileStorage(this.heroe)
+            .then((name) => {
+              console.log(`Se ha borrado ${name}`);
+              this.upload();
+            })
             .catch(error => {
               console.error(`Error: ${error}`);
             });
-          this.upload();
         } else if (this.imageOlder === '') {
           this.upload();
+        } else {
+          console.log('Nos vamos al listado de heroes');
+          this.router.navigate(['/avenger/heroes']);
         }
-        this.clear();
       })
       .catch(error => console.log('ha ido MAL', error));
     // .finally(() => console.log('Quitar loading'));
@@ -134,11 +139,5 @@ export class EditHeroeComponent implements OnInit {
       .catch(error => {
         console.error(`Error: ${error}`);
       });
-  }
-
-  clear() {
-    console.log('limpiar Archivos');
-    // this.selectedFile = null;
-    // this.heroe = null;
   }
 }
