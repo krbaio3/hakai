@@ -113,16 +113,25 @@ export class HeroesService {
     return this.heroe;
   }
 
-  deleteFileStorage(heroe: Heroe) {
-    return firebase
-      .storage()
-      .refFromURL(heroe.imgURL)
-      .delete();
+  // deleteFileStorage(heroe: Heroe) {
+  //   return firebase
+  //     .storage()
+  //     .refFromURL(heroe.imgURL)
+  //     .delete();
+  // }
+
+  deleteFileStorage(name: string) {
+    const storageRef = firebase.storage().ref();
+    storageRef
+      .child(`${this.basePath}/${name}`)
+      .delete()
+      .then(() => console.log(`Se ha borrado ${name}`))
+      .catch(error => console.error(`Error: ${error}`));
   }
 
   upload(file: File, heroe: Heroe) {
     this.currentFileUpload = new FileItem(file);
-    return this.uploadImagenesFirebase(
+    return this.uploadImagenesFirebaseEdit(
       heroe,
       this.currentFileUpload,
       this.progress
@@ -194,48 +203,43 @@ export class HeroesService {
   // );
   // }
 
-  // private uploadImagenesFirebase(
-  //   heroe: Heroe,
-  //   fileUpload: FileItem,
-  //   progress: { porcentaje: number }
-  // ): Promise<DocumentReference> {
-  //   return new Promise((resolve, reject) => {
-  //     console.log(fileUpload);
+  uploadImagenesFirebaseEdit(heroe: Heroe, fileUpload: FileItem): Promise<any> {
+    return new Promise((resolve, reject) => {
+      console.log(fileUpload);
 
-  //     const storageRef = firebase.storage().ref();
-  //     const uploadTask: firebase.storage.UploadTask = storageRef
-  //       .child(`${this.basePath}/ ${fileUpload.imagen.name}`)
-  //       .put(fileUpload.imagen);
+      const storageRef = firebase.storage().ref();
+      const uploadTask = storageRef
+        .child(`${this.basePath}/${fileUpload.nombreImagen}`)
+        .put(fileUpload.imagen);
 
-  //     uploadTask.on(
-  //       firebase.storage.TaskEvent.STATE_CHANGED,
-  //       (snapshot: firebase.storage.UploadTaskSnapshot) => {
-  //         // in progress
-  //         const snap = snapshot as firebase.storage.UploadTaskSnapshot;
-  //         progress.porcentaje = Math.round(
-  //           (snap.bytesTransferred / snap.totalBytes) * 100
-  //         );
-  //       },
-  //       error => {
-  //         // error fileUpload
-  //         console.error('Error al subir el archivo: ', error);
-  //         reject(error);
-  //       },
-  //       () => {
-  //         // success
-  //         uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
-  //           console.log('File available at', downloadURL);
-  //           heroe.imgURL = downloadURL;
-  //           heroe.img = fileUpload.imagen.name;
-  //           fileUpload.url = downloadURL;
-  //           fileUpload.nombreImagen = fileUpload.imagen.name;
-  //           this.saveImg(fileUpload);
-  //           resolve(this.heroeCollection.add(heroe));
-  //         });
-  //       }
-  //     );
-  //   });
-  // }
+      uploadTask.on(
+        firebase.storage.TaskEvent.STATE_CHANGED,
+        snapshot => {
+          //in progress
+          const snap = snapshot as firebase.storage.UploadTaskSnapshot;
+          // progress.porcentaje = Math.round(
+          //   (snap.bytesTransferred / snap.totalBytes) * 100
+          // );
+        },
+        error =>
+          // fail
+          console.error(`ERROR in ${error}`),
+        () => {
+          // success
+          uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+            console.log('File available at', downloadURL);
+            fileUpload.url = downloadURL;
+            fileUpload.nombreImagen = fileUpload.imagen.name;
+            this.saveFileData(fileUpload);
+          });
+        }
+      );
+    });
+  }
+
+  private saveFileData(fileUpload: FileUpload) {
+    this.adb.list(`${this.basePath}/`).push(fileUpload);
+  }
 
   //////////////////////////
   // RESIDUAL

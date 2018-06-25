@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HeroesService } from '../../../service/heroes.service';
-import { Heroe, Editorial } from '../../../models';
+import { Heroe, Editorial, FileItem } from '../../../models';
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+  AngularFirestoreCollection
+} from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-edit-heroe',
@@ -24,10 +29,15 @@ export class EditHeroeComponent implements OnInit {
   habilitarInputFile: boolean = false;
   selectedFile: File;
 
+  private heroeUsersCollection: AngularFirestoreCollection<Heroe>;
+  private heroeDocs: AngularFirestoreDocument;
+  private currentFileUpload: FileItem;
+
   constructor(
     private route: ActivatedRoute,
     private editHeroeService: HeroesService,
-    private router: Router
+    private router: Router,
+    private afs: AngularFirestore
   ) {
     this.route.params.subscribe(params => {
       console.log(
@@ -77,28 +87,39 @@ export class EditHeroeComponent implements OnInit {
         : (equals = true)
       : (equals = true);
 
-    this.editHeroeService
-      .updateHeroe(this.heroe)
-      .then(response => {
+    // this.upload();
+    this.heroeDocs = this.afs.doc(`img/${this.heroe.id}`);
+    this.heroeDocs
+      .update(this.heroe)
+      .then(() => {
         console.log('ha ido bien');
         if (!equals && this.imageOlder !== '') {
-          this.editHeroeService
-            .deleteFileStorage(this.heroe)
-            .then(name => {
-              console.log(`Se ha borrado ${name}`);
-              this.upload();
-            })
-            .catch(error => {
-              console.error(`Error: ${error}`);
-            });
+          this.editHeroeService.deleteFileStorage(this.imageOlder);
+          this.upload();
         } else if (this.imageOlder === '') {
           this.upload();
-        } else {
-          console.log('Nos vamos al listado de heroes');
-          this.router.navigate(['/avenger/heroes']);
         }
+        this.clearState();
       })
-      .catch(error => console.log('ha ido MAL', error));
+      .catch(error => console.log('ha ido MAL'));
+    // if (!equals && this.imageOlder !== '') {
+    //   this.editHeroeService
+    //     .deleteFileStorage(this.heroe)
+    //     .then(name => {
+    //       console.log(`Se ha borrado ${name}`);
+    //       this.upload();
+    //     })
+    //     .catch(error => {
+    //       console.error(`Error: ${error}`);
+    //     });
+    // } else if (this.imageOlder === '') {
+    //   this.upload();
+    // } else {
+    //   console.log('Nos vamos al listado de heroes');
+    //   this.router.navigate(['/avenger/heroes']);
+    // }
+
+    // this.updateHeroe();
     // .finally(() => console.log('Quitar loading'));
 
     // this.editHeroeService.actualizarHeroe(this.heroe, this.id).subscribe(
@@ -128,15 +149,34 @@ export class EditHeroeComponent implements OnInit {
     this.heroe = null;
   }
 
+  // private upload() {
+  //   this.editHeroeService
+  //     .upload(this.selectedFile, this.heroe)
+  //     .then((heroe: Heroe) => {
+  //       console.log('Entra');
+  //       this.heroe = heroe;
+  //       this.updateHeroe();
+  //       // this.router.navigate(['/avenger/heroes']);
+  //     })
+  //     .catch(error => {
+  //       console.error(`Error: ${error}`);
+  //     });
+  // }
+
   private upload() {
+    const file = this.selectedFile;
+    this.selectedFile = undefined;
+    this.currentFileUpload = new FileItem(file);
+    this.editHeroeService.uploadImagenesFirebaseEdit(this.heroe, this.currentFileUpload);
+  }
+
+  private updateHeroe() {
     this.editHeroeService
-      .upload(this.selectedFile, this.heroe)
-      .then(() => {
-        console.log('Entra');
+      .updateHeroe(this.heroe)
+      .then(response => {
+        console.log('ha ido bien');
         this.router.navigate(['/avenger/heroes']);
       })
-      .catch(error => {
-        console.error(`Error: ${error}`);
-      });
+      .catch(error => console.log('ha ido MAL', error));
   }
 }

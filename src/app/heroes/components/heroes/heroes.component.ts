@@ -29,7 +29,7 @@ export class HeroesComponent implements OnInit {
     private showHeroeSrv: HeroesService,
   ) {
     console.log('constructor Heroes');
-    this.heroesCollection = afs.collection<Heroe>('img');
+    this.heroesCollection = this.afs.collection<Heroe>('img');
     // .valueChanges() is simple. It just returns the
     // JSON data without metadata. If you need the
     // doc.id() in the value you must persist it your self
