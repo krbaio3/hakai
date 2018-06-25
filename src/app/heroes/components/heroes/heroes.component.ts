@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ShowHeroesService } from './show-heroes.service';
-import { Heroe } from '../../models/heroe.model';
 import {
   AngularFirestore,
   AngularFirestoreCollection
 } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { HeroesService } from '../../service/heroes.service';
+import { Heroe } from '../../models';
 
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
   styleUrls: ['./heroes.component.scss'],
-  providers: [ShowHeroesService]
+  providers: [HeroesService]
 })
 export class HeroesComponent implements OnInit {
   private heroesCollection: AngularFirestoreCollection<Heroe>;
@@ -26,7 +26,7 @@ export class HeroesComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private readonly afs: AngularFirestore,
-    private showHeroeSrv: ShowHeroesService,
+    private showHeroeSrv: HeroesService,
   ) {
     console.log('constructor Heroes');
     this.heroesCollection = afs.collection<Heroe>('img');

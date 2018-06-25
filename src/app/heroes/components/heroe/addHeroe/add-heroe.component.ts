@@ -2,26 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AddHeroeService } from './add-heroe.service';
-import { Heroe } from '../../../models/heroe.model';
-import { Editorial } from '../models/I-Editorial';
-import { FileItem } from '../../../models/file-item';
+import { HeroesService } from '../../../service/heroes.service';
+import { Heroe, Editorial, FileItem } from '../../../models';
 
 import {
   AngularFirestore,
   AngularFirestoreCollection,
   AngularFirestoreDocument
 } from 'angularfire2/firestore';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-heroe',
   templateUrl: './add-heroe.component.html',
   styleUrls: ['./add-heroe.component.scss'],
-  providers: [AddHeroeService]
+  providers: [HeroesService]
 })
 export class AddHeroeComponent implements OnInit {
-
   heroe: Heroe;
 
   editoriales: Editorial[];
@@ -32,10 +28,7 @@ export class AddHeroeComponent implements OnInit {
   overDrop: boolean = false;
   selectedFile: File;
 
-  constructor(
-    private heroAddService: AddHeroeService,
-    private router: Router,
-  ) {
+  constructor(private heroAddService: HeroesService, private router: Router) {
     this.resetHero();
   }
 
@@ -51,8 +44,8 @@ export class AddHeroeComponent implements OnInit {
     });
 
     this.loadImages();
-      // .then(() => this.router.navigate(['/avenger/heroes']))
-      // .catch(error => console.error(`Error: ${error}`));
+    // .then(() => this.router.navigate(['/avenger/heroes']))
+    // .catch(error => console.error(`Error: ${error}`));
   }
 
   selectFile(event) {
@@ -65,18 +58,6 @@ export class AddHeroeComponent implements OnInit {
     }
   }
 
-  uploadFileToActivity() {
-    this.heroAddService.postFile(this.fileToUpload).subscribe(
-      data => {
-        // do something, if upload success
-        console.log(data);
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
   /////////////////////////////
 
   private loadImages() {
@@ -84,12 +65,15 @@ export class AddHeroeComponent implements OnInit {
     this.selectedFile = undefined;
 
     this.archivo = new FileItem(file);
-    this.heroAddService.uploadImagenesFirebase(this.heroe, this.archivo, this.progress).then((response) => {
-      console.log('Entra', response);
-         this.router.navigate(['/avenger/heroes']);
-    }).catch((error) => {
-      console.error(`Error: ${error}`);
-    });
+    this.heroAddService
+      .uploadImagenesFirebase(this.heroe, this.archivo, this.progress)
+      .then(response => {
+        console.log('Entra', response);
+        this.router.navigate(['/avenger/heroes']);
+      })
+      .catch(error => {
+        console.error(`Error: ${error}`);
+      });
   }
 
   private resetHero(): void {

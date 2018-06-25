@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EditHeroeService } from './edit-heroe.service';
-import { Heroe } from '../../../models/heroe.model';
-import { Editorial } from '../models/I-Editorial';
+import { HeroesService } from '../../../service/heroes.service';
+import { Heroe, Editorial } from '../../../models';
 
 @Component({
   selector: 'app-edit-heroe',
   templateUrl: './edit-heroe.component.html',
   styleUrls: ['./edit-heroe.component.scss'],
-  providers: [EditHeroeService]
+  providers: [HeroesService]
 })
 export class EditHeroeComponent implements OnInit {
   heroe: Heroe = {
@@ -27,7 +26,7 @@ export class EditHeroeComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private editHeroeService: EditHeroeService,
+    private editHeroeService: HeroesService,
     private router: Router
   ) {
     this.route.params.subscribe(params => {
@@ -85,7 +84,7 @@ export class EditHeroeComponent implements OnInit {
         if (!equals && this.imageOlder !== '') {
           this.editHeroeService
             .deleteFileStorage(this.heroe)
-            .then((name) => {
+            .then(name => {
               console.log(`Se ha borrado ${name}`);
               this.upload();
             })

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from './search.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ShowHeroesService } from '../heroes/show-heroes.service';
+import { HeroesService } from '../../service/heroes.service';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
-  providers: [SearchService, ShowHeroesService]
+  providers: [SearchService]
 })
 export class SearchComponent implements OnInit {
   // heroes: Heroe[] = [];
@@ -18,7 +18,7 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private _heroeService: SearchService,
+    private _heroeService: HeroesService,
     private router: Router
   ) {
     this.activatedRoute.params.subscribe(params => {
@@ -30,8 +30,7 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   // verHeroe(heroe: any) {
   //   console.log(heroe.indice);

@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RemoveHeroeService } from './remove-heroe.service';
-import { Editorial } from '../models/I-Editorial';
-import { Heroe } from '../../../models/heroe.model';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable } from 'rxjs';
+import { HeroesService } from '../../../service/heroes.service';
+import { Heroe, Editorial } from '../../../models';
 
 @Component({
   selector: 'app-remove-heroe',
   templateUrl: './remove-heroe.component.html',
   styleUrls: ['./remove-heroe.component.scss'],
-  providers: [RemoveHeroeService]
+  providers: [HeroesService]
 })
 export class RemoveHeroeComponent implements OnInit {
   heroe: Heroe;
@@ -19,9 +16,8 @@ export class RemoveHeroeComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private removeHeroeService: RemoveHeroeService,
-    private router: Router,
-    private afdb: AngularFireDatabase
+    private removeHeroeService: HeroesService,
+    private router: Router
   ) {
     this.route.params.subscribe(params => {
       console.log(
