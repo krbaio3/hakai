@@ -17,7 +17,7 @@
       <section class="col-12">
         <aside *ngIf="!habilitarInputFile">
           <aside class="row">
-            <span class="text-center mb-3 col-12">{{heroe.img}}</span>
+            <span class="text-center mb-3 col-12 text-truncate">{{heroe.img}}</span>
           </aside>
           <aside class="row">
             <button type="button" name="loadImage" id="loadImage" class="btn btn-info btn-xs btn-block col-12" (click)="habilitarInputFile = !habilitarInputFile">Cambiar Imagen</button>

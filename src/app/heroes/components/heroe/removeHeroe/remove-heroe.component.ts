@@ -12,7 +12,7 @@ import { Heroe } from '../models/I-AddHeroe';
   providers: [RemoveHeroeService]
 })
 export class RemoveHeroeComponent implements OnInit {
-  heroe: any = {};
+  heroe: Heroe;
   id: string;
   editoriales: Editorial[];
 
@@ -29,6 +29,8 @@ export class RemoveHeroeComponent implements OnInit {
       this.removeHeroeService.getHeroeAngularFire(this.id).subscribe(heroe => {
         console.log(heroe);
         this.heroe = heroe;
+        this.heroe.key$ = this.id;
+
       });
     });
   }
@@ -38,6 +40,10 @@ export class RemoveHeroeComponent implements OnInit {
   }
 
   deleteHeroe(heroe: Heroe): void {
-    this.removeHeroeService.deleteFileupload(heroe);
+    this.removeHeroeService.deleteFileupload(heroe)
+      .then((data) => console.log(`Se ha borrado ${data}`))
+      .catch(error =>
+        console.error(`Error: ${JSON.stringify(error, null, 4)}`)
+      );
   }
 }

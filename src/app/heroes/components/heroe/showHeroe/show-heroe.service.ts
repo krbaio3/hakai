@@ -1,25 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Editorial } from '../models/I-Editorial';
-import { CONSTANTES } from '../heroe.constans';
-import { Http, RequestOptions, Headers } from '@angular/http';
-import { map } from 'rxjs/operators';
-
 import { Heroe } from '../models/I-AddHeroe';
-// import { Utils } from '../utils';
+import {
+  AngularFirestoreDocument,
+  AngularFirestoreCollection,
+  AngularFirestore
+} from 'angularfire2/firestore';
+import { Observable } from 'rxjs';
+import { FileItem } from '../../../models/file-item';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Injectable({ providedIn: 'root' })
 export class ShowHeroeService {
-  heroeURL = CONSTANTES.heroeURL;
+  private heroeDoc: AngularFirestoreDocument<Heroe>;
+  private heroe: Observable<Heroe>;
+  progress: { porcentaje: number } = { porcentaje: 0 };
 
-  constructor(private http: Http) {}
+  constructor(
+    private afs: AngularFirestore  ) {}
 
-  getHeroe(key$: string) {
-    const url = `${this.heroeURL}/${key$}.json`;
-
-    // return this.http.get(url).map(response => {
-    //   console.log(response.json());
-    //   return response.json();
-    // });
+  getHeroeAngularFire(id: string): Observable<Heroe> {
+    this.heroeDoc = this.afs.doc<Heroe>(`img/${id}`);
+    this.heroe = this.heroeDoc.valueChanges();
+    console.log(this.heroe);
+    return this.heroe;
   }
 
   getEditorial(): Editorial[] {

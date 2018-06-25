@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 
-import {ShowHeroeService} from './show-heroe.service';
+import { ShowHeroeService } from './show-heroe.service';
 import { Heroe } from '../models/I-AddHeroe';
+import { Editorial } from '../models/I-Editorial';
 
 @Component({
   selector: 'app-show-heroe',
@@ -12,29 +12,30 @@ import { Heroe } from '../models/I-AddHeroe';
   providers: [ShowHeroeService]
 })
 export class ShowHeroeComponent implements OnInit {
-
-  heroe;
+  heroe: Heroe;
+  editoriales: Editorial[];
   id: string;
-
-  private paramSubscription: Subscription;
+  editHeroeService: any;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
-    private _showHeroeService: ShowHeroeService
+    private showHeroeService: ShowHeroeService,
   ) {
-
-    this.route.params.subscribe((params) => {
-      console.log(params.id);
+    this.route.params.subscribe(params => {
+      console.log(
+        `entra en editar con parametros: ${JSON.stringify(params, null, 4)}`
+      );
       this.id = params['id'];
-      this._showHeroeService.getHeroe(this.id)
-      // .subscribe(heroe => {
-      //   console.log(heroe);
-      //   this.heroe = heroe;
-      // });
+      this.showHeroeService
+        .getHeroeAngularFire(this.id)
+        .subscribe(heroe => {
+          console.log(heroe);
+          this.heroe = heroe;
+        });
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.editoriales = this.showHeroeService.getEditorial();
   }
 }

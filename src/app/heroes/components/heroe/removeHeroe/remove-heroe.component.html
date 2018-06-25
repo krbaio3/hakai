@@ -1,6 +1,6 @@
 <section class="container row">
   <h1 class="text-truncate">Heroe:
-    <small class="text-uppercase h2 text-truncate">{{ heroe.nombre }}</small>
+    <small class="text-uppercase h2 text-truncate">{{ heroe?.nombre }}</small>
   </h1>
 </section>
 <hr>
@@ -16,7 +16,7 @@
       </ng-template>
       <section class="col-12">
         <aside class="row">
-          <span class="text-center mb-3 col-12">{{heroe.img}}</span>
+          <span class="text-center mb-3 col-12 text-truncate">{{heroe?.img}}</span>
         </aside>
       </section>
     </section>
@@ -24,34 +24,30 @@
     <div class="form-group col-12 col-sm-12 col-md-9">
       <div class="row form-group mt-2">
         <label for="nombreInput">Nombre</label>
-        <input class="form-control" [(ngModel)]="heroe.nombre" id="nombreInput" type="text" aria-describedby="nombreHelp" placeholder="Introduce nombre"
-          name="nombre">
-        <small class="form-text text-muted" id="nombreHelp">Introduce el nombre del super-héroe o anti-héroe.</small>
+        <input class="form-control text-truncate" [value]="heroe?.nombre" id="inputNombre" type="text" placeholder="Nombre"
+          disabled name="nombre">
       </div>
       <div class="row form-group">
         <label for="inputBiografia">Biografía</label>
-        <textarea class="form-control" [(ngModel)]="heroe.bio" id="inputBiografia" aria-describedby="biografiaHelp" placeholder="Enter biografia"
-          name="bio" rows="5"></textarea>
-        <small class="form-text text-muted" id="biografiaHelp">Introduce una pequeña biografía.</small>
+        <textarea class="form-control" [value]="heroe?.bio" id="inputBiografia" aria-describedby="biografiaHelp" placeholder="Enter biografia"
+          name="bio" rows="5" disabled></textarea>
       </div>
 
       <div class="row">
         <div class="form-group col-6">
           <label class="col-form-label" for="aparicion">Fecha</label>
           <div class="">
-            <input class="form-control text-center" [(ngModel)]="heroe.aparicion" id="inputAparicion" type="date" placeholder="Aparición"
-              name="aparicion">
+            <input class="form-control text-center" [value]="heroe?.aparicion" id="inputAparicion" type="date" placeholder="Aparición"
+              disabled name="aparicion">
           </div>
-          <small class="form-text text-muted">Introduce la fecha de primera aparición</small>
         </div>
 
         <div class="form-group col-6">
           <label class="col-form-label" for="editorial">Editorial</label>
-          <select class="form-control" name="editorial" [(ngModel)]="heroe.editorial">
+          <select class="form-control" name="editorial" [value]="heroe?.editorial" disabled> 
             <option value="">Pertenece a...</option>
             <option *ngFor="let editorial of editoriales" [ngValue]="editorial?.value">{{ editorial?.value }}</option>
           </select>
-          <small class="form-text text-muted">Introduce la Editorial a la que pertenece</small>
         </div>
       </div>
     </div>

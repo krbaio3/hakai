@@ -13,8 +13,7 @@ export class RemoveHeroeService {
   private heroeDoc: AngularFirestoreDocument<Heroe>;
   private heroe: Observable<Heroe>;
 
-  constructor(
-    private afs: AngularFirestore  ) {}
+  constructor(private afs: AngularFirestore) {}
 
   getHeroeAngularFire(id: string): Observable<Heroe> {
     this.heroeDoc = this.afs.doc<Heroe>(`img/${id}`);
@@ -28,13 +27,18 @@ export class RemoveHeroeService {
     return [{ value: 'DC', code: 'dc' }, { value: 'Marvel', code: 'marvel' }];
   }
 
-  deleteFileupload(heroe: Heroe) {
-    this.deleteFileDatabase(heroe.id)
-      .then(() => {
-        console.log('Borrado FileDataBase');
-        this.deleteFileStorage(heroe.img);
-      })
-      .catch(error => console.error(`ERROR: ${error}`));
+  deleteFileupload(heroe: Heroe): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.deleteFileDatabase(heroe.key$)
+        .then(() => {
+          console.log('Borrado FileDataBase');
+          resolve(this.deleteFileStorage(heroe.img));
+        })
+        .catch(error => {
+          console.error(`ERROR: ${error}`);
+          reject(error);
+        });
+    });
   }
 
   /////////////////////////
@@ -47,8 +51,10 @@ export class RemoveHeroeService {
     const storageRef = firebase.storage().ref();
     storageRef
       .child(`${this.basePath}/${name}`)
-      .delete()
-      .then(() => console.log(`Se ha borrado ${name}`))
-      .catch(error => console.error(`Error: ${JSON.stringify(error, null, 4)}`));
+      .delete();
+      // .then(() => console.log(`Se ha borrado ${name}`))
+      // .catch(error =>
+      //   console.error(`Error: ${JSON.stringify(error, null, 4)}`)
+      // );
   }
 }
