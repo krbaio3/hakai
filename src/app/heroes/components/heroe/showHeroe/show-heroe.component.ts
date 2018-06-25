@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ShowHeroeService } from './show-heroe.service';
-import { Heroe } from '../models/I-AddHeroe';
+import { Heroe } from '../../../models/heroe.model';
 import { Editorial } from '../models/I-Editorial';
 
 @Component({

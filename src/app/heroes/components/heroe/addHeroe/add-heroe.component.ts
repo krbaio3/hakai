@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AddHeroeService } from './add-heroe.service';
-import { Heroe } from '../models/I-AddHeroe';
+import { Heroe } from '../../../models/heroe.model';
 import { Editorial } from '../models/I-Editorial';
 import { FileItem } from '../../../models/file-item';
 

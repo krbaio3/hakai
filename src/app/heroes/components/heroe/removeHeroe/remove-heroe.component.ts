@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoveHeroeService } from './remove-heroe.service';
 import { Editorial } from '../models/I-Editorial';
-import { Heroe } from '../models/I-AddHeroe';
-// import { HeroesService } from '../../../service/heroes.service';
+import { Heroe } from '../../../models/heroe.model';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-remove-heroe',
@@ -19,7 +20,8 @@ export class RemoveHeroeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private removeHeroeService: RemoveHeroeService,
-    private router: Router
+    private router: Router,
+    private afdb: AngularFireDatabase
   ) {
     this.route.params.subscribe(params => {
       console.log(
@@ -28,9 +30,11 @@ export class RemoveHeroeComponent implements OnInit {
       this.id = params['id'];
       this.removeHeroeService.getHeroeAngularFire(this.id).subscribe(heroe => {
         console.log(heroe);
-        this.heroe = heroe;
-        this.heroe.key$ = this.id;
-
+        if (heroe !== undefined) {
+          this.heroe = heroe;
+          this.heroe.id = this.id;
+          // this.heroe.imgURL = this.removeHeroeService.downloadProfileUrl(this.heroe.img);
+        }
       });
     });
   }
@@ -40,8 +44,12 @@ export class RemoveHeroeComponent implements OnInit {
   }
 
   deleteHeroe(heroe: Heroe): void {
-    this.removeHeroeService.deleteFileupload(heroe)
-      .then((data) => console.log(`Se ha borrado ${data}`))
+    this.removeHeroeService
+      .deleteFileupload(heroe)
+      .then(data => {
+        console.log(`Se ha borrado ${data}`);
+        this.router.navigate(['/avenger/heroes']);
+      })
       .catch(error =>
         console.error(`Error: ${JSON.stringify(error, null, 4)}`)
       );

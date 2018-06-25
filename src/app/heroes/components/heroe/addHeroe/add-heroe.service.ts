@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Editorial } from '../models/I-Editorial';
 import { CONSTANTES } from '../heroe.constans';
 import { Http, Headers } from '@angular/http';
-import { Heroe } from '../models/I-AddHeroe';
+import { Heroe } from '../../../models/heroe.model';
 import { Observable } from 'rxjs';
 import { FileItem } from '../../../models/file-item';
 

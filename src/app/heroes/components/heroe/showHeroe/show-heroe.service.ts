@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Editorial } from '../models/I-Editorial';
-import { Heroe } from '../models/I-AddHeroe';
+import { Heroe } from '../../../models/heroe.model';
 import {
   AngularFirestoreDocument,
   AngularFirestoreCollection,
