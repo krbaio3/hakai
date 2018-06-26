@@ -14,6 +14,6 @@ export interface Heroe {
   img: string;
   // fecha de aparición
   aparicion: string;
-  // url de la imagen en firebase
-  imgURL?: string;
+  // url de la imagen en firebase. no se debe de guardar!!
+  imgURL?: Observable<string>;
 }

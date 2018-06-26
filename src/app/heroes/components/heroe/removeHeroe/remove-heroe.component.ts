@@ -25,12 +25,13 @@ export class RemoveHeroeComponent implements OnInit {
       );
       this.id = params['id'];
       this.removeHeroeService.getHeroeAngularFire(this.id).subscribe(heroe => {
-        console.log(heroe);
-        if (heroe !== undefined) {
+        if( heroe !== undefined ){
           this.heroe = heroe;
-          this.heroe.id = this.id;
-          // this.heroe.imgURL = this.removeHeroeService.downloadProfileUrl(this.heroe.img);
-        }
+            this.heroe.id = this.id;
+            this.heroe.imgURL = this.removeHeroeService.downloadProfileUrl(
+              this.heroe.img
+            );
+        }  
       });
     });
   }

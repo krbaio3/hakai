@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HeroesService } from '../../../service/heroes.service';
-import { Heroe, Editorial, FileItem } from '../../../models';
+import { Heroe, Editorial, FileItem, HeroeEdit } from '../../../models';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -28,6 +28,7 @@ export class EditHeroeComponent implements OnInit {
   imageOlder: string = '';
   habilitarInputFile: boolean = false;
   selectedFile: File;
+  ejemplo = File;
 
   private heroeUsersCollection: AngularFirestoreCollection<Heroe>;
   private heroeDocs: AngularFirestoreDocument;
@@ -44,30 +45,17 @@ export class EditHeroeComponent implements OnInit {
         `entra en editar con parametros: ${JSON.stringify(params, null, 4)}`
       );
       this.id = params['id'];
-      this.editHeroeService
-        .getHeroeAngularFire(this.id)
-        // .getDataHeroe(this.id)
-        // .then(doc => {
-        //   if (doc.exists) {
-        //     // console.log('Document data:', doc.data()) ;
-        //     this.heroe = doc.data();
-        //     this.imageOlder = this.heroe.img;
-        //   } else {
-        //     // doc.data() will be undefined in this case
-        //     console.warn('No such document!');
-        //   }
-        // })
-        // .catch(error => {
-        //   console.error('Error getting document:', error);
-        // });
-        .subscribe(heroe => {
-          console.log(heroe);
-          this.heroe = heroe;
-          this.heroe.id = this.id;
-          if (this.imageOlder === '') {
-            this.imageOlder = this.heroe.img;
-          }
-        });
+      this.editHeroeService.getHeroeAngularFire(this.id).subscribe(heroe => {
+        console.log(heroe);
+        this.heroe = heroe;
+        this.heroe.id = this.id;
+        if (this.imageOlder === '') {
+          this.heroe.imgURL = this.editHeroeService.downloadProfileUrl(
+            this.heroe.img
+          );
+          this.imageOlder = this.heroe.img;
+        }
+      });
     });
   }
 
@@ -76,59 +64,43 @@ export class EditHeroeComponent implements OnInit {
   }
 
   onEdit() {
-    console.log(`Valor: ${JSON.stringify(this.heroe, null, 4)}`);
+    let editHero: HeroeEdit = {
+      nombre: '',
+      editorial: '',
+      bio: '',
+      img: '',
+      aparicion: '',
+      id: ''
+    };
     let equals = false;
+
+    Object.getOwnPropertyNames(editHero).forEach((val, idx, array) => {
+      editHero[val] = this.heroe[val];
+    });
+
 
     this.habilitarInputFile
       ? this.selectedFile.name !== this.imageOlder
-        ? Object.assign(this.heroe, {
+        ? Object.assign(editHero, {
             img: this.selectedFile.name
           })
         : (equals = true)
       : (equals = true);
 
-    // this.upload();
-    this.heroeDocs = this.afs.doc(`img/${this.heroe.id}`);
-    this.heroeDocs
-      .update(this.heroe)
+    this.editHeroeService
+      .updateHeroe(editHero)
       .then(() => {
         console.log('ha ido bien');
         if (!equals && this.imageOlder !== '') {
-          this.editHeroeService.deleteFileStorage(this.imageOlder);
-          this.upload();
+          this.editHeroeService
+            .deleteFileStorage(this.imageOlder)
+            .then(() => this.upload())
+            .catch(error => console.error(`Error: ${error}`));
         } else if (this.imageOlder === '') {
           this.upload();
         }
-        this.clearState();
       })
-      .catch(error => console.log('ha ido MAL'));
-    // if (!equals && this.imageOlder !== '') {
-    //   this.editHeroeService
-    //     .deleteFileStorage(this.heroe)
-    //     .then(name => {
-    //       console.log(`Se ha borrado ${name}`);
-    //       this.upload();
-    //     })
-    //     .catch(error => {
-    //       console.error(`Error: ${error}`);
-    //     });
-    // } else if (this.imageOlder === '') {
-    //   this.upload();
-    // } else {
-    //   console.log('Nos vamos al listado de heroes');
-    //   this.router.navigate(['/avenger/heroes']);
-    // }
-
-    // this.updateHeroe();
-    // .finally(() => console.log('Quitar loading'));
-
-    // this.editHeroeService.actualizarHeroe(this.heroe, this.id).subscribe(
-    //   data => {
-    //     console.log(data);
-    //     this.router.navigate(['/avenger/heroes']);
-    //   },
-    //   error => console.error(error)
-    // );
+      .catch(error => console.log(`Error: ${error}`));
   }
 
   handleFileInput(event) {
@@ -137,9 +109,9 @@ export class EditHeroeComponent implements OnInit {
     if (file.type.match('image.*')) {
       this.selectedFile = file;
       this.heroe.img = file.name;
-      // this.heroe.img = undefined;
     } else {
       alert('invalid format!');
+      // event.target.files.item(0) = undefined;
     }
   }
 
@@ -166,8 +138,18 @@ export class EditHeroeComponent implements OnInit {
   private upload() {
     const file = this.selectedFile;
     this.selectedFile = undefined;
+
     this.currentFileUpload = new FileItem(file);
-    this.editHeroeService.uploadImagenesFirebaseEdit(this.heroe, this.currentFileUpload);
+    this.editHeroeService
+      .uploadImagenesFirebase(this.currentFileUpload)
+      .then(response => {
+        console.log(response);
+        // if (response) {
+        console.log('ha ido bien');
+        this.router.navigate(['/avenger/heroes']);
+        // }
+      })
+      .catch(error => console.log('ha ido MAL', error));
   }
 
   private updateHeroe() {

@@ -12,7 +12,7 @@
         <img class="card-img-top mb-1 col-12" src="../../../../assets/img/sinFoto.png" alt="Sin imagen">
       </ng-container>
       <ng-template #heroImg>
-        <img [src]="heroe?.imgURL" [alt]="heroe?.nombre" class="img-fluid mb-1 col-12">
+        <img *ngIf="heroe.imgURL" [src]="(heroe?.imgURL | async) || 'assets/img/sinFoto.png'" [alt]="heroe?.nombre" class="img-fluid mb-1 col-12">
       </ng-template>
       <section class="col-12">
         <aside class="row">

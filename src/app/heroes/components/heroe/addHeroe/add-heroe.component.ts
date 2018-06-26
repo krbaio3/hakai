@@ -28,8 +28,15 @@ export class AddHeroeComponent implements OnInit {
   overDrop: boolean = false;
   selectedFile: File;
 
-  constructor(private heroAddService: HeroesService, private router: Router) {
+  private heroeCollection: AngularFirestoreCollection<Heroe>;
+
+  constructor(
+    private heroAddService: HeroesService,
+    private afs: AngularFirestore,
+    private router: Router
+  ) {
     this.resetHero();
+    this.heroeCollection = this.afs.collection<Heroe>('img');
   }
 
   ngOnInit(): void {
@@ -42,6 +49,8 @@ export class AddHeroeComponent implements OnInit {
     this.heroe = Object.assign(this.heroe, {
       img: this.selectedFile.name
     });
+
+    this.heroeCollection.add(this.heroe);
 
     this.loadImages();
     // .then(() => this.router.navigate(['/avenger/heroes']))
@@ -66,7 +75,7 @@ export class AddHeroeComponent implements OnInit {
 
     this.archivo = new FileItem(file);
     this.heroAddService
-      .uploadImagenesFirebase(this.heroe, this.archivo, this.progress)
+      .uploadImagenesFirebase(this.archivo, this.progress)
       .then(response => {
         console.log('Entra', response);
         this.router.navigate(['/avenger/heroes']);

@@ -11,7 +11,7 @@
       <img class="card-img-top ajuste" src="assets/img/sinFoto.png" alt="Sin imagen">
     </ng-container>
     <ng-template #heroImg>
-      <img [src]="heroe?.imgURL" [alt]="heroe?.nombre" class="img-fluid ajuste">
+      <img *ngIf="heroe.imgURL" [src]="(heroe?.imgURL | async) || 'assets/img/sinFoto.png'" [alt]="heroe?.nombre" class="img-fluid ajuste">
     </ng-template>
     <br>
     <br>

@@ -1,19 +1,14 @@
 export class FileItem {
 
-  public imagen: File;
-  public nombreImagen: string;
-  public url: string;
-  public estaSubiendo: boolean;
-  public progreso: number;
-  public key: string;
+  key: string;
+  nombreImagen: string;
+  url: string;
+  imagen: File;
 
 
-  constructor (imagen: File) {
-    this.imagen = imagen;
-    this.nombreImagen = imagen.name;
-
-    this.estaSubiendo = false;
-    this.progreso = 0;
+  constructor (file: File) {
+    this.imagen = file;
+    this.nombreImagen = file.name;
   }
 
 }

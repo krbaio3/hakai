@@ -28,6 +28,9 @@ export class ShowHeroeComponent implements OnInit {
       this.showHeroeService.getHeroeAngularFire(this.id).subscribe(heroe => {
         console.log(heroe);
         this.heroe = heroe;
+        this.heroe.imgURL = this.showHeroeService.downloadProfileUrl(
+          this.heroe.img
+        );
       });
     });
   }
