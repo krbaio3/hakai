@@ -12,13 +12,13 @@ const app = express();
 console.log(`Este es el baseWebRoot ${baseWebRoot}`);
 
 
-// Vamos a requerir del modulo que provee Node.js 
+// Vamos a requerir del modulo que provee Node.js
 // llamado child_process
 // let exec = require('child_process').exec, child;
-// Creamos la función y pasamos el string pwd 
+// Creamos la función y pasamos el string pwd
 // que será nuestro comando a ejecutar
 // child = exec('ls',
-// Pasamos los parámetros error, stdout la salida 
+// Pasamos los parámetros error, stdout la salida
 // que mostrara el comando
   // function (error, stdout, stderr) {
     // Imprimimos en pantalla con console.log
@@ -47,11 +47,11 @@ console.log(`Este es el baseWebRoot ${baseWebRoot}`);
 // Instalar servidor expressjs
 
 // Decirle que use la carpeta de estaticos dist
-app.use(express.static(baseWebRoot +'/dist'));
+app.use(express.static(baseWebRoot +'/dist/ng5'));
 
 
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(baseWebRoot + '/dist/index.html'));
+  res.sendFile(path.join(baseWebRoot + '/dist/ng5/index.html'));
 });
 
 // Arranque de app. por el puerto que diga Heroku o el 5000
