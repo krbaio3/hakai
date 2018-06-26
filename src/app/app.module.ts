@@ -12,8 +12,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 
 // 3rd Party
+// FireBase
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 // Rutas
 import { AppRoutingModule } from './app-routing.module';
@@ -26,15 +30,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 // Modulos
-import { NebularModule } from './nebular/nebular.module';
-import { SpotyModule } from './spoty/spoty.module';
 import { HeroesModule } from './heroes/heroes.module';
-import { MiscelaneosModule } from './miscelaneos/miscelaneos.module';
-import { AuthappModule } from './authapp/authapp.module';
 import { FormulariosModule } from './formularios/formularios.module';
-import { OpenIdModule } from './open-id/open-id.module';
-import { ConsoleModule } from './console/console.module';
-import { NgrxAuthModule } from './ngrx-auth/ngrx-auth.module';
 import { UdemyModule } from './udemy/udemy.module';
 
 registerLocaleData(localeEs);
@@ -43,20 +40,18 @@ registerLocaleData(localeEs);
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(environment.fireConfig), // imports firebase/app needed for everything
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
+    AngularFireStorageModule, // imports firebase/storage only needed for storage features
+    AngularFireDatabaseModule,
     FormsModule,
     HttpModule,
-    NebularModule,
-    SpotyModule,
     HeroesModule,
     HttpClientModule,
     MiscelaneosModule,
     AuthappModule,
-    AngularFireModule.initializeApp(environment.fireConfig, 'hakai-ng-app'),
-    AngularFirestoreModule,
     FormulariosModule,
-    OpenIdModule,
-    ConsoleModule,
-    NgrxAuthModule,
     AppRoutingModule,
     UdemyModule,
     StoreDevtoolsModule.instrument({

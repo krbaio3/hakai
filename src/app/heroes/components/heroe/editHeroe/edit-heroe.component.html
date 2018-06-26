@@ -1,48 +1,83 @@
-<h1>Heroe: <small class="text-uppercase">dinamico</small></h1>
+<section class="container row">
+  <h1 class="text-truncate">Heroe:
+    <small class="text-uppercase h2 text-truncate">{{ heroe.nombre }}</small>
+  </h1>
+</section>
 <hr>
 <br>
-<form class="fadeIn fast" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="nombreInput">Nombre</label>
-    <input class="form-control" id="nombreInput" type="text" aria-describedby="nombreHelp" placeholder="Introduce nombre" #nombre>
-    <small class="form-text text-muted" id="nombreHelp">Introduce el nombre del super-héroe o anti-héroe.</small>
-  </div>
-  <div class="form-group">
-    <label for="inputBiografia">Biografía</label>
-    <textarea class="form-control" id="inputBiografia" aria-describedby="biografiaHelp" placeholder="Enter biografia" #bio></textarea>
-    <small class="form-text text-muted" id="biografiaHelp">Introduce una pequeña biografía.</small>
-  </div>
+<form class="fadeIn fast container" (ngSubmit)="onEdit(heroe)">
+  <article class="row">
+    <section class="form-group col-12 col-sm-12 col-md-3">
+      <ng-container *ngIf="heroe?.img == undefined || heroe?.img === ''; else heroImg">
+        <img class="card-img-top mb-1 col-12" src="../../../../assets/img/sinFoto.png" alt="Sin imagen">
+      </ng-container>
+      <ng-template #heroImg>
+        <img *ngIf="heroe.imgURL" [src]="(heroe?.imgURL | async) || 'assets/img/sinFoto.png'" [alt]="heroe?.nombre" class="img-fluid mb-1 col-12">
+      </ng-template>
+      <section class="col-12">
+        <aside *ngIf="!habilitarInputFile">
+          <aside class="row">
+            <span class="text-center mb-3 col-12 text-truncate">{{heroe.img}}</span>
+          </aside>
+          <aside class="row">
+            <button type="button" name="loadImage" id="loadImage" class="btn btn-info btn-xs btn-block col-12" (click)="habilitarInputFile = !habilitarInputFile">Cambiar Imagen</button>
+          </aside>
+        </aside>
+        <!-- Habilitar boton input -->
+        <aside *ngIf="habilitarInputFile" class="input-group">
+          <input class="custom-file-input" id="inputImg" name="imagen" type="file" accept="image/*" (change)="handleFileInput($event)">
+          <label class="custom-file-label text-center text-truncate" for="imagen">
+            <ng-container *ngIf="heroe?.img == undefined || heroe?.img === ''; else heroeTemplate">
+              Añadir Imagen
+            </ng-container>
+            <ng-template #heroeTemplate>
+              {{heroe.img}}
+            </ng-template>
+          </label>
+          <small class="form-text text-muted text-center">Introduce una ruta para cargar la imagen</small>
+        </aside>
+        <!-- Fin boton input -->
+      </section>
+    </section>
 
-  <div class="form-group">
-    <label for="inputImg">Imagen</label>
-    <div class="input-group">
-      <div class="custom-file">
-        <input class="custom-file-input" id="inputImg" type="file" #img>
-        <label class="custom-file-label text-center" for="inputGroupFile04">Añadir Imagen</label>
+    <div class="form-group col-12 col-sm-12 col-md-9">
+      <div class="row form-group mt-2">
+        <label for="nombreInput">Nombre</label>
+        <input class="form-control" [(ngModel)]="heroe.nombre" id="nombreInput" type="text" aria-describedby="nombreHelp" placeholder="Introduce nombre"
+          name="nombre">
+        <small class="form-text text-muted" id="nombreHelp">Introduce el nombre del super-héroe o anti-héroe.</small>
+      </div>
+      <div class="row form-group">
+        <label for="inputBiografia">Biografía</label>
+        <textarea class="form-control" [(ngModel)]="heroe.bio" id="inputBiografia" aria-describedby="biografiaHelp" placeholder="Enter biografia"
+          name="bio" rows="5"></textarea>
+        <small class="form-text text-muted" id="biografiaHelp">Introduce una pequeña biografía.</small>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-6">
+          <label class="col-form-label" for="aparicion">Fecha</label>
+          <div class="">
+            <input class="form-control text-center" [(ngModel)]="heroe.aparicion" id="inputAparicion" type="date" placeholder="Aparición"
+              name="aparicion">
+          </div>
+          <small class="form-text text-muted">Introduce la fecha de primera aparición</small>
+        </div>
+
+        <div class="form-group col-6">
+          <label class="col-form-label" for="editorial">Editorial</label>
+          <select class="form-control" name="editorial" [(ngModel)]="heroe.editorial">
+            <option value="">Pertenece a...</option>
+            <option *ngFor="let editorial of editoriales" [ngValue]="editorial?.value">{{ editorial?.value }}</option>
+          </select>
+          <small class="form-text text-muted">Introduce la Editorial a la que pertenece</small>
+        </div>
       </div>
     </div>
-    <small class="form-text text-muted">Introduce una ruta para cargar la imagen</small>
-  </div>
-
-  <div class="form-group">
-    <label class="col-form-label" for="inputAparicion">Fecha</label>
-    <div class="">
-      <input class="form-control text-center" id="inputAparicion" type="date" placeholder="Aparición" #aparicion>
-    </div>
-    <small class="form-text text-muted">Introduce la fecha de primera aparición</small>
-  </div>
-
-  <div class="form-group">
-    <label for="inputCasa">Casa</label>
-    <select class="form-control" name="casa">
-      <option value="">Pertenece a...</option>
-      <option value="Marvel">Marvel</option>
-      <option value="DC">DC</option>
-    </select>
-  </div>
-
-  <br>
-  
-  <button class="btn btn-outline-primary btn-block" type="submit">Submit</button>
-  <button class="btn btn-outline-danger btn-block" type="button" [routerLink]="['../../../heroes']">Volver</button>
+    <br>
+    <aside class="container form-group col-12 col-sm-12 col-md-9 desktop">
+      <button class="btn btn-success btn-block col-12 col-sm-5 float-left" type="submit">Submit</button>
+      <button class="btn btn-danger btn-block col-12 col-sm-5 float-right ajuste" type="button" [routerLink]="['../../../heroes']">Volver</button>
+    </aside>
+  </article>
 </form>

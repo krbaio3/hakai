@@ -5,7 +5,6 @@ import { AddHeroeComponent } from './addHeroe/add-heroe.component';
 import { EditHeroeComponent } from './editHeroe/edit-heroe.component';
 import { RemoveHeroeComponent } from './removeHeroe/remove-heroe.component';
 import { ShowHeroeComponent } from './showHeroe/show-heroe.component';
-import { ResolveService } from '../../service/resolve.service';
 
 export const HEROE_ROUTES: Routes = [
   {
@@ -13,16 +12,16 @@ export const HEROE_ROUTES: Routes = [
     component: AddHeroeComponent,
   },
   {
-    path: ':id/show',
+    path: 'show/:id',
     component: ShowHeroeComponent,
-    resolve: { message: ResolveService}
+    // resolve: { message: ResolveService}
   },
   {
-    path: ':id/edit',
+    path: 'edit/:id',
     component: EditHeroeComponent,
   },
   {
-    path: ':id/remove',
+    path: 'remove/:id',
     component: RemoveHeroeComponent,
   },
 ];

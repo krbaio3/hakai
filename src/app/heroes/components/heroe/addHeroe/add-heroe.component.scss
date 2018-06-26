@@ -1,0 +1,34 @@
+$breakpoint-tablet: 576px;
+$breakpoint-desktop: 767px;
+
+img {
+  margin-top: 15%;
+}
+
+@media (min-width: $breakpoint-tablet) {
+  .ajuste {
+    margin-top: 0px !important;
+  }
+}
+
+@media (min-width: $breakpoint-desktop) {
+  .desktop {
+    margin-left: 25% !important;
+  }
+}
+
+.drop-zone {
+  border: dotted 3px lightgray;
+  opacity: 0.5;
+  color: #666;
+  text-align: center
+}
+
+.file-over {
+  border: dotted 3px dodgerblue;
+}
+
+.text-green {
+  color: green
+}
+

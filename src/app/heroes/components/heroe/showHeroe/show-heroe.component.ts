@@ -1,30 +1,41 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { HeroesService } from '../../../service/heroes.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Heroe, Editorial } from '../../../models';
 
 @Component({
   selector: 'app-show-heroe',
   templateUrl: './show-heroe.component.html',
-  styleUrls: ['./show-heroe.component.scss']
+  styleUrls: ['./show-heroe.component.scss'],
+  providers: [HeroesService]
 })
 export class ShowHeroeComponent implements OnInit {
-  heroe: any = {};
-  private paramSubscription: Subscription;
+  heroe: Heroe;
+  editoriales: Editorial[];
+  id: string;
+  editHeroeService: any;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private _heroeService: HeroesService
+    private route: ActivatedRoute,
+    private showHeroeService: HeroesService
   ) {
-    // activatedRoute.params.subscribe((params) => {
-    //   console.log(params.id);
-    //   // this.heroes = this._heroeService.getHeroes();
-    //   this.heroe = this._heroeService.getHeroe(params['id']);
-    // });
+    this.route.params.subscribe(params => {
+      console.log(
+        `entra en editar con parametros: ${JSON.stringify(params, null, 4)}`
+      );
+      this.id = params['id'];
+      this.showHeroeService.getHeroeAngularFire(this.id).subscribe(heroe => {
+        console.log(heroe);
+        this.heroe = heroe;
+        this.heroe.imgURL = this.showHeroeService.downloadProfileUrl(
+          this.heroe.img
+        );
+      });
+    });
   }
 
-  ngOnInit() {
-    this.heroe = this.activatedRoute.snapshot.data;
-    console.log(this.heroe);
+  ngOnInit(): void {
+    this.editoriales = this.showHeroeService.getEditorial();
   }
 }

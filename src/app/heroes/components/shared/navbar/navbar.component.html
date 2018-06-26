@@ -1,37 +1,36 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-<a class="navbar-brand" [routerLink]="['']">
+    <a class="navbar-brand" [routerLink]="['']">
 
-    <img src="/assets/img/A-64.png" alt width="30" height="30">
-  </a>
-  <button class="navbar-toggler" data-target="#navbarTogglerDemo02" data-toggle="collapse" type="button" aria-controls="navbarTogglerDemo02"
-    aria-expanded="false" aria-label="Toggle navigation">
+        <img src="/assets/img/A-64.png" alt width="30" height="30">
+    </a>
+    <button class="navbar-toggler" data-target="#navbarTogglerDemo02" data-toggle="collapse" type="button" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['home']">Home </a>
-      </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['home']">Home </a>
+            </li>
 
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['heroes']">Heroes</a>
-      </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['heroes']">Heroes</a>
+            </li>
 
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['about']">About</a>
-      </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['about']">About</a>
+            </li>
 
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['pipes']">Pipes</a>
-      </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['pipes']">Pipes</a>
+            </li>
 
-    </ul>
+        </ul>
 
-    <div class="form-inline my-2 my-lg-0">
-      <input #buscarTexto class="form-control mr-sm-2" type="search" placeholder="Buscar Heroe" (keyup.enter)="buscarHeroe(buscarTexto.value)">
-      <button class="btn btn-outline-primary my-2 my-sm-0" type="button" (click)="buscarHeroe(buscarTexto.value)">Buscar...</button>
+        <div class="form-inline my-2 my-lg-0">
+            <input #buscarTexto class="form-control mr-sm-2" type="search" placeholder="Buscar Heroe" (keyup.enter)="buscarHeroe(buscarTexto.value)">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="button" (click)="buscarHeroe(buscarTexto.value)">Buscar...</button>
+        </div>
     </div>
-  </div>
 </nav>

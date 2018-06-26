@@ -1,59 +1,109 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
-import { HeroeAddService } from './heroe-add.service';
 import { HeroesService } from '../../../service/heroes.service';
-import { Heroe } from '../models/I-AddHeroe';
-import { Editorial } from '../models/I-Editorial';
+import { Heroe, Editorial, FileItem } from '../../../models';
+
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-add-heroe',
   templateUrl: './add-heroe.component.html',
   styleUrls: ['./add-heroe.component.scss'],
-  providers: [HeroeAddService],
+  providers: [HeroesService]
 })
 export class AddHeroeComponent implements OnInit {
-
-
-  heroe: Heroe = {
-    nombre: '',
-    bio: '',
-    editorial: '',
-    aparicion: '',
-    img: '',
-    imgURL: '',
-  };
+  heroe: Heroe;
 
   editoriales: Editorial[];
+  progress: { porcentaje: number } = { porcentaje: 0 };
 
+  fileToUpload: File = null;
+  archivo: FileItem;
+  overDrop: boolean = false;
+  selectedFile: File;
+
+  private heroeCollection: AngularFirestoreCollection<Heroe>;
 
   constructor(
-    private heroeSrv: HeroesService,
-    private heroAddService: HeroeAddService,
+    private heroAddService: HeroesService,
+    private afs: AngularFirestore,
+    private router: Router
   ) {
+    this.resetHero();
+    this.heroeCollection = this.afs.collection<Heroe>('img');
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.editoriales = this.heroAddService.getEditorial();
-  }
-
-  changeListener($event): void {
-    this.readThis($event.target);
-  }
-
-  readThis(inputValue: any): void {
-    const file:File = inputValue.files[0];
-    this.heroe.img = inputValue.files[0].name;
-    const myReader:FileReader = new FileReader();
-
-    myReader.onloadend = (e) => {
-      this.heroe.imgURL = myReader.result;
-    };
-
-    myReader.readAsDataURL(file);
   }
 
   onSubmit() {
     console.log(`Valor: ${JSON.stringify(this.heroe, null, 4)}`);
+
+    this.heroe = Object.assign(this.heroe, {
+      img: this.selectedFile.name
+    });
+
+    this.heroeCollection.add(this.heroe);
+
+    this.loadImages();
+    // .then(() => this.router.navigate(['/avenger/heroes']))
+    // .catch(error => console.error(`Error: ${error}`));
+  }
+
+  selectFile(event) {
+    const file = event.target.files.item(0);
+
+    if (file.type.match('image.*')) {
+      this.selectedFile = file;
+    } else {
+      alert('invalid format!');
+    }
+  }
+
+  /////////////////////////////
+
+  private loadImages() {
+    const file = this.selectedFile;
+    this.selectedFile = undefined;
+
+    this.archivo = new FileItem(file);
+    this.heroAddService
+      .uploadImagenesFirebase(this.archivo, this.progress)
+      .then(response => {
+        console.log('Entra', response);
+        this.router.navigate(['/avenger/heroes']);
+      })
+      .catch(error => {
+        console.error(`Error: ${error}`);
+      });
+  }
+
+  private resetHero(): void {
+    // Object.keys(this.heroe).forEach(k => (this.heroe[k] = ''));
+    // console.log(this.heroe);
+
+    this.heroe = {
+      nombre: '',
+      bio: '',
+      editorial: '',
+      aparicion: '',
+      img: ''
+    };
+  }
+
+  pruebaSobreElemento(event) {
+    console.log(event);
+  }
+
+  cleanFiles() {
+    console.log('limpiar Archivos');
+    this.archivo = null;
   }
 }
