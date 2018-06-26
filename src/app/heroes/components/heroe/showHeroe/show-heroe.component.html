@@ -1,25 +1,32 @@
-<h1 class="fadeIn animated">
-  <!-- {{ heroe | async }} -->
-  the message is {{heroe.message}}
-  <!-- <small>{{ (heroe?.aparicion | async) | date:'yyyy' }}</small> -->
-</h1>
+<section class="container row">
+  <h1 class="text-truncate">{{ heroe?.nombre }}
+    <small *ngIf="heroe?.aparicion">({{heroe?.aparicion | date:'yyyy'}})</small>
+  </h1>
+</section>
 <hr>
-<!-- <div class="row fadeIn animated fast">
-  <div class="col-md-4"> -->
-    <!-- <img [src]="heroe?.img" [alt]="heroe?.nombre" class="img-fluid"> -->
-    <!-- <br>
+<br>
+<div class="row fadeIn animated fast">
+  <div class="col-md-4">
+    <ng-container *ngIf="heroe?.imgURL == undefined; else heroImg">
+      <img class="card-img-top ajuste" src="assets/img/sinFoto.png" alt="Sin imagen">
+    </ng-container>
+    <ng-template #heroImg>
+      <img *ngIf="heroe.imgURL" [src]="(heroe?.imgURL | async) || 'assets/img/sinFoto.png'" [alt]="heroe?.nombre" class="img-fluid ajuste">
+    </ng-template>
     <br>
-    <a [routerLink]="['../../../heroes']" class="btn btn-outline-danger btn-block">Volver</a>
+    <br>
   </div>
   <div class="col-md-8">
-    <h3>{{ heroe?.nombre | async }}</h3>
-    <hr>
+    <h3>Biografía</h3>
     <p>
-      {{ heroe?.bio | async }}
+      {{heroe?.bio}}
     </p>
-    <div> -->
-      <!-- <img *ngIf="heroe.casa === 'DC'" src="assets/brand/DC.png" [alt]="heroe.casa" class="img-fluid casa">
-      <img *ngIf="heroe.casa === 'Marvel'" src="assets/brand/marvel.jpg" [alt]="heroe.casa" class="img-fluid casa"> -->
-    <!-- </div>
+    <div>
+      <img *ngIf="heroe?.editorial === 'DC'" src="assets/brand/DC.png" [alt]="heroe?.editorial" class="img-fluid editorial">
+      <img *ngIf="heroe?.editorial === 'Marvel'" src="assets/brand/marvel.jpg" [alt]="heroe?.editorial" class="img-fluid editorial">
+    </div>
   </div>
-</div> -->
+</div>
+<br class="d-md-none">
+<br class="d-md-none">
+<button [routerLink]="['../../../heroes']" class="btn btn-outline-danger btn-block col-sm-12 col-md-8 float-right">Volver</button>

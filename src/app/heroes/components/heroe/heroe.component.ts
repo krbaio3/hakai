@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HeroesService } from '../../service/heroes.service';
-import { Subscription } from 'rxjs/Subscription';
+// import { HeroesService } from '../../service/heroes.service';
+// import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-heroe',

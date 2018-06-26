@@ -14,7 +14,6 @@ import { EditHeroeComponent } from './components/heroe/editHeroe/edit-heroe.comp
 import { ShowHeroeComponent } from './components/heroe/showHeroe/show-heroe.component';
 
 import { HEROE_ROUTES } from './components/heroe/heroe.routing';
-import { ResolveService } from './service/resolve.service';
 
 const APP_ROUTES: Routes = [
   {
@@ -23,47 +22,45 @@ const APP_ROUTES: Routes = [
     children: [
       {
         path: '',
-        component: HomeComponent,
+        component: HomeComponent
       },
       {
         path: 'home',
-        component: HomeComponent,
+        component: HomeComponent
       },
       {
         path: 'heroes',
-        component: HeroesComponent,
+        component: HeroesComponent
       },
       {
         path: 'about',
-        component: AboutComponent,
+        component: AboutComponent
       },
       {
         path: 'pipes',
-        component: PipesComponent,
+        component: PipesComponent
       },
       {
         path: 'heroe',
         component: HeroeComponent,
-        children: HEROE_ROUTES,
+        children: HEROE_ROUTES
       },
       {
         path: 'search/:name',
-        component: SearchComponent,
+        component: SearchComponent
       },
       {
         path: '**',
         pathMatch: 'full',
-        redirectTo: 'home',
-      },
-    ],
-  },
+        redirectTo: 'home'
+      }
+    ]
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(APP_ROUTES)],
   exports: [RouterModule],
-  providers: [
-    ResolveService
-  ]
+  providers: []
 })
 export class HeroesRoutingModule {}

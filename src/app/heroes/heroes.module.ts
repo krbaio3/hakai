@@ -2,11 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { HeroesRoutingModule } from './heroes.routing';
+// Modules
 import { PipesModule } from '../pipes/pipes.module';
 
-// Servicios
-import { HeroesService } from './service/heroes.service';
+// Routing
+import { HeroesRoutingModule } from './heroes.routing';
+
+// Pipes
+import { KeysPipe } from './components/heroe/keys.pipe';
+
+// Servicios. Este es para AngularFirebase, de momento, se queda para otra iteracion
+// import { HeroesService } from './service/heroes.service';
+// import { CargaImagenesService } from './service/carga-imagenes.service';
+
 // Componentes
 import { AvengerComponent } from './avenger.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
@@ -20,6 +28,10 @@ import { AddHeroeComponent } from './components/heroe/addHeroe/add-heroe.compone
 import { RemoveHeroeComponent } from './components/heroe/removeHeroe/remove-heroe.component';
 import { EditHeroeComponent } from './components/heroe/editHeroe/edit-heroe.component';
 import { ShowHeroeComponent } from './components/heroe/showHeroe/show-heroe.component';
+// import { LoadingComponent } from './components/shared/loading/loading.component';
+// import { FotosComponent } from './components/fotos/fotos.component';
+// import { CargaComponent } from './components/carga/carga.component';
+import { NgDropfilesDirective } from './directives/ng-dropfiles.directive';
 
 @NgModule({
   imports: [
@@ -30,7 +42,6 @@ import { ShowHeroeComponent } from './components/heroe/showHeroe/show-heroe.comp
     ReactiveFormsModule
   ],
   exports: [
-    // AvengerComponent,
   ],
   declarations: [
     AvengerComponent,
@@ -45,7 +56,14 @@ import { ShowHeroeComponent } from './components/heroe/showHeroe/show-heroe.comp
     RemoveHeroeComponent,
     EditHeroeComponent,
     ShowHeroeComponent,
+    KeysPipe,
+    // LoadingComponent,
+    // FotosComponent,
+    // CargaComponent,
+    NgDropfilesDirective,
   ],
-  providers: [HeroesService],
+  providers: [
+    // CargaImagenesService
+  ],
 })
 export class HeroesModule {}

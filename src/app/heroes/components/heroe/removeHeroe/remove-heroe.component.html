@@ -1,26 +1,61 @@
-<h1 class="fadeIn animated">{{heroe.nombre | uppercase}}
-  <small>({{heroe.aparicion | date:'yyyy'}})</small>
-</h1>
+<section class="container row">
+  <h1 class="text-truncate">Heroe:
+    <small class="text-uppercase h2 text-truncate">{{ heroe?.nombre }}</small>
+  </h1>
+</section>
 <hr>
-<div class="row fadeIn animated fast">
-  <div class="col-md-4">
-    <img [src]="heroe.img" [alt]="heroe.nombre" class="img-fluid">
-    <br>
-    <br>
-  </div>
-  <div class="col-md-8">
-    <h3>{{heroe.nombre}}</h3>
-    <hr>
-    <p>
-      {{heroe.bio}}
-    </p>
-    <div>
-      <img *ngIf="heroe.casa === 'DC'" src="assets/brand/DC.png" [alt]="heroe.casa" class="img-fluid casa">
-      <img *ngIf="heroe.casa === 'Marvel'" src="assets/brand/marvel.jpg" [alt]="heroe.casa" class="img-fluid casa">
+<br>
+<form class="fadeIn fast container" (ngSubmit)="deleteHeroe(heroe)">
+  <article class="row">
+    <section class="form-group col-12 col-sm-12 col-md-3">
+      <ng-container *ngIf="heroe?.img == undefined || heroe?.img === ''; else heroImg">
+        <img class="card-img-top mb-1 col-12" src="../../../../assets/img/sinFoto.png" alt="Sin imagen">
+      </ng-container>
+      <ng-template #heroImg>
+        <img *ngIf="heroe.imgURL" [src]="(heroe?.imgURL | async) || 'assets/img/sinFoto.png'" [alt]="heroe?.nombre" class="img-fluid mb-1 col-12">
+      </ng-template>
+      <section class="col-12">
+        <aside class="row">
+          <span class="text-center mb-3 col-12 text-truncate">{{heroe?.img}}</span>
+        </aside>
+      </section>
+    </section>
+
+    <div class="form-group col-12 col-sm-12 col-md-9">
+      <div class="row form-group mt-2">
+        <label for="nombreInput">Nombre</label>
+        <input class="form-control text-truncate" [value]="heroe?.nombre" id="inputNombre" type="text" placeholder="Nombre"
+          disabled name="nombre">
+      </div>
+      <div class="row form-group">
+        <label for="inputBiografia">Biografía</label>
+        <textarea class="form-control" [value]="heroe?.bio" id="inputBiografia" aria-describedby="biografiaHelp" placeholder="Enter biografia"
+          name="bio" rows="5" disabled></textarea>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-6">
+          <label class="col-form-label" for="aparicion">Fecha</label>
+          <div class="">
+            <input class="form-control text-center" [value]="heroe?.aparicion" id="inputAparicion" type="date" placeholder="Aparición"
+              disabled name="aparicion">
+          </div>
+        </div>
+
+        <div class="form-group col-6">
+          <label class="col-form-label" for="editorial">Editorial</label>
+          <select class="form-control" name="editorial" [value]="heroe?.editorial" disabled> 
+            <option value="">Pertenece a...</option>
+            <option *ngFor="let editorial of editoriales" [ngValue]="editorial?.value">{{ editorial?.value }}</option>
+          </select>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-<br>
-<br>
-<a class="btn btn-outline-primary btn-block" [routerLink]="['../../../heroes']">Volver</a>
-<a class="btn btn-outline-danger btn-block" [routerLink]="['../../../heroes']">Borrar</a>
+    <br>
+    <aside class="container form-group col-12 col-sm-12 col-md-9 desktop">
+      <button class="btn btn-success btn-block col-12 col-sm-5 float-left" type="submit">Borrar</button>
+      <button class="btn btn-danger btn-block col-12 col-sm-5 float-right ajuste" type="button" [routerLink]="['../../../heroes']">Volver</button>
+    </aside>
+  </article>
+
+</form>
