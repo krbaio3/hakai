@@ -33,3 +33,9 @@ https://stackoverflow.com/questions/42376972/best-way-to-import-observable-from-
   * Monment, lo mismo que lodash. Ver artículo: https://iamakulov.com/notes/webpack-front-end-size-caching/
   * Revisar Utils la parte de ngc-webpack con documentacion: https://github.com/shlomiassaf/ngc-webpack#usage
   * 
+
+
+"angular-auth-oidc-client": "^6.0.1",
+ "@ngrx/effects": "^6.0.0",
+    "@ngrx/store": "^6.0.0",
+    "@ngrx/store-devtools": "^6.0.0",
