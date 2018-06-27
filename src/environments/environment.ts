@@ -13,5 +13,6 @@ export const environment = {
     projectId: 'hakai-ng-app',
     storageBucket: 'hakai-ng-app.appspot.com',
     messagingSenderId: '547138758577'
-  }
+  },
+  configFile: 'assets/config/config.json'
 };

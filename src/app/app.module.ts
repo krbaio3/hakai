@@ -1,6 +1,6 @@
 // Angular
 import { BrowserModule } from '@angular/platform-browser';
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
@@ -34,6 +34,10 @@ import { HeroesModule } from './heroes/heroes.module';
 import { FormulariosModule } from './formularios/formularios.module';
 import { UdemyModule } from './udemy/udemy.module';
 
+// Services
+import { ConfigService } from './app.config.service';
+import { ConfigLoader } from './app.configLoader';
+
 registerLocaleData(localeEs);
 
 @NgModule({
@@ -59,7 +63,16 @@ registerLocaleData(localeEs);
       logOnly: environment.production // Restrict extension to log-only mode
     })
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'es' }],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es' },
+    ConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: ConfigLoader,
+      deps: [ConfigService],
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

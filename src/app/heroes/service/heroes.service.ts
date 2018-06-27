@@ -6,8 +6,7 @@ import { FileItem } from '../models/file-item';
 
 import {
   AngularFirestore,
-  AngularFirestoreCollection,
-  DocumentReference,
+  // AngularFirestoreCollection,
   AngularFirestoreDocument
 } from 'angularfire2/firestore';
 import * as firebase from 'firebase';
@@ -20,7 +19,7 @@ import { AngularFireStorage } from 'angularfire2/storage';
 export class HeroesService {
   private basePath = 'img';
 
-  private heroeCollection: AngularFirestoreCollection<Heroe>;
+  // private heroeCollection: AngularFirestoreCollection<Heroe>;
   private heroeDoc: AngularFirestoreDocument<Heroe>;
   private heroe: Observable<Heroe>;
   private currentFileUpload: FileItem;
@@ -33,7 +32,7 @@ export class HeroesService {
     private storage: AngularFireStorage,
     private adb: AngularFireDatabase
   ) {
-    this.heroeCollection = this.afs.collection<Heroe>('img');
+    // this.heroeCollection = this.afs.collection<Heroe>('img');
   }
 
   getEditorial(): Editorial[] {
