@@ -28,6 +28,9 @@ import { AddHeroeComponent } from './components/heroe/addHeroe/add-heroe.compone
 import { RemoveHeroeComponent } from './components/heroe/removeHeroe/remove-heroe.component';
 import { EditHeroeComponent } from './components/heroe/editHeroe/edit-heroe.component';
 import { ShowHeroeComponent } from './components/heroe/showHeroe/show-heroe.component';
+import { LandingComponent } from './components/landing/landing.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { LogInComponent } from './components/log-in/log-in.component';
 // import { LoadingComponent } from './components/shared/loading/loading.component';
 // import { FotosComponent } from './components/fotos/fotos.component';
 // import { CargaComponent } from './components/carga/carga.component';
@@ -41,8 +44,7 @@ import { NgDropfilesDirective } from './directives/ng-dropfiles.directive';
     FormsModule,
     ReactiveFormsModule
   ],
-  exports: [
-  ],
+  exports: [],
   declarations: [
     AvengerComponent,
     NavbarComponent,
@@ -57,6 +59,9 @@ import { NgDropfilesDirective } from './directives/ng-dropfiles.directive';
     EditHeroeComponent,
     ShowHeroeComponent,
     KeysPipe,
+    SignUpComponent,
+    LandingComponent,
+    LogInComponent,
     // LoadingComponent,
     // FotosComponent,
     // CargaComponent,
@@ -64,6 +69,6 @@ import { NgDropfilesDirective } from './directives/ng-dropfiles.directive';
   ],
   providers: [
     // CargaImagenesService
-  ],
+  ]
 })
 export class HeroesModule {}

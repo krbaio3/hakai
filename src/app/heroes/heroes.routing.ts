@@ -8,10 +8,9 @@ import { AboutComponent } from './components/about/about.component';
 import { HeroeComponent } from './components/heroe/heroe.component';
 import { SearchComponent } from './components/search/search.component';
 import { PipesComponent } from './components/pipes/pipes.component';
-import { AddHeroeComponent } from './components/heroe/addHeroe/add-heroe.component';
-import { RemoveHeroeComponent } from './components/heroe/removeHeroe/remove-heroe.component';
-import { EditHeroeComponent } from './components/heroe/editHeroe/edit-heroe.component';
-import { ShowHeroeComponent } from './components/heroe/showHeroe/show-heroe.component';
+import { LandingComponent } from './components/landing/landing.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { LogInComponent } from './components/log-in/log-in.component';
 
 import { HEROE_ROUTES } from './components/heroe/heroe.routing';
 
@@ -21,8 +20,20 @@ const APP_ROUTES: Routes = [
     component: AvengerComponent,
     children: [
       {
-        path: '',
-        component: HomeComponent
+        path: 'log-in',
+        component: LogInComponent
+      },
+      {
+        path: 'sign-up',
+        component: SignUpComponent
+      },
+      // {
+      //   path: '',
+      //   component: LandingComponent
+      // },
+      {
+        path: 'landing',
+        component: LandingComponent
       },
       {
         path: 'home',
