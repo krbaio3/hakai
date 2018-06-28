@@ -1,36 +1,94 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" [routerLink]="['']">
+  <a class="navbar-brand" [routerLink]="['']">
 
-        <img src="/assets/img/A-64.png" alt width="30" height="30">
-    </a>
-    <button class="navbar-toggler" data-target="#navbarTogglerDemo02" data-toggle="collapse" type="button" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <img src="/assets/img/A-64.png" alt width="30" height="30">
+  </a>
+  <button class="navbar-toggler" data-target="#navbarTogglerDemo02" data-toggle="collapse" type="button" aria-controls="navbarTogglerDemo02"
+    aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 
-            <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" [routerLink]="['home']">Home </a>
-            </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['home']">Home </a>
+      </li>
 
-            <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" [routerLink]="['heroes']">Heroes</a>
-            </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['heroes']">Heroes</a>
+      </li>
 
-            <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" [routerLink]="['about']">About</a>
-            </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['about']">About</a>
+      </li>
 
-            <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" [routerLink]="['pipes']">Pipes</a>
-            </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['pipes']">Pipes</a>
+      </li>
 
+    </ul>
+
+    <ul class="nav navbar-nav flex-row justify-content-between ml-auto mr-3">
+      <li class="nav-item order-2 order-md-1">
+        <a href="#" class="nav-link" title="settings">
+          <i class="fa fa-cog fa-fw fa-lg"></i>
+        </a>
+      </li>
+      <li class="dropdown order-1">
+        <button type="button" *ngIf="!afAuth.user | async as user" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle"
+          (click)="print(afAuth.user)">Login
+          <span class="caret"></span>
+        </button>
+        <button type="button" *ngIf="afAuth.user | async as user" id="dropdownMenu2" class="btn btn-outline-secondary" (click)="logOut()">Logout
+          <span class="caret"></span>
+          {{user.displayName}}
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right mt-2">
+          <li class="px-3 py-2">
+            <form class="form" role="form">
+              <div class="form-group">
+                <input id="emailInput" placeholder="Email" class="form-control form-control-sm" type="text" required="">
+              </div>
+              <div class="form-group">
+                <input id="passwordInput" placeholder="Password" class="form-control form-control-sm" type="text" required="">
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+              </div>
+              <div class="form-group text-center">
+                <small>
+                  <a href="#" data-toggle="modal" data-target="#modalPassword">Forgot password?</a>
+                </small>
+              </div>
+            </form>
+          </li>
         </ul>
+      </li>
+    </ul>
 
-        <div class="form-inline my-2 my-lg-0">
-            <input #buscarTexto class="form-control mr-sm-2" type="search" placeholder="Buscar Heroe" (keyup.enter)="buscarHeroe(buscarTexto.value)">
-            <button class="btn btn-outline-primary my-2 my-sm-0" type="button" (click)="buscarHeroe(buscarTexto.value)">Buscar...</button>
-        </div>
+    <div class="form-inline my-2 my-lg-0">
+      <input #buscarTexto class="form-control mr-sm-2" type="search" placeholder="Buscar Heroe" (keyup.enter)="buscarHeroe(buscarTexto.value)">
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="button" (click)="buscarHeroe(buscarTexto.value)">Buscar...</button>
     </div>
+  </div>
 </nav>
+
+
+<div id="modalPassword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Forgot password</h3>
+        <button type="button" class="close font-weight-light" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+        <p>Reset your password..</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

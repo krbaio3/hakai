@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-4">
-    <h1>Log in</h1>
+    <h1>Log-in</h1>
     <hr>
     <br>
     <form (ngSubmit)="onSubmit()" ngNativeValidate>
@@ -12,12 +12,14 @@
         <label for="password">Password</label>
         <input [(ngModel)]="user.password" name="password" type="password" required class="form-control" id="password" placeholder="enter a password">
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-      <a [routerLink]="['../landing']" class="btn btn-success">Cancel</a>
+      <div class="col-12">
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button [routerLink]="['../landing']" class="btn btn-danger float-right">Cancel</button>
+      </div>
     </form>
     <p>
       <span>Don't have an account?</span>
-      <a [routerLink]="['../sign-up']">Sign up!</a>
+      <a>Sign up!</a>
     </p>
   </div>
 </div>
