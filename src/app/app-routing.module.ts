@@ -25,7 +25,7 @@ const APP_ROUTES: Routes = [
   imports: [
     RouterModule.forRoot(APP_ROUTES, {
       useHash: true,  // quitar para que desaparezca el hash de la ruta
-      // enableTracing: true,
+      enableTracing: true,
     }),
     HeroesRoutingModule,
     FormulariosRoutingModule,

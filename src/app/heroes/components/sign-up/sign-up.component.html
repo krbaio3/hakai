@@ -13,11 +13,11 @@
         <input [(ngModel)]="user.password" name="password" type="password" required class="form-control" id="password" placeholder="enter a password">
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
-      <a [routerLink]="['.']" class="btn btn-success">Cancel</a>
+      <a [routerLink]="['../landing']" class="btn btn-success">Cancel</a>
     </form>
     <p>
-      <span>Already have an account?&nbsp;</span>
-      <a [routerLink]="['log-in']">Log in!</a>
+      <span>Already have an account?</span>
+      <a [routerLink]="['../log-in']">Log in!</a>
     </p>
   </div>
 </div>

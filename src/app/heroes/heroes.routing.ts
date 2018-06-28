@@ -27,10 +27,10 @@ const APP_ROUTES: Routes = [
         path: 'sign-up',
         component: SignUpComponent
       },
-      {
-        path: '',
-        component: LandingComponent
-      },
+      // {
+      //   path: '',
+      //   component: LandingComponent
+      // },
       {
         path: 'landing',
         component: LandingComponent
