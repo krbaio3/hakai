@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
 
@@ -30,23 +29,21 @@ export class AuthService {
     );
   }
 
-  signInWithGoogle(email, password) {
+  signInWithGoogle(email: string, password: string): Promise<any> {
     // return this.firebaseAuth.auth.signInWithPopup(
     //   new firebase.auth.GoogleAuthProvider()
     // );
-    return this.firebaseAuth.auth
-      .signInWithEmailAndPassword(email, password)
-      // .catch(error => {
-      //   const errorCode = error.code;
-      //   const errorMessage = error.message;
-      //   if (errorCode === 'auth/wrong-password') {
-      //     alert('Wrong password.');
-      //   } else {
-      //     alert(errorMessage);
-      //   }
-      //   console.log(error);
-      // })
-      ;
+    return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password);
+    // .catch(error => {
+    //   const errorCode = error.code;
+    //   const errorMessage = error.message;
+    //   if (errorCode === 'auth/wrong-password') {
+    //     alert('Wrong password.');
+    //   } else {
+    //     alert(errorMessage);
+    //   }
+    //   console.log(error);
+    // })
   }
 
   isLoggedIn(): boolean {
@@ -61,5 +58,23 @@ export class AuthService {
     this.firebaseAuth.auth
       .signOut()
       .then(response => this.router.navigate(['/']));
+  }
+
+  signup(email: string, password: string) {
+    this.firebaseAuth.auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(value => {
+        const user: any = firebase.auth().currentUser;
+        user
+          .sendEmailVerification()
+          .then(success => {
+            console.log('please verify your email', JSON.stringify(success, null, 4));
+          })
+          .catch(err => {
+            console.error(err);
+          });
+        console.log(`Success ${value}`);
+      })
+      .catch(error => console.error(`Error: ${error}`));
   }
 }

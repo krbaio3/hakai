@@ -12,6 +12,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 
 // 3rd Party
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 // FireBase
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -56,6 +57,7 @@ registerLocaleData(localeEs);
     // MiscelaneosModule,
     // AuthappModule,
     FormulariosModule,
+    FontAwesomeModule,
     AppRoutingModule,
     UdemyModule,
     StoreDevtoolsModule.instrument({

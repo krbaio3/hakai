@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AuthService } from './service/auth.service';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+
+
+import { AuthService } from './service/auth.service';
 import { User } from './models';
 
 @Component({
@@ -11,10 +14,10 @@ import { User } from './models';
   providers: [AuthService]
 })
 export class AvengerComponent implements OnInit {
-  email: string;
-  password: string;
 
+  @ViewChild('btnClose') btnClose: ElementRef;
   user: User = new User();
+  userModal: User = new User();
 
   constructor(
     public afAuth: AngularFireAuth,
@@ -50,4 +53,11 @@ export class AvengerComponent implements OnInit {
   loginPopUp() {
     this.authSrv.signInWithGooglePopUp();
   }
+  singUp(userModal: NgForm) {
+    console.log('entra', userModal);
+    this.btnClose.nativeElement.click();
+    this.authSrv.signup(this.userModal.email, this.userModal.password);
+  }
+
+  ///////////////////
 }

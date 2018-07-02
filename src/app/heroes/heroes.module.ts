@@ -2,6 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// third party
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faUser,
+  faLock,
+  faCheck,
+  faGoogle
+} from '@fortawesome/free-solid-svg-icons';
+
 // Modules
 import { PipesModule } from '../pipes/pipes.module';
 
@@ -35,12 +46,16 @@ import { LogInComponent } from './components/log-in/log-in.component';
 // import { CargaComponent } from './components/carga/carga.component';
 import { NgDropfilesDirective } from './directives/ng-dropfiles.directive';
 
+library.add(faUser, faLock, faCheck, faGoogle);
+
 @NgModule({
   imports: [
     CommonModule,
-    HeroesRoutingModule,
-    PipesModule,
     FormsModule,
+    HeroesRoutingModule,
+    NgbModule.forRoot(),
+    FontAwesomeModule,
+    PipesModule,
     ReactiveFormsModule
   ],
   exports: [],
@@ -63,7 +78,7 @@ import { NgDropfilesDirective } from './directives/ng-dropfiles.directive';
     // LoadingComponent,
     // FotosComponent,
     // CargaComponent,
-    NgDropfilesDirective,
+    NgDropfilesDirective
   ],
   providers: [
     // CargaImagenesService
