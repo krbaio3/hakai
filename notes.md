@@ -39,3 +39,11 @@ https://stackoverflow.com/questions/42376972/best-way-to-import-observable-from-
  "@ngrx/effects": "^6.0.0",
     "@ngrx/store": "^6.0.0",
     "@ngrx/store-devtools": "^6.0.0",
+
+
+
+
+
+# Error Handler
+
+https://www.concretepage.com/angular/angular-custom-error-handler

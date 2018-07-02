@@ -38,6 +38,7 @@ import { UdemyModule } from './udemy/udemy.module';
 // Services
 import { ConfigService } from './app.config.service';
 import { ConfigLoader } from './app.configLoader';
+import { ErrorHandlerModule } from './core/errors/error-handler.module';
 
 registerLocaleData(localeEs);
 
@@ -63,7 +64,8 @@ registerLocaleData(localeEs);
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production // Restrict extension to log-only mode
-    })
+    }),
+    ErrorHandlerModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es' },
