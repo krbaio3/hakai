@@ -1,20 +1,20 @@
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-12 text-center">
     <h1>Log-in</h1>
     <hr>
     <br>
     <form (ngSubmit)="onSubmit()" ngNativeValidate>
       <div class="form-group">
         <label for="email">Email</label>
-        <input [(ngModel)]="user.email" name="email" type="email" required class="form-control" id="email" placeholder="enter your email">
+        <input [(ngModel)]="user.email" name="email" type="email" required class="form-control col-6" id="email" placeholder="enter your email">
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input [(ngModel)]="user.password" name="password" type="password" required class="form-control" id="password" placeholder="enter a password">
+        <input [(ngModel)]="user.password" name="password" type="password" required class="form-control col-6" id="password" placeholder="enter a password">
       </div>
       <div class="col-12">
         <button type="submit" class="btn btn-success">Submit</button>
-        <button [routerLink]="['../landing']" class="btn btn-danger float-right">Cancel</button>
+        <button [routerLink]="['../']" class="btn btn-danger float-right">Cancel</button>
       </div>
     </form>
     <p>
