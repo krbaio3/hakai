@@ -1,21 +1,18 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { publish, refCount } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NotificationService {
   private _notification: BehaviorSubject<string> = new BehaviorSubject(null);
   readonly notification$: Observable<string> = this._notification
     .asObservable()
-    .pipe(
-      publish()
-    )
-    .pipe(
-      refCount()
-    );
+    .pipe(publish())
+    .pipe(refCount());
 
   constructor() {}
 

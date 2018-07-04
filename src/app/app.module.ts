@@ -1,10 +1,16 @@
 // Angular
 import { BrowserModule } from '@angular/platform-browser';
-import { LOCALE_ID, NgModule, APP_INITIALIZER } from '@angular/core';
+import {
+  LOCALE_ID,
+  NgModule,
+  APP_INITIALIZER,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-import { registerLocaleData } from '@angular/common';
+import {
+  registerLocaleData,
+} from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
@@ -38,7 +44,9 @@ import { UdemyModule } from './udemy/udemy.module';
 // Services
 import { ConfigService } from './app.config.service';
 import { ConfigLoader } from './app.configLoader';
-import { ErrorHandlerModule } from './core/errors/error-handler.module';
+
+// Core
+import { CoreModule } from './core/core.module';
 
 registerLocaleData(localeEs);
 
@@ -65,7 +73,7 @@ registerLocaleData(localeEs);
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production // Restrict extension to log-only mode
     }),
-    ErrorHandlerModule,
+    CoreModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es' },

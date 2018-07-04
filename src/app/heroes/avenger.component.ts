@@ -56,6 +56,7 @@ export class AvengerComponent implements OnInit {
   singUp(userModal: NgForm) {
     console.log('entra', userModal);
     this.btnClose.nativeElement.click();
+    // this.authSrv.signup(this.userModal.email, this.userModal.password);
     this.authSrv.signup();
   }
 

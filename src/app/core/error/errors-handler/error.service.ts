@@ -1,39 +1,49 @@
-import { ErrorHandler, Injectable, Injector} from '@angular/core';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Injectable, ErrorHandler, Injector } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import {
+  Location,
+  LocationStrategy,
+  PathLocationStrategy
+} from '@angular/common';
 
 import * as StackTraceParser from 'error-stack-parser';
 
 import { NotificationService } from '../../services/notification/notification.service';
+import { ErrorsService } from '../errors-service/logger.service';
 
-@Injectable()
-export class ErrorsHandler implements ErrorHandler {
-  constructor(
-    private injector: Injector,
-  ) {}
+@Injectable({
+  providedIn: 'root'
+})
+export class ErrorService implements ErrorHandler {
+  constructor(private injector: Injector) {}
 
   handleError(error: Error | HttpErrorResponse) {
     const notificationService = this.injector.get(NotificationService);
+    const errorsService = this.injector.get(ErrorsService);
     const router = this.injector.get(Router);
 
     if (error instanceof HttpErrorResponse) {
-    // Server error happened
+      // Server error happened
       if (!navigator.onLine) {
         // No Internet connection
         return notificationService.notify('No Internet Connection');
       }
       // Http Error
+      // Send the error to the server
+      errorsService.log(error).subscribe();
+      // Show notification to the user
       return notificationService.notify(`${error.status} - ${error.message}`);
     } else {
       // Client Error Happend
-      router.navigate(['/error'], { queryParams: {error: error} });
+      // Send the error to the server and then
+      // redirect the user to the page with all the info
+      errorsService.log(error).subscribe(errorWithContextInfo => {
+        router.navigate(['/error'], { queryParams: errorWithContextInfo });
+      });
     }
-    // Log the error anyway
-    console.error(error);
   }
 }
-
 
 /*
 EXPLANATION:
@@ -152,4 +162,3 @@ EXPLANATION:
   4 - Cómo reaccionar a cada tipo de error (Opinionated) NotService
   5 - Cómo trackear los errores ()
 */
-
