@@ -39,12 +39,16 @@ import { UdemyModule } from './udemy/udemy.module';
 import { ConfigService } from './app.config.service';
 import { ConfigLoader } from './app.configLoader';
 
+// Core
+import { CoreModule } from './core/core.module';
+
 registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    CoreModule,
     AngularFireModule.initializeApp(environment.fireConfig), // imports firebase/app needed for everything
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
@@ -73,7 +77,7 @@ registerLocaleData(localeEs);
       useFactory: ConfigLoader,
       deps: [ConfigService],
       multi: true
-    },
+    }
   ],
   bootstrap: [AppComponent]
 })

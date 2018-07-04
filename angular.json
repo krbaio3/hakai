@@ -28,6 +28,7 @@
             ],
             "styles": [
               "src/styles.scss",
+              "src/styles-app-loading.scss",
               "node_modules/bootstrap/dist/css/bootstrap.css"
             ],
             "scripts": [
