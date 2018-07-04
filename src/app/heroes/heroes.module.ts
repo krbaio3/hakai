@@ -9,9 +9,10 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faUser,
   faLock,
-  faCheck,
-  faGoogle
+  faCheck
 } from '@fortawesome/free-solid-svg-icons';
+
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 // Modules
 import { PipesModule } from '../pipes/pipes.module';
