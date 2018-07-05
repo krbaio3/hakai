@@ -6,7 +6,7 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { TemplateComponent } from './components/template/template.component';
 import { DataComponent } from './components/data/data.component';
 
-const routes: Routes = [
+const FORM_ROUTES: Routes = [
   {
     path: 'formulario',
     component: FormularioComponent,
@@ -20,7 +20,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(FORM_ROUTES)],
   exports: [RouterModule]
 })
 export class FormulariosRoutingModule {}

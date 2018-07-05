@@ -30,7 +30,7 @@ const UDEMY_ROUTES: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(UDEMY_ROUTES)],
+  imports: [RouterModule.forChild(UDEMY_ROUTES)],
   exports: [RouterModule]
 })
 export class UdemyRoutingModule {}

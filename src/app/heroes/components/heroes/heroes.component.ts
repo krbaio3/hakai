@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
   AngularFirestore,
@@ -9,14 +9,19 @@ import { map } from 'rxjs/operators';
 import { HeroesService } from '../../service/heroes.service';
 import { Heroe } from '../../models';
 import { AuthService } from '../../service/auth.service';
+import { slideInDownAnimation } from '../../../animations';
 
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
   styleUrls: ['./heroes.component.scss'],
-  providers: [HeroesService]
+  providers: [HeroesService],
+  animations: [slideInDownAnimation]
 })
 export class HeroesComponent implements OnInit {
+  @HostBinding('@routeAnimation') routeAnimation = true;
+  @HostBinding('style.display') display = 'block';
+  // @HostBinding('style.position') position = 'absolute';
   private heroesCollection: AngularFirestoreCollection<Heroe>;
   heroes: Observable<Heroe[]>;
 

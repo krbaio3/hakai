@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HeroesRoutingModule } from './heroes/heroes.routing';
 import { FormulariosRoutingModule } from './formularios/formularios.routing';
 import { UdemyRoutingModule } from './udemy/udemy.routing';
+import { LoginRoutingModule } from './core/login/login.routing';
 
 import { AppComponent } from './app.component';
 
@@ -24,12 +25,13 @@ const APP_ROUTES: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(APP_ROUTES, {
-      useHash: true,  // quitar para que desaparezca el hash de la ruta
-      enableTracing: true,
+      useHash: true, // quitar para que desaparezca el hash de la ruta
+      enableTracing: true
     }),
     HeroesRoutingModule,
     FormulariosRoutingModule,
     UdemyRoutingModule,
+    LoginRoutingModule
   ],
   exports: [RouterModule]
 })

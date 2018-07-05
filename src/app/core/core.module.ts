@@ -6,11 +6,12 @@ import { LoadingComponent } from './loading/loading.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { LoginModule } from './login/login.module';
 
 library.add(faSpinner);
 
 @NgModule({
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [CommonModule, FontAwesomeModule, LoginModule],
   declarations: [LoadingComponent],
   exports: [LoadingComponent]
 })

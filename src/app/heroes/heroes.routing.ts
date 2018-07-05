@@ -12,11 +12,13 @@ import { LandingComponent } from './components/landing/landing.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 
 import { HEROE_ROUTES } from './components/heroe/heroe.routing';
+import { AuthGuard } from '../auth-guard.service';
 
-const APP_ROUTES: Routes = [
+const HEROES_ROUTES: Routes = [
   {
     path: 'avenger',
     component: AvengerComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -65,7 +67,7 @@ const APP_ROUTES: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(APP_ROUTES)],
+  imports: [RouterModule.forChild(HEROES_ROUTES)],
   exports: [RouterModule],
   providers: []
 })
