@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { User } from '../../heroes/models';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
-import { AuthService } from '../../auth.service';
+import { AuthService } from './auth.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -18,13 +18,51 @@ export class LoginComponent {
 
   public message: string;
 
-  constructor(public authService: AuthService, public router: Router) {
+  constructor(
+    public authService: AuthService,
+    public router: Router,
+    public afAuth: AngularFireAuth
+  ) {
     this.setMessage();
   }
 
-  setMessage() {
-    this.message = 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
+  onSubmit() {
+    this.authService
+      .signInWithGoogle(this.user.email, this.user.password)
+      .then(response => {
+        console.log(`Logeado! ${JSON.stringify(response, null, 4)}`);
+        this.router.navigate(['/avenger']);
+      })
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (errorCode === 'auth/wrong-password') {
+          alert('Wrong password.');
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+      });
   }
+
+  // logout() {
+  //   this.authService.logout();
+  // }
+
+  loginPopUp() {
+    this.authService.signInWithGooglePopUp();
+  }
+  singUp(userModal: NgForm) {
+    console.log('entra', userModal);
+    this.btnClose.nativeElement.click();
+    this.authService.signup(this.userModal.email, this.userModal.password);
+  }
+
+
+
+  // setMessage() {
+  //   this.message = 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
+  // }
 
   login() {
     this.message = 'Trying to log in ...';
@@ -44,8 +82,8 @@ export class LoginComponent {
     });
   }
 
-  logout() {
+  logOut() {
     this.authService.logOut();
-    this.setMessage();
+    // this.setMessage();
   }
 }
