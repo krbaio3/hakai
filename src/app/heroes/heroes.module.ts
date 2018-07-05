@@ -6,16 +6,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import {
-  faUser,
-  faLock,
-  faCheck
-} from '@fortawesome/free-solid-svg-icons';
+import { faUser, faLock, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 // Modules
 import { PipesModule } from '../pipes/pipes.module';
+import { CoreModule } from '../core/core.module';
 
 // Routing
 import { HeroesRoutingModule } from './heroes.routing';
@@ -57,7 +54,8 @@ library.add(faUser, faLock, faCheck, faGoogle);
     NgbModule.forRoot(),
     FontAwesomeModule,
     PipesModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CoreModule
   ],
   exports: [],
   declarations: [

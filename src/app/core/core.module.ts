@@ -11,6 +11,7 @@ library.add(faSpinner);
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule],
-  declarations: [LoadingComponent]
+  declarations: [LoadingComponent],
+  exports: [LoadingComponent]
 })
 export class CoreModule {}

@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { HeroesService } from '../../service/heroes.service';
 import { Heroe } from '../../models';
 import { AuthService } from '../../service/auth.service';
+import { LoadingService } from '../../../core/loading/loading.service';
 
 @Component({
   selector: 'app-heroes',
@@ -19,6 +20,7 @@ import { AuthService } from '../../service/auth.service';
 export class HeroesComponent implements OnInit {
   private heroesCollection: AngularFirestoreCollection<Heroe>;
   heroes: Observable<Heroe[]>;
+  loading: boolean;
 
   // heroes;
   // heroes: any[] = [];
@@ -28,7 +30,8 @@ export class HeroesComponent implements OnInit {
     private route: ActivatedRoute,
     private readonly afs: AngularFirestore,
     private showHeroeSrv: HeroesService,
-    private authSrv: AuthService
+    private authSrv: AuthService,
+    private loaderService: LoadingService
   ) {
     console.log('constructor Heroes');
     if (this.authSrv.isLoggedIn()) {
@@ -59,6 +62,9 @@ export class HeroesComponent implements OnInit {
 
   ngOnInit() {
     console.log('ngOninit');
+    this.loaderService.status.subscribe((val: boolean) => {
+      this.loading = val;
+    });
   }
 
   verHeroe(indice: number) {
