@@ -23,7 +23,7 @@ export class LoginComponent {
     public router: Router,
     public afAuth: AngularFireAuth
   ) {
-    this.setMessage();
+    // this.setMessage();
   }
 
   onSubmit() {
@@ -31,7 +31,20 @@ export class LoginComponent {
       .signInWithGoogle(this.user.email, this.user.password)
       .then(response => {
         console.log(`Logeado! ${JSON.stringify(response, null, 4)}`);
-        this.router.navigate(['/avenger']);
+        this.authService.isLoggedIn = true;
+        this.authService.login().subscribe(() => {
+          // this.setMessage();
+          if (this.authService.isLoggedIn) {
+            // Get the redirect URL from our auth service
+            // If no redirect has been set, use the default
+            let redirect = this.authService.redirectUrl
+              ? this.authService.redirectUrl
+              : '../avenger/home';
+
+            // Redirect the user
+            this.router.navigate([redirect]);
+          }
+        });
       })
       .catch(error => {
         const errorCode = error.code;
@@ -58,8 +71,6 @@ export class LoginComponent {
     this.authService.signup(this.userModal.email, this.userModal.password);
   }
 
-
-
   // setMessage() {
   //   this.message = 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
   // }
@@ -68,7 +79,7 @@ export class LoginComponent {
     this.message = 'Trying to log in ...';
 
     this.authService.login().subscribe(() => {
-      this.setMessage();
+      // this.setMessage();
       if (this.authService.isLoggedIn) {
         // Get the redirect URL from our auth service
         // If no redirect has been set, use the default

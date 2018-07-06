@@ -11,6 +11,8 @@ import * as firebase from 'firebase';
 export class AuthService {
   public isLoggedIn = false;
 
+  private user: Observable<firebase.User>;
+  private userDetails: firebase.User = null;
   // store the url so we can redirect after logging in
   redirectUrl: string;
 
@@ -27,9 +29,11 @@ export class AuthService {
   }
 
   login(): Observable<boolean> {
-    return of(true).pipe(
-      delay(5000),
-      tap(val => (this.isLoggedIn = true))
+    return of(true)
+    .pipe(
+      tap(val => (
+        this.isLoggedIn = true
+      ))
     );
   }
 
@@ -37,7 +41,7 @@ export class AuthService {
     this.isLoggedIn = false;
   }
 
-  signInWithGooglePopUp(): Promise<firebase.auth.GoogleAuthProvider> {
+  signInWithGooglePopUp(): Promise<any> {
     return this.firebaseAuth.auth.signInWithPopup(
       new firebase.auth.GoogleAuthProvider()
     );
@@ -45,5 +49,26 @@ export class AuthService {
 
   signInWithGoogle(email: string, password: string): Promise<any> {
     return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password);
+  }
+
+  signup(email: string, password: string) {
+    this.firebaseAuth.auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(value => {
+        const user: any = firebase.auth().currentUser;
+        user
+          .sendEmailVerification()
+          .then(success => {
+            console.log(
+              'please verify your email',
+              JSON.stringify(success, null, 4)
+            );
+          })
+          .catch(err => {
+            console.error(err);
+          });
+        console.log(`Success ${value}`);
+      })
+      .catch(error => console.error(`Error: ${error}`));
   }
 }
