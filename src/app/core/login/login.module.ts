@@ -13,6 +13,7 @@ import { LoginRoutingModule } from './login.routing';
 
 // Components
 import { LoginComponent } from './login.component';
+import { ComposeMessageComponent } from './compose-message.component';
 
 library.add(faCheck, faGoogle, faLock, faUser);
 
@@ -24,7 +25,7 @@ library.add(faCheck, faGoogle, faLock, faUser);
     ReactiveFormsModule,
     FontAwesomeModule
   ],
-  declarations: [LoginComponent],
-  exports: [LoginComponent]
+  declarations: [LoginComponent, ComposeMessageComponent],
+  exports: [LoginComponent, ComposeMessageComponent]
 })
 export class LoginModule {}

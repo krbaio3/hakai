@@ -7,12 +7,18 @@ import { UdemyRoutingModule } from './udemy/udemy.routing';
 import { LoginRoutingModule } from './core/login/login.routing';
 
 import { AppComponent } from './app.component';
+import { ComposeMessageComponent } from './core/login/compose-message.component';
 
 const APP_ROUTES: Routes = [
   {
     path: '',
     component: AppComponent,
     data: { option: false }
+  },
+  {
+    path: 'compose',
+    component: ComposeMessageComponent,
+    outlet: 'popup'
   },
   {
     path: '**',
