@@ -1,23 +1,44 @@
-<div class="row fadeIn animated fast">
-  <div class="col-md-4">
-    <h1>Log-in</h1>
-    <hr>
-    <br>
-    <form (ngSubmit)="onSubmit()" ngNativeValidate>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input [(ngModel)]="user.email" name="email" type="email" required class="form-control col-6 mx-auto" id="email" placeholder="enter your email">
+<div class="fadeIn animated fast fondo-login">
+  <form class="form-signin" (ngSubmit)="onSubmit()" ngNativeValidate>
+    <img class="mb-4" src="./assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Please Log-in</h1>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <div class="input-group mb-3 mt-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="email">
+            <fa-icon [icon]="['fa', 'user']"></fa-icon>
+          </span>
+        </div>
+        <input [(ngModel)]="user.email" name="email" type="email" required class="form-control col-6" id="email" placeholder="enter your email" />
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input [(ngModel)]="user.password" name="password" type="password" required class="form-control col-6 mx-auto" id="password"
-          placeholder="enter a password">
+    </div>
+
+    <div class="form-group mb-4">
+      <label for="password">Password</label> 
+      <div class="input-group"> 
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="password">
+            <fa-icon [icon]="['fa', 'lock']"></fa-icon>
+          </span>
+        </div>
+        <input [(ngModel)]="user.password" name="password" type="password" required class="form-control col-6" id="password" placeholder="enter a paxword" />
       </div>
-      <div class="col-6 mx-auto">
-        <button type="submit" class="btn btn-success float-left">Submit</button>
-        <button [routerLink]="['../']" class="btn btn-danger float-right">Cancel</button>
-      </div>
-    </form>
+    </div>
+
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
+
+    <div class="col-6 mb-5">
+      <button type="submit" class="btn btn-lg btn-success btn-block">Submit</button>
+      <button [routerLink]="['../']" class="btn btn-lg btn-danger btn-block">Cancel</button>
+    </div>
+
+    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
     <p>
       <span>Log-in with Google</span>
       <span>
@@ -35,7 +56,7 @@
 
       </span>
     </p>
-  </div>
+  </form>
 </div>
 <!-- Modal -->
 <div class="modal fade bd-singup-modal-lg" id="singUpModal" tabindex="-1" role="dialog" aria-labelledby="singUpModalLabel"
@@ -111,4 +132,4 @@
       </div>
     </div>
   </div>
-<router-outlet name="popup"></router-outlet>
+  <router-outlet name="popup"></router-outlet>
