@@ -1,7 +1,9 @@
 <div class="fadeIn animated fast fondo-login">
   <form class="form-signin" (ngSubmit)="onSubmit()" ngNativeValidate>
-    <img class="mb-4" src="./assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Please Log-in</h1>
+    <div class="container">
+      <img class="col-12" src="/assets/brand/codeSolutions-beta.png" alt="">
+    </div>
+    <h1 class="h3 mb-3 font-weight-normal text-center">Please Log-in (Beta)</h1>
 
     <div class="form-group">
       <label for="email">Email</label>
@@ -11,19 +13,20 @@
             <fa-icon [icon]="['fa', 'user']"></fa-icon>
           </span>
         </div>
-        <input [(ngModel)]="user.email" name="email" type="email" required class="form-control col-6" id="email" placeholder="enter your email" />
+        <input [(ngModel)]="user.email" name="email" type="email" required class="form-control col-sm-6 col-lg-12" id="email" placeholder="enter your email">
       </div>
     </div>
 
     <div class="form-group mb-4">
-      <label for="password">Password</label> 
-      <div class="input-group"> 
+      <label for="password">Password</label>
+      <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text" id="password">
             <fa-icon [icon]="['fa', 'lock']"></fa-icon>
           </span>
         </div>
-        <input [(ngModel)]="user.password" name="password" type="password" required class="form-control col-6" id="password" placeholder="enter a paxword" />
+        <input [(ngModel)]="user.password" name="password" type="password" required class="form-control col-sm-6 col-lg-12" id="password"
+          placeholder="enter a password">
       </div>
     </div>
 
@@ -33,7 +36,7 @@
       </label>
     </div>
 
-    <div class="col-6 mb-5">
+    <div class="col-sm-6 col-lg-12 mb-5 mb-5">
       <button type="submit" class="btn btn-lg btn-success btn-block">Submit</button>
       <button [routerLink]="['../']" class="btn btn-lg btn-danger btn-block">Cancel</button>
     </div>
